@@ -1,0 +1,86 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+.btn-primary{
+    -webkit-appearance: none;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.04375rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 4px 0px;
+    font-size: 0.75rem;
+    height: 44px;
+    width: 100%;
+    display: flex;
+    padding: 0px 20px;
+    border-width: 0px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    border-radius: 4px;
+    text-decoration: none;
+    outline: none;
+    transition: all 0.3s ease 0s;
+}
+
+.btn-link{
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    color: var($blue);
+    cursor: pointer;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04375rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition: all 0.3s ease 0s;
+}
+
+.card-header{
+    border-bottom: none;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+
+.form-control{
+    display: block;
+    width: 100%;
+    height: 44px;
+    font-size: 0.875rem;
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+    border-radius: 4px;
+    padding: 0px 10px;
+    background: rgb(255, 255, 255);
+    transition: all 0.3s ease 0s;
+    outline: none;
+}
+
+.card{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 16px 1px;
+    background: rgb(255, 255, 255);
+    border-radius: 4px;
+    padding: 10px 20px;
+    vertical-align: baseline;
+    border:none;
+}
