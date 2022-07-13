@@ -36,7 +36,6 @@ class CallController extends Controller
             $call->save();
         }
         return redirect()->back()->with('success', 'Status atualizado com sucesso!');
-
     }
 
     public function index(Changetype $changetype, Reason $reason, Call $call_model, Request $request)
@@ -61,56 +60,56 @@ class CallController extends Controller
         $user_occupation_area = auth()->user()->occupation_area;
 
         $areas_list = $areas_all;
-        if(!is_null($user_occupation_area)){
+        if (!is_null($user_occupation_area)) {
             $areas_list = [$user_occupation_area => $areas_all[$user_occupation_area]];
         }
         $year = date('Y');
         $month = date('m');
         $day = date('d');
         $total_honorary = 0;
-        
+
 
         $qtd_calls_month = Call::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)
-        ->select('id')->count();
+            ->select('id')->count();
 
-        $calls_signed = Call::whereNotNull('signed')->whereIn('stage_call',['dados','assinado'])
-        ->whereYear('signed', '=', $year)->whereMonth('signed', '=', $month)->orderBy('signed','asc')
-        ->get();
+        $calls_signed = Call::whereNotNull('signed')->whereIn('stage_call', ['dados', 'assinado'])
+            ->whereYear('signed', '=', $year)->whereMonth('signed', '=', $month)->orderBy('signed', 'asc')
+            ->get();
 
-        $calls_signed_day = Call::whereNotNull('signed')->whereIn('stage_call',['dados','assinado'])
-        ->whereYear('signed', '=', $year)->whereMonth('signed', '=', $month)->whereDay('signed', '=', $day)->orderBy('signed','asc')
-        ->get();
+        $calls_signed_day = Call::whereNotNull('signed')->whereIn('stage_call', ['dados', 'assinado'])
+            ->whereYear('signed', '=', $year)->whereMonth('signed', '=', $month)->whereDay('signed', '=', $day)->orderBy('signed', 'asc')
+            ->get();
 
-        $calls_signed_week = Call::whereNotNull('signed')->whereIn('stage_call',['dados','assinado'])
-        ->whereBetween('signed', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-        //->whereYear('signed', '=', $year)->whereMonth('signed', '=', $month)->whereDay('signed', '=', $day)
-        ->orderBy('signed','asc')
-        ->get();
+        $calls_signed_week = Call::whereNotNull('signed')->whereIn('stage_call', ['dados', 'assinado'])
+            ->whereBetween('signed', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+            //->whereYear('signed', '=', $year)->whereMonth('signed', '=', $month)->whereDay('signed', '=', $day)
+            ->orderBy('signed', 'asc')
+            ->get();
 
-        if(count($calls_signed)>0){
+        if (count($calls_signed) > 0) {
             $calls_signed_ids = $calls_signed->pluck('id')->all();
-            $total_honorary = CallHonorary::whereIn('call_id',$calls_signed_ids)->sum('amount');
+            $total_honorary = CallHonorary::whereIn('call_id', $calls_signed_ids)->sum('amount');
         }
-        $current_goal = Goal::where('goal','>',$total_honorary)->orderBy('goal','asc')->first();
-        $next_goal = Goal::where('goal','>',$current_goal->goal)->orderBy('goal','asc')->first();
-        $current_percent = $total_honorary / ($current_goal->goal/100);
+        $current_goal = Goal::where('goal', '>', $total_honorary)->orderBy('goal', 'asc')->first();
+        $next_goal = Goal::where('goal', '>', $current_goal->goal)->orderBy('goal', 'asc')->first();
+        $current_percent = $total_honorary / ($current_goal->goal / 100);
         $current_percent = round($current_percent);
         $remaining_goal = $current_goal->goal - $total_honorary;
-        if($qtd_calls_month > 0){
+        if ($qtd_calls_month > 0) {
             $qtd_conversion = count($calls_signed) / ($qtd_calls_month / 100);
             $qtd_conversion = round($qtd_conversion);
-        }else{
+        } else {
             $qtd_conversion = 0;
         }
 
-        if(isset($dataForm['status_call'])){
+        if (isset($dataForm['status_call'])) {
             $atual_status = $dataForm['status_call'];
-        }else{
+        } else {
             //$dataForm['status_call'] = ['novo'];
             //$atual_status = ['novo'];
         }
-        
-        
+
+
         //dd($dataForm)
         $calls = $call_model->where(function ($query) use ($dataForm) {
             $query->whereNull('stage_case');
@@ -124,33 +123,32 @@ class CallController extends Controller
                 $query->whereIn('reason_id', $dataForm['reason']);
             if (isset($dataForm['stage_call']))
                 $query->where('stage_call', $dataForm['stage_call']);
-            if (isset($dataForm['title'])){
+            if (isset($dataForm['title'])) {
                 $var_title = $dataForm['title'];
-                $query->where(function($q) use($var_title){
-                    $q->whereHas('client', function($q) use($var_title) {
+                $query->where(function ($q) use ($var_title) {
+                    $q->whereHas('client', function ($q) use ($var_title) {
                         $q->where('name', 'LIKE', '%' . $var_title . '%')
-                        ->orWhere('email', 'LIKE', '%'.$var_title.'%')
-                        ->orWhere(function($q) use($var_title){
-                            $searh_interno = $var_title;
-                            $searh_interno = preg_replace('/[^0-9]/', '', $searh_interno);
-                            if(!empty($searh_interno) && is_numeric($searh_interno)){
-                                $q->where('cpf',$searh_interno);
-                            }
-                        });
+                            ->orWhere('email', 'LIKE', '%' . $var_title . '%')
+                            ->orWhere(function ($q) use ($var_title) {
+                                $searh_interno = $var_title;
+                                $searh_interno = preg_replace('/[^0-9]/', '', $searh_interno);
+                                if (!empty($searh_interno) && is_numeric($searh_interno)) {
+                                    $q->where('cpf', $searh_interno);
+                                }
+                            });
                     })->orWhere('title', 'LIKE', '%' . $var_title . '%');
                 });
-                
             }
-                
+
             if (isset($dataForm['status_call']) && count($dataForm['status_call']) > 0)
                 $query->whereIn('status', $dataForm['status_call']);
             if (isset($dataForm['date_start']) && !is_null($dataForm['date_start']) && isset($dataForm['date_finish']) &&  !is_null($dataForm['date_finish']))
                 $query->whereBetween('created_at', [$dataForm['date_start'] . ' 00:00:00', $dataForm['date_finish'] . ' 23:59:59']);
-            if (isset($dataForm['call_state'])){
+            if (isset($dataForm['call_state'])) {
                 foreach ($dataForm['call_state'] as $key => $value) {
-                    if ($value == "novos"){
+                    if ($value == "novos") {
                         $query->whereIn('status', ['novo']);
-                    } elseif($value == "em_andamento"){
+                    } elseif ($value == "em_andamento") {
                         $query->orWhereIn('status', ['tentativa', 'sem_contato', 'pendente', 'atrasado']);
                     } elseif ($value == "fechados") {
                         $query->orWhereIn('status', ['finalizado', 'baixo_interesse', 'custo_alto', 'prazo_estimado', 'concorrente', 'futuramente', 'curiosidade', 'encerrado', 'assinado']);
@@ -159,7 +157,7 @@ class CallController extends Controller
             }
         });
 
-       
+
 
         if (!isset($dataForm['state'])) {
             $calls = $calls->orderBy('id', 'desc')->paginate(15);
@@ -170,10 +168,11 @@ class CallController extends Controller
         if (isset($dataForm['states']))
             $calls = $calls->whereIn('uf', $dataForm['states'])->all();
 
-        $qtd_calls_new = Call::where('status','novo')->count();
-        $qtd_calls_attempt = Call::where('status','tentativa')->count();
+        $qtd_calls_new = Call::where('status', 'novo')->count();
+        $qtd_calls_attempt = Call::where('status', 'tentativa')->count();
 
-        return view('admin.pages.calls.index',
+        return view(
+            'admin.pages.calls.index',
             compact(
                 'calls',
                 'call_model',
@@ -217,7 +216,8 @@ class CallController extends Controller
         $type_enum = $option_void + Client::TYPE_ENUM;
         $type_email = $option_void + Client::TYPE_EMAIL;
 
-        return view('admin.pages.calls.create',
+        return view(
+            'admin.pages.calls.create',
             compact(
                 'client_list',
                 'case_action',
@@ -238,13 +238,13 @@ class CallController extends Controller
 
         DB::beginTransaction();
 
-        if($request->occupation_area == 'retificacao'){
+        if ($request->occupation_area == 'retificacao') {
             if (empty($request->title)) {
                 $changetype = Changetype::find($request->changetype_id);
                 $data['title'] = ucwords($request->caseaction) . ' ' . ucwords($changetype->name);
             }
-        }elseif($request->occupation_area == 'divorcio'){
-            $data['title'] = 'Divórcio '.$client->name;
+        } elseif ($request->occupation_area == 'divorcio') {
+            $data['title'] = 'Divórcio ' . $client->name;
         }
 
         $call = Call::create($data);
@@ -319,7 +319,7 @@ class CallController extends Controller
         $honraries = $call->call_honorary()->get();
         $expenses = $call->call_expense()->get();
         $tot_proposal = ($sum_honrary > 0 ? 'R$ ' . number_format(($sum_honrary), 2, ',', '.') : '');
-        
+
 
         $call_registers = CallRegister::where('call_id', $call->id)->where('step', 'call')->where(function ($query) {
             $query->orWhereNotNull('user_id');
@@ -335,30 +335,31 @@ class CallController extends Controller
             ->where('client_id', $call->client_id)
             ->orderBy('id', 'desc')->first();
 
-        $qtd_installment =  ['' => 'Selecione',1 => 1,2 => 2,3 => 3,4 => 4,5 => 5,6 => 6,7 => 7,8 => 8,10 => 10,11 => 11,12 => 12];
-        $gender_list = [''=>'Selecione']+Client::GENDER_LIST;
+        $qtd_installment =  ['' => 'Selecione', 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 10 => 10, 11 => 11, 12 => 12];
+        $gender_list = ['' => 'Selecione'] + Client::GENDER_LIST;
         $client = $call->client;
 
         $call->job = $client->job;
         $call->date_birth = $client->date_birth;
         $call->gender = $client->gender;
 
-        $call_honorary = $call->call_honorary()->where('description','honorary')->first();
-        if($call_honorary){
+        $call_honorary = $call->call_honorary()->where('description', 'honorary')->first();
+        if ($call_honorary) {
             $call->amount_honorary = $call_honorary->amount;
         }
 
-        $corrections_quantity = $call->call_honorary()->where('description','coautor')->count();
+        $corrections_quantity = $call->call_honorary()->where('description', 'coautor')->count();
         $call->corrections_quantity = $corrections_quantity == 0 ? 1 : $corrections_quantity + 1;
 
-        $proposal_fields = ProposalField::where('call_id',$call->id)->get();
-        foreach($proposal_fields as $field){
+        $proposal_fields = ProposalField::where('call_id', $call->id)->get();
+        foreach ($proposal_fields as $field) {
             $key_field = $field->key;
             $call->$key_field = $field->value;
         }
 
 
-        return view('admin.pages.calls.show',
+        return view(
+            'admin.pages.calls.show',
             compact(
                 'call',
                 'call_registers',
@@ -400,7 +401,8 @@ class CallController extends Controller
 
         $type_enum = $option_void + Client::TYPE_ENUM;
         $type_email = $option_void + Client::TYPE_EMAIL;
-        return view('admin.pages.calls.edit',
+        return view(
+            'admin.pages.calls.edit',
             compact(
                 'call',
                 'client_list',
@@ -544,17 +546,17 @@ class CallController extends Controller
         $amount_honorary = 'required';
         $paymentform = 'required';
 
-        if(!is_null($qtd_stars) && ($qtd_stars == 4 || $qtd_stars == 5) ){
+        if (!is_null($qtd_stars) && ($qtd_stars == 4 || $qtd_stars == 5)) {
             $job = 'required';
             $date_birth = 'required|date';
         }
 
-        if(!is_null($qtd_stars) && $qtd_stars == 1 ){
+        if (!is_null($qtd_stars) && $qtd_stars == 1) {
             $gender = 'nullable';
             $amount_honorary = 'nullable';
             $paymentform = 'nullable';
         }
-        
+
         return $this->validate($request, [
             'rating' => 'required|numeric',
             'motivo' => "nullable",
@@ -575,7 +577,7 @@ class CallController extends Controller
     public function proposalStore(Request $request, Call $call)
     {
         $data = $this->valida_proposal($request);
-        
+
         $corrections_quantity = $data['corrections_quantity'] ?? null;
         $motivo = $data['motivo'] ?? null;
         $data_call['stars'] =  $data['rating'];
@@ -583,22 +585,22 @@ class CallController extends Controller
         $data_call['max_installments'] =  $data['max_installments'];
         $data_call['paydate'] =  $data['paydate'];
         $data_call['gerencianet_id'] =  $data['gerencianet_id'];
-        
+
         $data_call['star_reason'] = $motivo;
 
         if ($data['rating'] == 2) {
             $data_call['status'] = $motivo;
-        }elseif($data['rating'] == 1){
+        } elseif ($data['rating'] == 1) {
             $data_call['status'] = 'encerrado';
-        }elseif($data['rating'] == 3){
+        } elseif ($data['rating'] == 3) {
             $data_call['status'] = 'em_andamento';
-        }elseif($data['rating'] == 4){
+        } elseif ($data['rating'] == 4) {
             $data_call['status'] = 'em_andamento';
-        }elseif($data['rating'] == 5){
+        } elseif ($data['rating'] == 5) {
             $data_call['status'] = 'em_andamento';
         }
-        
-        $data_call['is_claimant'] = isset($data['is_claimant']) && $data['is_claimant'] == "1" ? true : false; 
+
+        $data_call['is_claimant'] = isset($data['is_claimant']) && $data['is_claimant'] == "1" ? true : false;
         $data_call['relationship_claimant'] = $data['relationship_claimant'] ?? null;
 
         $call->fill($data_call);
@@ -613,26 +615,26 @@ class CallController extends Controller
         $dataRegister = [
             'user_id' => auth()->user()->id,
             'call_id' => $call->id,
-            'description' => $call->client->first_name . ' recebeu '. $call->stars .' estrela de ' . auth()->user()->name . ' - <i><b>' . $motivo . '</b></i>',
+            'description' => $call->client->first_name . ' recebeu ' . $call->stars . ' estrela de ' . auth()->user()->name . ' - <i><b>' . $motivo . '</b></i>',
             'type' => 'normal',
             'step' => 'call'
         ];
         CallRegister::create($dataRegister);
 
-        CallHonorary::where('call_id',$call->id)->delete();
+        CallHonorary::where('call_id', $call->id)->delete();
 
-        if($call->stars > 1){
+        if ($call->stars > 1) {
             $data_honorary = [
                 'call_id' => $call->id,
                 'amount' => $data['amount_honorary'],
                 'description' => 'honorary'
-            ];            
-            CallHonorary::create($data_honorary);       
-        
+            ];
+            CallHonorary::create($data_honorary);
 
-            if(!is_null($corrections_quantity)){
+
+            if (!is_null($corrections_quantity)) {
                 $corrections_quantity_cont = $corrections_quantity - 1;
-                for($cont=1;$cont<=$corrections_quantity_cont;$cont++){
+                for ($cont = 1; $cont <= $corrections_quantity_cont; $cont++) {
                     $data_honorary = [
                         'call_id' => $call->id,
                         'amount' => '0,00',
@@ -644,19 +646,18 @@ class CallController extends Controller
         }
 
         if ($data['rating'] >= 2 && $request->button_title != 'save') {
-            if($call->stage_call != 'dados'){
+            if ($call->stage_call != 'dados') {
                 $call->stage_call = 'dados';
                 $call->save();
-            }else{
+            } else {
                 $call->stage_call = null;
                 $call->save();
                 $call->stage_call = 'dados';
                 $call->save();
             }
-            
         }
 
-         
+
 
         $object_of_action = $request->object_of_action ?? null;
         $assets = $request->assets ?? null;
@@ -669,11 +670,11 @@ class CallController extends Controller
         $value_of_goods = $request->value_of_goods ?? null;
         $court_costs = $request->court_costs ?? null;
 
-        if(!is_null($descendants_quantity)){
+        if (!is_null($descendants_quantity)) {
             $call->descendants_quantity = $descendants_quantity;
             $call->save();
         }
-        
+
         $proposal_fild_data = [
             "object_of_action" => $object_of_action,
             "assets" => $assets,
@@ -687,7 +688,7 @@ class CallController extends Controller
             "court_costs" => $court_costs
         ];
 
-        foreach($proposal_fild_data as $key => $value){
+        foreach ($proposal_fild_data as $key => $value) {
             ProposalField::updateOrCreate(
                 ['call_id' => $call->id, 'key' => $key],
                 ['value' => $value]
@@ -695,7 +696,7 @@ class CallController extends Controller
         }
 
         $msg = 'Proposta adicionada com sucesso!';
-        if($request->button_title == 'save'){
+        if ($request->button_title == 'save') {
             $msg = 'As informações foram salvas com sucesso';
         }
 
@@ -740,8 +741,6 @@ class CallController extends Controller
         $call->fill($data);
         $call->save();
         */
-
-        
     }
 
     public function type(Request $request, CallRegister $call_register)
@@ -762,7 +761,6 @@ class CallController extends Controller
         } else {
             return redirect()->back()->with('error', 'Não pode atualizar!');
         }
-
     }
 
     public function changetype(Request $request, Call $call)
@@ -830,7 +828,7 @@ class CallController extends Controller
             $dataRegister = [
                 'user_id' => auth()->user()->id,
                 'call_id' => $call->id,
-                'description' => $call->client->first_name . ' recebeu '. $call->stars .' estrela de ' . auth()->user()->name . ' - <i><b>' . $motivo . '</b></i>',
+                'description' => $call->client->first_name . ' recebeu ' . $call->stars . ' estrela de ' . auth()->user()->name . ' - <i><b>' . $motivo . '</b></i>',
                 'type' => 'normal',
                 'step' => 'call'
             ];

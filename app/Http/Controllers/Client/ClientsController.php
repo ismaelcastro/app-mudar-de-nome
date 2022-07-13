@@ -19,7 +19,7 @@ class ClientsController extends Controller
 
     public function change_stagecall(Request $request)
     {
-        if(isset($request->stage)){
+        if(isset($request->clear)){
             $stage = $request->stage;
             $client = auth('client')->user();
             $call = $client->call()->orderBy('calls.id','desc')->first();

@@ -41,9 +41,10 @@ class ProcessoController extends Controller
             $percent = $docExtrasFile / ($docExtras / 100);
         }
 
-        $process_categories_colors = ProcessCategory::all()->pluck('color','name')->all();
+        $process_categories_colors = ProcessCategory::all()->pluck('color', 'name')->all();
 
-        return view('client.pages.processo.acompanhamento',
+        return view(
+            'client.pages.processo.acompanhamento',
             compact(
                 'percent',
                 'client',
@@ -56,7 +57,8 @@ class ProcessoController extends Controller
                 'top_questions_category',
                 'docExtras',
                 'process_categories_colors'
-            ));
+            )
+        );
     }
 
     /**
@@ -74,14 +76,17 @@ class ProcessoController extends Controller
         $top_questions = TopQuestion::with('top_question_category')->orderBy('order', 'asc')->get();
         $top_questions_category = TopQuestionCategory::all();
 
-        return view('client.pages.processo.documentacao-extras',
-            compact('client',
+        return view(
+            'client.pages.processo.documentacao-extras',
+            compact(
+                'client',
                 'call',
                 'call_extra',
                 'document_category',
                 'top_questions',
                 'top_questions_category'
-            ));
+            )
+        );
     }
 
     public function documentacaoExtra(Request $request, DocumentCategory $document_category, CallExtra $call_extra)
@@ -96,14 +101,17 @@ class ProcessoController extends Controller
         }
 
         $documents_list = $document_category->documents;
-        return view('client.pages.processo.documentos-extras',
-            compact('document_category',
+        return view(
+            'client.pages.processo.documentos-extras',
+            compact(
+                'document_category',
                 'call_extra',
                 'call',
                 'documents_list',
                 'client',
                 'client_id_url'
-            ));
+            )
+        );
     }
 
     public function documentosExtrasPorNome(DocumentCategory $document_category)
@@ -125,14 +133,17 @@ class ProcessoController extends Controller
                 $query->where('document_category_id', $category_id);
             })->get();
 
-        return view('client.pages.processo.documentos-extra_por_nome',
-            compact('document_category',
+        return view(
+            'client.pages.processo.documentos-extra_por_nome',
+            compact(
+                'document_category',
                 'call',
                 'client',
                 'claimantExtras',
                 'affiliations',
                 'type_list'
-            ));
+            )
+        );
     }
 
     /**

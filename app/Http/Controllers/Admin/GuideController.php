@@ -53,7 +53,7 @@ class GuideController extends Controller
         $data = $request->only(array_keys($request->rules()));
         Guide::create($data);
 
-        return redirect()->route('admin.guides.index')->with('success','Guia adicionada com sucesso!');
+        return redirect()->route('admin.guides.index')->with('success', 'Guia adicionada com sucesso!');
     }
 
     /**
@@ -96,7 +96,7 @@ class GuideController extends Controller
         $guide->fill($data);
         $guide->save();
 
-        return redirect()->route('admin.guides.index')->with('success','Guia atualizada com sucesso');
+        return redirect()->route('admin.guides.index')->with('success', 'Guia atualizada com sucesso');
     }
 
     /**
@@ -110,6 +110,6 @@ class GuideController extends Controller
     {
         $guide->delete();
 
-        return redirect()->route('admin.guides.index')->with('success','Guia excluída com sucesso!');
+        return redirect()->route('admin.guides.index')->with('success', 'Guia excluída com sucesso!');
     }
 }

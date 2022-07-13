@@ -17,13 +17,13 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         $dataForm = $request->except('_token');
-        foreach($dataForm as $key => $value ){
-            $value = (is_array($value) ? implode(',', $value) : $value );
+        foreach ($dataForm as $key => $value) {
+            $value = (is_array($value) ? implode(',', $value) : $value);
             Setting::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value]
             );
         }
-        return redirect()->back()->with('success','Configuração Atualizada com sucesso!');
+        return redirect()->back()->with('success', 'Configuração Atualizada com sucesso!');
     }
 }

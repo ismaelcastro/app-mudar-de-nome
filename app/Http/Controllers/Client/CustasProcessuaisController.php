@@ -14,17 +14,17 @@ class CustasProcessuaisController extends Controller
     public function index()
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
         $call_id = $call->id;
-        $call_guides = CallGuide::where('call_id',$call_id)->get();
-        $helps = Help::where('pages','REGEXP','[[:<:]]custas_processuais[[:>:]]')->orderBy('order','asc')->get();
-        return view('client.pages.custasprocessuais.index',compact('call_guides', 'client', 'call','helps'));
+        $call_guides = CallGuide::where('call_id', $call_id)->get();
+        $helps = Help::where('pages', 'REGEXP', '[[:<:]]custas_processuais[[:>:]]')->orderBy('order', 'asc')->get();
+        return view('client.pages.custasprocessuais.index', compact('call_guides', 'client', 'call', 'helps'));
     }
 
     public function change_analise()
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
         $call->stage_case = 'conferir_guias';
         $call->save();
         return redirect()->back();
@@ -32,13 +32,13 @@ class CustasProcessuaisController extends Controller
 
     public function guide_anexo(Request $request, CallGuide $call_guide)
     {
-        if ($request->hasFile('file') && $request->file('file')->isValid() ){
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
             $extension = $request->file->extension();
             $fileName = str_replace($extension, '', $request->file->getClientOriginalName());
-            $folder = Str::slug($call_guide->call->client->id.'-'.$call_guide->call->client->name);
-            $fileNameFormated = Str::slug($fileName).'_'.rand(10, 99).'.'.$extension;
+            $folder = Str::slug($call_guide->call->client->id . '-' . $call_guide->call->client->name);
+            $fileNameFormated = Str::slug($fileName) . '_' . rand(10, 99) . '.' . $extension;
             $upload = $request->file->storeAs($folder, $fileNameFormated, 'private');
-            if ($upload){
+            if ($upload) {
                 $data = [
                     'file' => $fileNameFormated,
                     'status' => 'pending'
@@ -49,15 +49,15 @@ class CustasProcessuaisController extends Controller
                 $dataRegister = [
                     'client_id' => auth('client')->user()->id,
                     'call_id' => $call_guide->call->id,
-                    'description' => auth('client')->user()->first_name."anexou guia <strong>{$call_guide->guide->name}</strong>",
+                    'description' => auth('client')->user()->first_name . "anexou guia <strong>{$call_guide->guide->name}</strong>",
                     'step' => 'case'
-                ];                
+                ];
                 CallRegister::create($dataRegister);
 
-                return redirect()->back()->with('success','Arquivo anexado com sucesso!');
+                return redirect()->back()->with('success', 'Arquivo anexado com sucesso!');
                 //return redirect()->to(url()->previous() . '#info-documentos_top')->with('success','Arquivo anexado com sucesso!');
-            }else{
-                return redirect()->back()->with('error','Não foi possível fazer upload!');
+            } else {
+                return redirect()->back()->with('error', 'Não foi possível fazer upload!');
             }
         }
     }
@@ -67,6 +67,6 @@ class CustasProcessuaisController extends Controller
         $call_guide->file = null;
         $call_guide->status = 'new';
         $call_guide->save();
-        return redirect()->back()->with('success','Arquivo excluído');
+        return redirect()->back()->with('success', 'Arquivo excluído');
     }
 }

@@ -12,6 +12,6 @@ class TaskRegisterController extends Controller
     {
         $request['user_id'] = auth()->user()->id;
         $task->task_register()->create($request->all());
-        return redirect()->back()->with('task_id',$task->id);
+        return redirect()->back()->with('task_id', $task->id);
     }
 }

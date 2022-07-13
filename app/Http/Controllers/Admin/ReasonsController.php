@@ -29,7 +29,7 @@ class ReasonsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {        
+    {
         return view('admin.pages.reasons.create');
     }
 
@@ -43,7 +43,7 @@ class ReasonsController extends Controller
     {
         $data = $request->only(array_keys($request->rules()));
         Reason::create($data);
-        return redirect()->route('admin.reasons.index')->with('success','Motivo adicionado com sucesso!');
+        return redirect()->route('admin.reasons.index')->with('success', 'Motivo adicionado com sucesso!');
     }
 
     /**
@@ -78,10 +78,10 @@ class ReasonsController extends Controller
      */
     public function update(ReasonRequest $request, Reason $reason)
     {
-        $data = $request->only(array_keys($request->rules()));        
+        $data = $request->only(array_keys($request->rules()));
         $reason->fill($data);
         $reason->save();
-        return redirect()->route('admin.reasons.index')->with('success','Motivo atualizado com sucesso');
+        return redirect()->route('admin.reasons.index')->with('success', 'Motivo atualizado com sucesso');
     }
 
     /**
@@ -93,7 +93,6 @@ class ReasonsController extends Controller
     public function destroy(Reason $reason)
     {
         $reason->delete();
-        return redirect()->route('admin.reasons.index')->with('success','Motivo excluído com sucesso!');
-    }    
-
+        return redirect()->route('admin.reasons.index')->with('success', 'Motivo excluído com sucesso!');
+    }
 }

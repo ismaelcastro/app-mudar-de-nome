@@ -39,7 +39,7 @@ class ChangetypeController extends Controller
     {
         $data = $this->_validate($request);
         Changetype::create($data);
-        return redirect()->route('admin.changetypes.index')->with('success','Adicionado com sucesso!');
+        return redirect()->route('admin.changetypes.index')->with('success', 'Adicionado com sucesso!');
     }
 
     /**
@@ -76,7 +76,7 @@ class ChangetypeController extends Controller
         $data = $this->_validate($request);
         $changetype->fill($data);
         $changetype->save();
-        return redirect()->route('admin.changetypes.index')->with('success','Atualizado com sucesso');
+        return redirect()->route('admin.changetypes.index')->with('success', 'Atualizado com sucesso');
     }
 
     /**
@@ -88,7 +88,7 @@ class ChangetypeController extends Controller
     public function destroy(Changetype $changetype)
     {
         $changetype->delete();
-        return redirect()->route('admin.changetypes.index')->with('success','Excluído com sucesso!');
+        return redirect()->route('admin.changetypes.index')->with('success', 'Excluído com sucesso!');
     }
 
     protected function _validate(Request $request)

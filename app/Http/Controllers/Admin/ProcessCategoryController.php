@@ -38,7 +38,7 @@ class ProcessCategoryController extends Controller
         $category_list += $processType->combo()->all();
         $status_list_call = Call::PROCEDURAL_STATUS;
 
-        return view('admin.pages.process_category.create', compact('category_list','status_list_call'));
+        return view('admin.pages.process_category.create', compact('category_list', 'status_list_call'));
     }
 
     /**
@@ -78,7 +78,7 @@ class ProcessCategoryController extends Controller
         $category_list += $processType->combo()->all();
         $status_list_call = Call::PROCEDURAL_STATUS;
 
-        return view('admin.pages.process_category.edit', compact('processCategory', 'category_list','status_list_call'));
+        return view('admin.pages.process_category.edit', compact('processCategory', 'category_list', 'status_list_call'));
     }
 
     /**

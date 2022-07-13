@@ -33,12 +33,13 @@ class CasePageController extends Controller
     public function create(Changetype $changetype, Reason $reason)
     {
         $option_void = ['' => 'Selecione'];
-        $changes_type = $option_void+$changetype->combo()->all();
-        $reasons = $option_void+$reason->combo()->all();
-        $case_action = $option_void+Call::CASE_ACTION;
+        $changes_type = $option_void + $changetype->combo()->all();
+        $reasons = $option_void + $reason->combo()->all();
+        $case_action = $option_void + Call::CASE_ACTION;
         $tags_list = array_values(CasePage::TAGS);
 
-        return view('admin.pages.case_pages.create', 
+        return view(
+            'admin.pages.case_pages.create',
             compact('changes_type', 'reasons', 'case_action', 'tags_list')
         );
     }
@@ -54,7 +55,7 @@ class CasePageController extends Controller
         $data = $request->only(array_keys($request->rules()));
         $data['slug'] = Str::slug($request->name);
         CasePage::create($data);
-        return redirect()->route('admin.case_pages.index')->with('success','Página adicionada com sucesso!');
+        return redirect()->route('admin.case_pages.index')->with('success', 'Página adicionada com sucesso!');
     }
 
     /**
@@ -77,11 +78,12 @@ class CasePageController extends Controller
     public function edit(Changetype $changetype, Reason $reason, CasePage $case_page)
     {
         $option_void = ['' => 'Selecione'];
-        $changes_type = $option_void+$changetype->combo()->all();
-        $reasons = $option_void+$reason->combo()->all();
-        $case_action = $option_void+Call::CASE_ACTION;
+        $changes_type = $option_void + $changetype->combo()->all();
+        $reasons = $option_void + $reason->combo()->all();
+        $case_action = $option_void + Call::CASE_ACTION;
         $tags_list = array_values(CasePage::TAGS);
-        return view('admin.pages.case_pages.edit', 
+        return view(
+            'admin.pages.case_pages.edit',
             compact('case_page', 'changes_type', 'reasons', 'case_action', 'tags_list')
         );
     }
@@ -99,7 +101,7 @@ class CasePageController extends Controller
         $data['slug'] = Str::slug($request->name);
         $case_page->fill($data);
         $case_page->save();
-        return redirect()->route('admin.case_pages.index')->with('success','Página atualizada com sucesso');
+        return redirect()->route('admin.case_pages.index')->with('success', 'Página atualizada com sucesso');
     }
 
     /**
@@ -111,7 +113,6 @@ class CasePageController extends Controller
     public function destroy(CasePage $case_page)
     {
         $case_page->delete();
-        return redirect()->route('admin.case_pages.index')->with('success','Página excluída com sucesso!');
+        return redirect()->route('admin.case_pages.index')->with('success', 'Página excluída com sucesso!');
     }
-
 }

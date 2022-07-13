@@ -27,17 +27,17 @@ class ContratacaoController extends Controller
     protected $client_secret;
     protected $client_id_old;
     protected $client_secret_old;
-    
+
 
     public function __construct()
-    {      
+    {
         $this->client_id = 'Client_Id_ccad99d632d33adf58832838cef15965d33e0e18';
-        $this->client_secret = 'Client_Secret_016f998c1ce697b7e6037c0479d5db062ae6958c'; 
-        
+        $this->client_secret = 'Client_Secret_016f998c1ce697b7e6037c0479d5db062ae6958c';
+
         $this->client_id_old = 'Client_Id_f9bc6849a63ba53190d5a85674bebb66b7a0aabf';
         $this->client_secret_old = 'Client_Secret_72e14b8f5b8c14d89be3104ebca16790c4470387';
 
-        $this->to = 'registro@ratsbonemagri.com.br'; 
+        $this->to = 'registro@ratsbonemagri.com.br';
     }
 
 
@@ -46,44 +46,45 @@ class ContratacaoController extends Controller
         $client = auth('client')->user();
         $calls = $client->call;
         $call_count = $calls->count();
-        if($call_count == 0){            
+        if ($call_count == 0) {
             return false;
         }
         return true;
     }
 
     public function dados_contratante()
-    {      
-        if(!$this->_has_call('Dados do Contratante')){
+    {
+        if (!$this->_has_call('Dados do Contratante')) {
             $aviso = $this->aviso;
-            return view('client.pages.aviso.index',compact('aviso'));
+            return view('client.pages.aviso.index', compact('aviso'));
         }
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
-        $voidOption = ['' => 'Selecione' ];
-        $marital_status = ['' => 'Estado Civil' ]+Client::MARITAL_STATUS;        
-        $days_list = ['' => 'Dia' ]+\App\Helpers\Functions::arrayDay();
-        $month_list = ['' => 'Mês' ]+\App\Helpers\Functions::arrayMonth();
-        $year_list = ['' => 'Ano' ]+\App\Helpers\Functions::arrayYear();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
+        $voidOption = ['' => 'Selecione'];
+        $marital_status = ['' => 'Estado Civil'] + Client::MARITAL_STATUS;
+        $days_list = ['' => 'Dia'] + \App\Helpers\Functions::arrayDay();
+        $month_list = ['' => 'Mês'] + \App\Helpers\Functions::arrayMonth();
+        $year_list = ['' => 'Ano'] + \App\Helpers\Functions::arrayYear();
 
-        if(is_null($client->nacionality) && is_null(old('nacionality')))
+        if (is_null($client->nacionality) && is_null(old('nacionality')))
             $client->nacionality = 'brasileira';
 
-        if(is_null($client->marital_status) && is_null(old('marital_status')) && $call->occupation_area == 'divorcio') 
+        if (is_null($client->marital_status) && is_null(old('marital_status')) && $call->occupation_area == 'divorcio')
             $client->marital_status = 'casado';
 
-        return view('client.pages.comercial.dados-contratante', 
-            compact('marital_status','client','days_list','month_list','year_list')
+        return view(
+            'client.pages.comercial.dados-contratante',
+            compact('marital_status', 'client', 'days_list', 'month_list', 'year_list')
         );
     }
     public function dados_contratante_store(Request $request, Client $client)
     {
-        $data = $this->_validate_dados($request,$client->id);
-        $date_birth = $request->date_birth_year.'-'.$request->date_birth_month.'-'.$request->date_birth_day;
+        $data = $this->_validate_dados($request, $client->id);
+        $date_birth = $request->date_birth_year . '-' . $request->date_birth_month . '-' . $request->date_birth_day;
 
         $idade = \App\Helpers\Functions::calcularIdade($date_birth);
-        if($idade<18){
-            return redirect()->back()->withInput()->withErrors(['message'=>'O contratante deve ser maior de 18 anos.']);
+        if ($idade < 18) {
+            return redirect()->back()->withInput()->withErrors(['message' => 'O contratante deve ser maior de 18 anos.']);
         }
 
 
@@ -95,32 +96,32 @@ class ContratacaoController extends Controller
 
         // stage_call to emissao
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
         $call->stage_call = 'emissao';
         $call->save();
 
-        return redirect()->route('client.contratacao.forma')->with('success','Atualizado com sucesso');
-    }    
+        return redirect()->route('client.contratacao.forma')->with('success', 'Atualizado com sucesso');
+    }
 
 
     public function forma_contratacao_store(Request $request)
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
-        $data = $this->_validate_forma($request,$call);
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
+        $data = $this->_validate_forma($request, $call);
 
         // stage_call to assinatura
         //$data['stage_call'] = 'assinatura';
 
         $call->fill($data);
         $call->save();
-        return redirect()->route('client.contratacao.contrato')->with('success','Forma de contratação atualizada com sucesso!');
+        return redirect()->route('client.contratacao.contrato')->with('success', 'Forma de contratação atualizada com sucesso!');
     }
 
     public function contrato_store(Request $request)
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
 
         $client_name = $client->name;
         $client_nationality = $client->nacionality;
@@ -136,37 +137,37 @@ class ContratacaoController extends Controller
         $zip_code = $client->addresscep;
 
         $honorary = $call->call_honorary()->sum('amount');
-        $amount = number_format($honorary,2,',','.');
+        $amount = number_format($honorary, 2, ',', '.');
         $by_extenso = \App\Helpers\Functions::valorPorExtenso($honorary);
-        $payment_date = date('d/m/Y',strtotime($call->paydate));
+        $payment_date = date('d/m/Y', strtotime($call->paydate));
         $installments = $call->installments;
-        $expiration_day = date('d',strtotime($call->paydate));
+        $expiration_day = date('d', strtotime($call->paydate));
         $email = $client->email;
 
         $setting = \App\Helpers\Setting::getList();
 
         if ($request->has('agree')) {
-            if($call->occupation_area == 'divorcio')
+            if ($call->occupation_area == 'divorcio')
                 $token = $setting['setting_d4sign_divorcio_token'];
             else
                 $token = $setting['setting_d4sign_retificacao_token'];
 
-            try{
-                $d4client = new D4client();                
+            try {
+                $d4client = new D4client();
                 $d4client->setAccessToken($token);
 
                 //if($call->occupation_area == 'divorcio')
-                    //$d4client->setCryptKey(config('d4sign.crypt_key_divorcio')); //Necessário apenas se o cryptKey estiver habilitado na conta                
-                
-                if($call->occupation_area == 'divorcio'){
-                    $id_template = $call->paymentform == 'gerencianet' ? $setting['setting_d4sign_divorcio_template_gerencianet'] : ($call->paymentform == 'adexitum' ? $setting['setting_d4sign_divorcio_template_exito'] : $setting['setting_d4sign_divorcio_template_avista'] ) ;                    
-                }else{
-                    $id_template = $call->paymentform == 'gerencianet' ? $setting['setting_d4sign_retificacao_template_gerencianet'] : ($call->paymentform == 'adexitum' ? $setting['setting_d4sign_retificacao_template_exito'] : $setting['setting_d4sign_retificacao_template_avista'] ) ;
+                //$d4client->setCryptKey(config('d4sign.crypt_key_divorcio')); //Necessário apenas se o cryptKey estiver habilitado na conta                
+
+                if ($call->occupation_area == 'divorcio') {
+                    $id_template = $call->paymentform == 'gerencianet' ? $setting['setting_d4sign_divorcio_template_gerencianet'] : ($call->paymentform == 'adexitum' ? $setting['setting_d4sign_divorcio_template_exito'] : $setting['setting_d4sign_divorcio_template_avista']);
+                } else {
+                    $id_template = $call->paymentform == 'gerencianet' ? $setting['setting_d4sign_retificacao_template_gerencianet'] : ($call->paymentform == 'adexitum' ? $setting['setting_d4sign_retificacao_template_exito'] : $setting['setting_d4sign_retificacao_template_avista']);
                 }
-                
+
                 $object_of_action = '';
-                $fild_action = ProposalField::where('key','object_of_action')->where('call_id',$call->id)->first();
-                if($fild_action){
+                $fild_action = ProposalField::where('key', 'object_of_action')->where('call_id', $call->id)->first();
+                if ($fild_action) {
                     $object_of_action = $fild_action->value;
                 }
 
@@ -193,7 +194,7 @@ class ContratacaoController extends Controller
                         'BAIRRO'            => $neighborhood,
                         'CIDADE'            => $city,
                         'ESTADO'            => $state,
-                        'cid_est'           => $city.'/'.$state,
+                        'cid_est'           => $city . '/' . $state,
                         'N_CEP'             => $zip_code,
                         'CEP'               => $zip_code,
                         'VALOR_TOTAL'       => $amount,
@@ -206,19 +207,19 @@ class ContratacaoController extends Controller
                         'data'              => $expiration_day,
                         'e_mail'            => $email,
                     ]
-                ];                
-                $name_document = 'Contrato - '.$client->name;
+                ];
+                $name_document = 'Contrato - ' . $client->name;
 
-                if($call->occupation_area == 'divorcio'){
+                if ($call->occupation_area == 'divorcio') {
                     $uuid_cofre = $setting['setting_d4sign_divorcio_uuidsafe'];
-                    $uuid_pasta = $call->paymentform == 'gerencianet' ? $setting['setting_d4sign_divorcio_folder_gerencianet'] : ($call->paymentform == 'adexitum' ? $setting['setting_d4sign_divorcio_folder_exito'] : $setting['setting_d4sign_divorcio_folder_avista'] );
-                }else{
+                    $uuid_pasta = $call->paymentform == 'gerencianet' ? $setting['setting_d4sign_divorcio_folder_gerencianet'] : ($call->paymentform == 'adexitum' ? $setting['setting_d4sign_divorcio_folder_exito'] : $setting['setting_d4sign_divorcio_folder_avista']);
+                } else {
                     $uuid_cofre = $setting['setting_d4sign_retificacao_uuidsafe'];
-                    $uuid_pasta = $call->paymentform == 'gerencianet' ? $setting['setting_d4sign_retificacao_folder_gerencianet'] : ($call->paymentform == 'adexitum' ? $setting['setting_d4sign_retificacao_folder_exito'] : $setting['setting_d4sign_retificacao_folder_avista'] ) ;
+                    $uuid_pasta = $call->paymentform == 'gerencianet' ? $setting['setting_d4sign_retificacao_folder_gerencianet'] : ($call->paymentform == 'adexitum' ? $setting['setting_d4sign_retificacao_folder_exito'] : $setting['setting_d4sign_retificacao_folder_avista']);
                 }
-                
+
                 $return = $d4client->documents->makedocumentbytemplate($uuid_cofre, $name_document, $templates, $uuid_pasta);
-                
+
                 //putSignatarios
                 /* http://docapi.d4sign.com.br/#add-signatarios
                 act
@@ -240,22 +241,22 @@ class ContratacaoController extends Controller
                 0 = Possui CPF (Brasileiro).
                 1 = Não possui CPF (Estrangeiro).
                 */
-                
+
                 $jsonObj = $return;
                 $codRetornoDocumento = $jsonObj->uuid;
 
-                if($call->occupation_area == 'divorcio'){
+                if ($call->occupation_area == 'divorcio') {
                     $email_emissor = $setting['setting_d4sign_divorcio_emissor'];
-                }else{
+                } else {
                     $email_emissor = $setting['setting_d4sign_retificacao_emissor'];
                 }
-                
-                try{                   
+
+                try {
                     $signers = array(
                         array("email" => $email, "act" => '4', "foreign" => '0', "certificadoicpbr" => '0', "assinatura_presencial" => '0'),
                         array("email" => $email_emissor, "act" => '4', "foreign" => '0', "certificadoicpbr" => '0', "assinatura_presencial" => '0')
-                        
-                    );                    
+
+                    );
                     $return_signatarios = $d4client->documents->createList($codRetornoDocumento, $signers);
 
                     //$jsonObjSigner = json_decode($return_signatarios);
@@ -267,35 +268,35 @@ class ContratacaoController extends Controller
 
                     $client->key_signer = $codRetornoSigner;
                     $client->save();
-                    
+
                     $message = 'Prezados, segue o contrato eletrônico para assinatura.';
                     $workflow = 1;  //o segundo signatário só receberá a mensagem de que há um documento aguardando sua assinatura DEPOIS que o primeiro signatário efetuar a assinatura
                     $skip_email = 0; //Os signatários serão avisados por e-mail que precisam assinar um documento
-                    
+
                     $doc = $d4client->documents->sendToSigner($codRetornoDocumento, $message, $workflow, $skip_email);
 
                     //Webhook
-                    $webhook_url = config('app.url').'api/webhook/d4sign/call_id/'.$call->id;
-                    $webhook = $d4client->documents->webhookadd($codRetornoDocumento,$webhook_url);
+                    $webhook_url = config('app.url') . 'api/webhook/d4sign/call_id/' . $call->id;
+                    $webhook = $d4client->documents->webhookadd($codRetornoDocumento, $webhook_url);
 
                     // stage_call to assinado
                     $call->uuid_document = $codRetornoDocumento;
                     $call->stage_call = 'assinatura';
                     $call->save();
 
-                    return redirect()->route('client.contratacao.contrato_aviso')->with('success','Contrato enviado por e-mail!');
-                    
+                    return redirect()->route('client.contratacao.contrato_aviso')->with('success', 'Contrato enviado por e-mail!');
+
                     //print_r($return);
                 } catch (\Exception $e) {
                     echo $e->getMessage();
                 }
-                
+
                 //print_r($return);
             } catch (\Exception $e) {
                 echo $e->getMessage();
             }
-        }else{
-            return redirect()->back()->with('error','Antes de emitir o contrato, precisamos que confirme que leu a minuta e que os dados do contratante estão corretos');
+        } else {
+            return redirect()->back()->with('error', 'Antes de emitir o contrato, precisamos que confirme que leu a minuta e que os dados do contratante estão corretos');
         }
     }
 
@@ -304,35 +305,35 @@ class ContratacaoController extends Controller
         $client = auth('client')->user();
         $email = $client->email;
 
-        $helps = Help::where('pages','REGEXP','[[:<:]]assinatura_eletronica[[:>:]]')->orderBy('order','asc')->get();
+        $helps = Help::where('pages', 'REGEXP', '[[:<:]]assinatura_eletronica[[:>:]]')->orderBy('order', 'asc')->get();
 
-        return view('client.pages.comercial.contrato_aviso',compact('email','helps'));
+        return view('client.pages.comercial.contrato_aviso', compact('email', 'helps'));
     }
 
     public function contrato()
-    {          
+    {
         $client =  auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
 
         $iframe_contrato_name = 'client.contratacao.tempate_avista';
 
-        if($call->occupation_area == 'divorcio'){
+        if ($call->occupation_area == 'divorcio') {
             $iframe_contrato_name = 'client.contratacao.tempate_divorcio_consensual_avista';
-        }else{
-            if($call->paymentform=='gerencianet')
+        } else {
+            if ($call->paymentform == 'gerencianet')
                 $iframe_contrato_name = 'client.contratacao.tempate_gerencianet';
-            elseif($call->paymentform=='adexitum')
+            elseif ($call->paymentform == 'adexitum')
                 $iframe_contrato_name = 'client.contratacao.tempate_exito';
         }
 
-        
 
-        $helps = Help::where('pages','REGEXP','[[:<:]]visualizacao_contrato[[:>:]]')->orderBy('order','asc')->get();
 
-        return view('client.pages.comercial.contrato',compact('iframe_contrato_name','helps'));
+        $helps = Help::where('pages', 'REGEXP', '[[:<:]]visualizacao_contrato[[:>:]]')->orderBy('order', 'asc')->get();
+
+        return view('client.pages.comercial.contrato', compact('iframe_contrato_name', 'helps'));
     }
 
-    
+
 
     public function forma_contratacao()
     {
@@ -340,17 +341,17 @@ class ContratacaoController extends Controller
         $calls = $client->call;
         $call_count = $calls->count();
 
-        if(!$this->_has_call('Forma de Contratação')){
+        if (!$this->_has_call('Forma de Contratação')) {
             $aviso = $this->aviso;
-            return view('client.pages.aviso.index',compact('aviso'));
-        } 
+            return view('client.pages.aviso.index', compact('aviso'));
+        }
 
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
         $call_count = $call->call_honorary()->count();
-        if($call_count == 0){
+        if ($call_count == 0) {
             $to = $this->to;
             $data2 = [
-                'aviso' => '<h2>Erro ao acessar a página</h2><p>Cliente '.$client->name.', ID: '.$client->id.', Atendimento: '.$call->id.' tentou acessar página "Forma de Contratação", mas ainda não foi configurado os Honorários</p>'
+                'aviso' => '<h2>Erro ao acessar a página</h2><p>Cliente ' . $client->name . ', ID: ' . $client->id . ', Atendimento: ' . $call->id . ' tentou acessar página "Forma de Contratação", mas ainda não foi configurado os Honorários</p>'
             ];
             Mail::to($to)->send(new SendMailNotification($data2));
 
@@ -360,30 +361,28 @@ class ContratacaoController extends Controller
                 <strong>você não precisa se preocupar com nada</strong> ao ver esta mensagem nosso time também foi notificado, 
                 e já estamos providenciando.
             </p>';
-            return view('client.pages.aviso.index',compact('aviso'));
-        }else{
+            return view('client.pages.aviso.index', compact('aviso'));
+        } else {
 
             $sum_honrary = $call->call_honorary()->sum('amount');
             $max_installments = !is_null($call->max_installments) ? $call->max_installments : 1;
-            $array_installments = \App\Helpers\Functions::number_array_installments($max_installments,$sum_honrary);
-            $days_payment = [''=>'Selecione']+\App\Helpers\Functions::days_payment();
-            $array_installments = [''=>'Selecione']+$array_installments;
+            $array_installments = \App\Helpers\Functions::number_array_installments($max_installments, $sum_honrary);
+            $days_payment = ['' => 'Selecione'] + \App\Helpers\Functions::days_payment();
+            $array_installments = ['' => 'Selecione'] + $array_installments;
 
-            $helps = Help::where('pages','REGEXP','[[:<:]]forma_contratacao[[:>:]]')->orderBy('order','asc')->get();
+            $helps = Help::where('pages', 'REGEXP', '[[:<:]]forma_contratacao[[:>:]]')->orderBy('order', 'asc')->get();
 
-            return view('client.pages.comercial.forma-contratacao',
-                compact('client','call','sum_honrary','array_installments','days_payment','helps')
+            return view(
+                'client.pages.comercial.forma-contratacao',
+                compact('client', 'call', 'sum_honrary', 'array_installments', 'days_payment', 'helps')
             );
         }
-            
-        
-        
     }
 
     public function tempate_gerencianet()
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
 
         $client_name = $client->name;
         $client_nationality = $client->nacionality;
@@ -399,15 +398,16 @@ class ContratacaoController extends Controller
         $zip_code = $client->addresscep;
 
         $honorary = $call->call_honorary()->sum('amount');
-        $amount = number_format($honorary,2,',','.');
+        $amount = number_format($honorary, 2, ',', '.');
         $by_extenso = \App\Helpers\Functions::valorPorExtenso($honorary);
 
-        $payment_date = date('d/m/Y',strtotime($call->paydate));
+        $payment_date = date('d/m/Y', strtotime($call->paydate));
         $installments = $call->installments;
-        $expiration_day = date('d',strtotime($call->paydate));
+        $expiration_day = date('d', strtotime($call->paydate));
         $email = $client->email;
 
-        return view('client.pages.templates_docs.retifica_gerencianet', 
+        return view(
+            'client.pages.templates_docs.retifica_gerencianet',
             compact(
                 'client_name',
                 'client_nationality',
@@ -427,14 +427,14 @@ class ContratacaoController extends Controller
                 'installments',
                 'expiration_day',
                 'email'
-            )    
+            )
         );
     }
 
     public function tempate_avista()
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
 
         $client_name = $client->name;
         $client_nationality = $client->nacionality;
@@ -450,15 +450,16 @@ class ContratacaoController extends Controller
         $zip_code = $client->addresscep;
 
         $honorary = $call->call_honorary()->sum('amount');
-        $amount = number_format($honorary,2,',','.');
+        $amount = number_format($honorary, 2, ',', '.');
         $by_extenso = \App\Helpers\Functions::valorPorExtenso($honorary);
 
-        $payment_date = date('d/m/Y',strtotime($call->paydate));
+        $payment_date = date('d/m/Y', strtotime($call->paydate));
         $installments = $call->installments;
-        $expiration_day = date('d',strtotime($call->paydate));
+        $expiration_day = date('d', strtotime($call->paydate));
         $email = $client->email;
 
-        return view('client.pages.templates_docs.retifica_avista', 
+        return view(
+            'client.pages.templates_docs.retifica_avista',
             compact(
                 'client_name',
                 'client_nationality',
@@ -478,14 +479,14 @@ class ContratacaoController extends Controller
                 'installments',
                 'expiration_day',
                 'email'
-            )    
+            )
         );
     }
 
     public function tempate_divorcio_consensual_avista()
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
 
         $client_name = $client->name;
         $client_nationality = $client->nacionality;
@@ -499,18 +500,19 @@ class ContratacaoController extends Controller
         $city = $client->addresscity;
         $state = $client->addressstate;
         $zip_code = $client->addresscep;
-        $city_state = $city.'/'.$state;
+        $city_state = $city . '/' . $state;
 
         $honorary = $call->call_honorary()->sum('amount');
-        $amount = number_format($honorary,2,',','.');
+        $amount = number_format($honorary, 2, ',', '.');
         $by_extenso = \App\Helpers\Functions::valorPorExtenso($honorary);
 
-        $payment_date = date('d/m/Y',strtotime($call->paydate));
+        $payment_date = date('d/m/Y', strtotime($call->paydate));
         $installments = $call->installments;
-        $expiration_day = date('d',strtotime($call->paydate));
+        $expiration_day = date('d', strtotime($call->paydate));
         $email = $client->email;
 
-        return view('client.pages.templates_docs.divorcio_contrato_consensual_a_vista', 
+        return view(
+            'client.pages.templates_docs.divorcio_contrato_consensual_a_vista',
             compact(
                 'client_name',
                 'client_nationality',
@@ -531,14 +533,14 @@ class ContratacaoController extends Controller
                 'installments',
                 'expiration_day',
                 'email'
-            )    
+            )
         );
     }
 
     public function tempate_exito()
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
 
         $client_name = $client->name;
         $client_nationality = $client->nacionality;
@@ -554,15 +556,16 @@ class ContratacaoController extends Controller
         $zip_code = $client->addresscep;
 
         $honorary = $call->call_honorary()->sum('amount');
-        $amount = number_format($honorary,2,',','.');
+        $amount = number_format($honorary, 2, ',', '.');
         $by_extenso = \App\Helpers\Functions::valorPorExtenso($honorary);
 
-        $payment_date = date('d/m/Y',strtotime($call->paydate));
+        $payment_date = date('d/m/Y', strtotime($call->paydate));
         $installments = $call->installments;
-        $expiration_day = date('d',strtotime($call->paydate));
+        $expiration_day = date('d', strtotime($call->paydate));
         $email = $client->email;
 
-        return view('client.pages.templates_docs.retifica_exito', 
+        return view(
+            'client.pages.templates_docs.retifica_exito',
             compact(
                 'client_name',
                 'client_nationality',
@@ -582,18 +585,18 @@ class ContratacaoController extends Controller
                 'installments',
                 'expiration_day',
                 'email'
-            )    
+            )
         );
-    }    
+    }
 
-    
+
 
     protected function _validate_dados(Request $request, $id)
     {
-        $marital_status = implode(',',array_keys(Client::MARITAL_STATUS));
+        $marital_status = implode(',', array_keys(Client::MARITAL_STATUS));
         return $this->validate($request, [
             'name'  => 'required|max:191',
-            'email'  => 'required|max:191|email|unique:clients,email,'.$id,
+            'email'  => 'required|max:191|email|unique:clients,email,' . $id,
             'job' => "nullable",
             'nacionality' => "required",
             'phone' => "required|min:10",
@@ -601,7 +604,7 @@ class ContratacaoController extends Controller
                 'required',
                 'string',
                 'min:11',
-                'unique:clients,cpf,'.$id,
+                'unique:clients,cpf,' . $id,
                 new ValidateCPFCNPJ()
             ],
             'rg' => "nullable",
@@ -616,50 +619,50 @@ class ContratacaoController extends Controller
             'addresscomplement' => "nullable",
             'addresscity' => "nullable",
             'addressstate' => "nullable|max:2"
-        ]);      
+        ]);
     }
 
     protected function _validate_forma(Request $request, $call)
     {
-        if($call->paymentform == 'gerencianet'){
-            if(is_null($call->installments) && is_null($call->paydate)){
+        if ($call->paymentform == 'gerencianet') {
+            if (is_null($call->installments) && is_null($call->paydate)) {
                 return $this->validate($request, [
                     'installments'  => 'required|numeric',
                     'paydate'  => 'required|date'
-                ]);  
-            }elseif(is_null($call->installments) && !is_null($call->paydate)){
+                ]);
+            } elseif (is_null($call->installments) && !is_null($call->paydate)) {
                 return $this->validate($request, [
                     'installments'  => 'required|numeric',
                     'paydate'  => 'nullable'
-                ]);  
-            }elseif(!is_null($call->installments) && is_null($call->paydate)){
+                ]);
+            } elseif (!is_null($call->installments) && is_null($call->paydate)) {
                 return $this->validate($request, [
                     'installments'  => 'nullable',
                     'paydate'  => 'required|date'
-                ]);  
-            }else{
+                ]);
+            } else {
                 return $this->validate($request, [
                     'installments'  => 'nullable',
                     'paydate'  => 'nullable'
-                ]); 
+                ]);
             }
-        }elseif($call->paymentform == 'adexitum'){
+        } elseif ($call->paymentform == 'adexitum') {
             return $this->validate($request, [
                 'installments'  => 'nullable',
                 'paydate'  => 'nullable'
-            ]); 
-        }else{
+            ]);
+        } else {
             return $this->validate($request, [
                 'installments'  => 'nullable',
                 'paydate'  => 'required|date'
-            ]); 
+            ]);
         }
     }
 
     public function webhook_procuracao_d4sign(Request $request, Call $call)
     {
-       
-        if($json = json_decode(file_get_contents("php://input"), true)) {
+
+        if ($json = json_decode(file_get_contents("php://input"), true)) {
             $data = $json;
         } else {
             $data = $request->all();
@@ -671,33 +674,33 @@ class ContratacaoController extends Controller
         $force_pass = $data['force_pass'] ?? '';
 
         $call_documents = $call->document()->whereNotNull('uuid_document')->get();
-        
-        foreach($call_documents as $call_document){
-            try{
+
+        foreach ($call_documents as $call_document) {
+            try {
                 $token = config('d4sign.token');
-                $d4client = new D4client();                
+                $d4client = new D4client();
                 $d4client->setAccessToken($token);
-            
+
                 $docs = $d4client->documents->find($call_document->uuid_document);
-            
+
                 //print_r($docs[0]->statusId);
-                if(isset($docs[0]->statusId) && $docs[0]->statusId ==  4){
+                if (isset($docs[0]->statusId) && $docs[0]->statusId ==  4) {
                     $call_document->status = 'approved';
                     $call_document->save();
-                }elseif($force_pass == '0505'){
+                } elseif ($force_pass == '0505') {
                     $call_document->status = 'approved';
                     $call_document->save();
                 }
             } catch (\Exception $e) {
                 echo $e->getMessage();
-            } 
+            }
         }
 
         //dd($call_documents->count());
 
-        $call_documents_approved = $call->document()->whereNotNull('uuid_document')->where('status','approved')->get();
+        $call_documents_approved = $call->document()->whereNotNull('uuid_document')->where('status', 'approved')->get();
         //dd($call_documents_approved->count());
-        if($call_documents->count() > 0 && $call_documents->count() == $call_documents_approved->count() && $call->stage_case !='aguardando_envio_cliente' ){
+        if ($call_documents->count() > 0 && $call_documents->count() == $call_documents_approved->count() && $call->stage_case != 'aguardando_envio_cliente') {
             $call->stage_case = 'aguardando_envio_cliente';
             $call->save();
 
@@ -705,17 +708,16 @@ class ContratacaoController extends Controller
             $mautic = new MauticHelper();
             $mautic->send_mail($email_id, $call->client->mautic_id);
         }
-
     }
 
     public function webhook_d4sign(Request $request, Call $call)
     {
-        if($json = json_decode(file_get_contents("php://input"), true)) {
+        if ($json = json_decode(file_get_contents("php://input"), true)) {
             $data = $json;
         } else {
             $data = $request->all();
         }
-        
+
 
         $uuid = $data['uuid'] ?? '';
         $type_post = $data['type_post'];
@@ -723,15 +725,15 @@ class ContratacaoController extends Controller
         $data_signed = date('Y-m-d H:i:s');
 
         $setting = \App\Helpers\Setting::getList();
-        if($call->occupation_area == 'divorcio'){
+        if ($call->occupation_area == 'divorcio') {
             $this->client_id = $setting['setting_gerencianet_divorcio_client_id'];
             $this->client_secret = $setting['setting_gerencianet_divorcio_client_secret'];
-        }else{
+        } else {
             $this->client_id = $setting['setting_gerencianet_retificacao_client_id'];
             $this->client_secret = $setting['setting_gerencianet_retificacao_client_secret'];
         }
 
-        
+
         switch ($type_post) {
             case '1':
                 //Retorno de documento finalizado
@@ -746,31 +748,31 @@ class ContratacaoController extends Controller
 
                 $ocupation_area_list = Call::OCCUPATION_AREA;
                 $ocupation_area = $ocupation_area_list[$call->occupation_area];
-                
-              
-                if(is_null($atual_signed)){
+
+
+                if (is_null($atual_signed)) {
                     //cliente assinou o contrato
-                    
+
                     $forma_pgto = $call->paymentform;
-                    if($forma_pgto=='gerencianet'){
+                    if ($forma_pgto == 'gerencianet') {
                         $honorary = $call->call_honorary()->sum('amount');
-                        $value_total_gerencianet = str_replace('.','',$honorary);
+                        $value_total_gerencianet = str_replace('.', '', $honorary);
 
                         $options = [
                             'client_id' => $this->client_id,
                             'client_secret' => $this->client_secret,
                             'sandbox' => false // altere conforme o ambiente (true = desenvolvimento e false = producao)
-                        ];			
+                        ];
                         $items =  [
-                        [
-                            'name' => $ocupation_area, // nome do item, produto ou serviço
-                            'amount' => 1, // quantidade
-                            'value' => (int)$value_total_gerencianet // valor (1000 = R$ 10,00)
-                        ]
-                        ];				
+                            [
+                                'name' => $ocupation_area, // nome do item, produto ou serviço
+                                'amount' => 1, // quantidade
+                                'value' => (int)$value_total_gerencianet // valor (1000 = R$ 10,00)
+                            ]
+                        ];
                         $customer = [
                             'name' => $call->client->name, // nome do cliente
-                            'cpf' => $call->client->cpf , // cpf do cliente
+                            'cpf' => $call->client->cpf, // cpf do cliente
                             'phone_number' => $call->client->phone, // telefone do cliente
                             'email' => $call->client->email // e-mail do cliente
                         ];
@@ -778,7 +780,7 @@ class ContratacaoController extends Controller
                         $body = [
                             'items' => $items,
                             'customer' => $customer,
-                            'expire_at' => date('Y-m-d',strtotime($call->paydate)), // data de vencimento da primeira parcela do carnê
+                            'expire_at' => date('Y-m-d', strtotime($call->paydate)), // data de vencimento da primeira parcela do carnê
                             'repeats' => (int)$call->installments, // número de parcelas do carnê
                             'split_items' => true
                         ];
@@ -787,15 +789,15 @@ class ContratacaoController extends Controller
                             $api = new Gerencianet($options);
                             $carnet = $api->createCarnet([], $body);
                             $CarneId = $carnet['data']['carnet_id'];
-							$CarneCapa = $carnet['data']['cover'];
+                            $CarneCapa = $carnet['data']['cover'];
                             $CarneBoletos = $carnet['data']['link'];
-                            
+
                             $call->gerencianet_id = $CarneId;
                             $call->save();
 
                             //$mautic = new MauticHelper();
                             //$mautic->send_mail(88, $call->client->mautic_id);
-                            
+
 
                         } catch (GerencianetException $e) {
                             $campoErro = $e->errorDescription['property'] ?? '';
@@ -803,24 +805,21 @@ class ContratacaoController extends Controller
 
                             $to = $this->to;
                             $data2 = [
-                                'aviso' => '<h2>Erro ao gerar boleto do Gerencianet</h2><p>Cliente '.$call->client->name.', ID: '.$call->client->id.', Mensagem: '.$descErro.' <br />campo: '.$campoErro.'</p>'
+                                'aviso' => '<h2>Erro ao gerar boleto do Gerencianet</h2><p>Cliente ' . $call->client->name . ', ID: ' . $call->client->id . ', Mensagem: ' . $descErro . ' <br />campo: ' . $campoErro . '</p>'
                             ];
-                            Log::error('Erro ao gerar boleto do Gerencianet - Cliente '.$call->client->name.', ID: '.$call->client->id.', Mensagem: '.$descErro.' campo: '.$campoErro);
+                            Log::error('Erro ao gerar boleto do Gerencianet - Cliente ' . $call->client->name . ', ID: ' . $call->client->id . ', Mensagem: ' . $descErro . ' campo: ' . $campoErro);
                             Mail::to($to)->send(new SendMailNotification($data2));
-                            
                         } catch (\Exception $e) {
                             Log::error('Entrou no erro sem causa');
-							echo '<h2>CATCH 02</h2>';
-							print_r($e->getMessage());
-							echo '<br />';
+                            echo '<h2>CATCH 02</h2>';
+                            print_r($e->getMessage());
+                            echo '<br />';
                         }
-
                     }
 
-                    $email_id = ( $forma_pgto=='gerencianet' ? 100 : ($forma_pgto=='deposito' ? 101 : 102 ) );
+                    $email_id = ($forma_pgto == 'gerencianet' ? 100 : ($forma_pgto == 'deposito' ? 101 : 102));
                     $mautic = new MauticHelper();
                     $mautic->send_mail($email_id, $call->client->mautic_id);
-
                 }
 
 
@@ -832,7 +831,7 @@ class ContratacaoController extends Controller
                 //Retorno de e-mail não entregue
                 $to = $this->to;
                 $data2 = [
-                    'aviso' => '<h2>Erro na assinatura do contrato</h2><p>Cliente '.$call->client->name.', ID: '.$call->client->id.', Mensagem: E-mail de contrato não entregue</p>'
+                    'aviso' => '<h2>Erro na assinatura do contrato</h2><p>Cliente ' . $call->client->name . ', ID: ' . $call->client->id . ', Mensagem: E-mail de contrato não entregue</p>'
                 ];
                 Mail::to($to)->send(new SendMailNotification($data2));
                 break;
@@ -840,19 +839,15 @@ class ContratacaoController extends Controller
                 //Retorno de documento cancelado
                 $to = $this->to;
                 $data2 = [
-                    'aviso' => '<h2>Contrato</h2><p>Cliente '.$call->client->name.', ID: '.$call->client->id.', Mensagem: Contrato cancelado</p>'
+                    'aviso' => '<h2>Contrato</h2><p>Cliente ' . $call->client->name . ', ID: ' . $call->client->id . ', Mensagem: Contrato cancelado</p>'
                 ];
                 Mail::to($to)->send(new SendMailNotification($data2));
                 break;
             case '4':
                 //Retorno de assinatura do signatário
-                Log::error('O Cliente '.$call->client->name.' do ID: '.$call->client->id.' assinou o contrato  ');
-                
+                Log::error('O Cliente ' . $call->client->name . ' do ID: ' . $call->client->id . ' assinou o contrato  ');
+
                 break;
         }
-
     }
-
 }
-
-

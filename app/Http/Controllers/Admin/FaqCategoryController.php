@@ -44,7 +44,7 @@ class FaqCategoryController extends Controller
         $data = $request->only(array_keys($request->rules()));
         $data['slug'] =  Str::slug($request->name);
         FaqCategory::create($data);
-        return redirect()->back()->with('success','Categoria adicionada com sucesso!');
+        return redirect()->back()->with('success', 'Categoria adicionada com sucesso!');
     }
 
     /**
@@ -82,7 +82,7 @@ class FaqCategoryController extends Controller
         $data['slug'] =  Str::slug($request->name);
         $faq_category->fill($data);
         $faq_category->save();
-        return redirect()->route('admin.faq_categories.index')->with('success','Categoria atualizada com sucesso');
+        return redirect()->route('admin.faq_categories.index')->with('success', 'Categoria atualizada com sucesso');
     }
 
     /**
@@ -94,6 +94,6 @@ class FaqCategoryController extends Controller
     public function destroy(FaqCategory $faq_category)
     {
         $faq_category->delete();
-        return redirect()->route('admin.faq_categories.index')->with('success','Categoria excluída com sucesso!');
+        return redirect()->route('admin.faq_categories.index')->with('success', 'Categoria excluída com sucesso!');
     }
 }

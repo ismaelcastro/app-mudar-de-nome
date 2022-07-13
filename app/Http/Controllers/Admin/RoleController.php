@@ -41,10 +41,10 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $permission_id = $request->permission_id;        
+        $permission_id = $request->permission_id;
         $data = $this->_validate($request);
         $role = Role::create($data);
-        if(is_array($permission_id)){
+        if (is_array($permission_id)) {
             foreach ($permission_id as $key => $value) {
                 $dataRolePermission = [
                     'permission_id' => $value,
@@ -53,7 +53,7 @@ class RoleController extends Controller
                 PermissionRole::create($dataRolePermission);
             }
         }
-        return redirect()->route('admin.roles.index')->with('success','Funções adicionada com sucesso!');
+        return redirect()->route('admin.roles.index')->with('success', 'Funções adicionada com sucesso!');
     }
 
     /**
@@ -103,7 +103,7 @@ class RoleController extends Controller
 
         PermissionRole::where('role_id', $role->id)->delete();
 
-        if(is_array($permission_id)){
+        if (is_array($permission_id)) {
             foreach ($permission_id as $key => $value) {
                 $dataRolePermission = [
                     'permission_id' => $value,
@@ -112,7 +112,7 @@ class RoleController extends Controller
                 PermissionRole::create($dataRolePermission);
             }
         }
-        return redirect()->route('admin.roles.index')->with('success','Função atualizada com sucesso');
+        return redirect()->route('admin.roles.index')->with('success', 'Função atualizada com sucesso');
     }
 
     /**
@@ -124,7 +124,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('admin.roles.index')->with('success','Função excluída com sucesso!');
+        return redirect()->route('admin.roles.index')->with('success', 'Função excluída com sucesso!');
     }
 
     protected function _validate(Request $request)
@@ -136,7 +136,7 @@ class RoleController extends Controller
     }
 
     protected function _permissionsArray()
-    {       
+    {
         $permission = Permission::all()->pluck('label', 'id');
         return $permission->all();
     }

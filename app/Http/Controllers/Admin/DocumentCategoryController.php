@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\DocumentCategoryRequest;
 use App\Http\Controllers\Controller;
 
@@ -45,7 +44,7 @@ class DocumentCategoryController extends Controller
         $data['client_add'] = $request->has('client_add');
         $data['by_contact'] = $request->has('by_contact');
         DocumentCategory::create($data);
-        return redirect()->back()->with('success','Categoria adicionada com sucesso!');
+        return redirect()->back()->with('success', 'Categoria adicionada com sucesso!');
     }
 
     /**
@@ -86,7 +85,7 @@ class DocumentCategoryController extends Controller
         $data['by_contact'] = $request->has('by_contact');
         $document_category->fill($data);
         $document_category->save();
-        return redirect()->route('admin.document_categories.index')->with('success','Categoria atualizada com sucesso');
+        return redirect()->route('admin.document_categories.index')->with('success', 'Categoria atualizada com sucesso');
     }
 
     /**
@@ -98,6 +97,6 @@ class DocumentCategoryController extends Controller
     public function destroy(DocumentCategory $document_category)
     {
         $document_category->delete();
-        return redirect()->route('admin.document_categories.index')->with('success','Categoria excluída com sucesso!');
+        return redirect()->route('admin.document_categories.index')->with('success', 'Categoria excluída com sucesso!');
     }
 }

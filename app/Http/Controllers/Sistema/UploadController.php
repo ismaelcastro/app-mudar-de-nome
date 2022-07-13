@@ -14,41 +14,41 @@ class UploadController extends Controller
 {
     public function imagePublic(Request $request)
     {
-        if ($request->hasFile('file') && $request->file('file')->isValid() ) {
-           
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+
             $validation = Validator::make($request->all(), [
                 'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
             ]);
 
-            if($validation->passes()){
+            if ($validation->passes()) {
                 $extension = $request->file->extension();
                 $fileName = str_replace($extension, '', $request->file->getClientOriginalName());
                 $fileSize = $request->file->getClientSize();
-                $folder = (isset($request->folder) ? $request->folder : 'images' );
+                $folder = (isset($request->folder) ? $request->folder : 'images');
 
-                $fileNameFormated = uniqid().'_'.Str::slug($fileName).'.'.$extension;
+                $fileNameFormated = uniqid() . '_' . Str::slug($fileName) . '.' . $extension;
                 $upload = $request->file->storeAs($folder, $fileNameFormated);
-                if ($upload){
+                if ($upload) {
                     return Response()->json([
                         "success" => true,
                         "file" => $fileNameFormated,
                         'mesagem' => 'Upload realizado com sucesso!'
                     ]);
-                }else{
+                } else {
                     return Response()->json([
                         "success" => false,
                         "file" => '',
                         'mesagem' => 'Houve algum problema no upload desta imagem!'
                     ]);
                 }
-            }else{
+            } else {
                 return Response()->json([
                     "success" => false,
                     "file" => '',
                     'mesagem' => $validation->errors()->all()
                 ]);
             }
-        }else{
+        } else {
             return Response()->json([
                 "success" => false,
                 "file" => '',
@@ -59,27 +59,26 @@ class UploadController extends Controller
 
     public function filePrivate(Request $request, Call $call)
     {
-        if ($request->hasFile('file') && $request->file('file')->isValid() )
-        {
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
             $extension = $request->file->extension();
             $fileName = str_replace($extension, '', $request->file->getClientOriginalName());
-            $folder = Str::slug($call->client->id.'-'.$call->client->name);
-            $fileNameFormated = Str::slug($fileName).'_'.rand(10, 99).'.'.$extension;
+            $folder = Str::slug($call->client->id . '-' . $call->client->name);
+            $fileNameFormated = Str::slug($fileName) . '_' . rand(10, 99) . '.' . $extension;
             $upload = $request->file->storeAs($folder, $fileNameFormated, 'private');
-            if ($upload){
+            if ($upload) {
                 return Response()->json([
                     "success" => true,
                     "file" => $fileNameFormated,
                     'mesagem' => 'Upload realizado com sucesso!'
                 ]);
-            }else{
+            } else {
                 return Response()->json([
                     "success" => false,
                     "file" => '',
                     'mesagem' => 'Houve algum problema no upload deste arquivo!'
                 ]);
             }
-        }else{
+        } else {
             return Response()->json([
                 "success" => false,
                 "file" => '',
@@ -90,41 +89,41 @@ class UploadController extends Controller
 
     public function filePublic(Request $request)
     {
-        if ($request->hasFile('file') && $request->file('file')->isValid() ) {
-           
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+
             $validation = Validator::make($request->all(), [
                 'file' => 'required|mimes:doc,docx,pdf,png,jpg|max:2048'
             ]);
 
-            if($validation->passes()){
+            if ($validation->passes()) {
                 $extension = $request->file->extension();
                 $fileName = str_replace($extension, '', $request->file->getClientOriginalName());
                 $fileSize = $request->file->getClientSize();
-                $folder = (isset($request->folder) ? $request->folder : 'files' );
+                $folder = (isset($request->folder) ? $request->folder : 'files');
 
-                $fileNameFormated = uniqid().'_'.Str::slug($fileName).'.'.$extension;
+                $fileNameFormated = uniqid() . '_' . Str::slug($fileName) . '.' . $extension;
                 $upload = $request->file->storeAs($folder, $fileNameFormated);
-                if ($upload){
+                if ($upload) {
                     return Response()->json([
                         "success" => true,
                         "file" => $fileNameFormated,
                         'mesagem' => 'Upload realizado com sucesso!'
                     ]);
-                }else{
+                } else {
                     return Response()->json([
                         "success" => false,
                         "file" => '',
                         'mesagem' => 'Houve algum problema no upload deste arquivo!'
                     ]);
                 }
-            }else{
+            } else {
                 return Response()->json([
                     "success" => false,
                     "file" => '',
                     'mesagem' => $validation->errors()->all()
                 ]);
             }
-        }else{
+        } else {
             return Response()->json([
                 "success" => false,
                 "file" => '',
@@ -132,5 +131,4 @@ class UploadController extends Controller
             ]);
         }
     }
-
 }

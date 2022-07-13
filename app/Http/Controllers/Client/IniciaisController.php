@@ -19,7 +19,6 @@ use App\Models\Help;
 use App\Models\Rectification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
-use D4sign\Client as D4client;
 
 class IniciaisController extends Controller
 {
@@ -36,68 +35,68 @@ class IniciaisController extends Controller
     public function start()
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
         $percents_claimant = \App\Helpers\Functions::_percents_claimant();
         $percents_itens_breve = \App\Helpers\Functions::_percents_breve();
         $affiliations = $call->Affiliations()->with('client')->get();
-        return view('client.pages.info-iniciais.start',compact('call','percents_claimant','percents_itens_breve','affiliations', 'client'));
+        return view('client.pages.info-iniciais.start', compact('call', 'percents_claimant', 'percents_itens_breve', 'affiliations', 'client'));
     }
 
     public function outros()
     {
         $option_void = ['' => 'Selecione'];
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
-        $relationship_claimant_list = $option_void+Call::RELATIONSHIP_CLAIMANT;
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
+        $relationship_claimant_list = $option_void + Call::RELATIONSHIP_CLAIMANT;
         $descendants_quantity_list = \App\Helpers\Functions::number_array(16);
-        $descendants_quantity_list = $option_void+$descendants_quantity_list;
+        $descendants_quantity_list = $option_void + $descendants_quantity_list;
 
-        $helps = Help::where('pages','REGEXP','[[:<:]]requerente_outros[[:>:]]')->orderBy('order','asc')->get();
+        $helps = Help::where('pages', 'REGEXP', '[[:<:]]requerente_outros[[:>:]]')->orderBy('order', 'asc')->get();
 
-        return view('client.pages.info-iniciais.requerente-outros',
-            compact('call','relationship_claimant_list','descendants_quantity_list','helps')
+        return view(
+            'client.pages.info-iniciais.requerente-outros',
+            compact('call', 'relationship_claimant_list', 'descendants_quantity_list', 'helps')
         );
     }
 
     public function outros_store(Request $request)
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
         $data = $this->_validate_outros($request);
         $data['is_claimant'] = $data['is_requerente'];
         $call->fill($data);
         $call->save();
         return redirect()->route('client.iniciais.requerente.outros');
     }
-    
+
     public function affiliation(Affiliation $affiliation)
     {
 
         $client_main = auth('client')->user();
-        $call = $client_main->call()->orderBy('calls.id','desc')->first();
+        $call = $client_main->call()->orderBy('calls.id', 'desc')->first();
 
-        $client = $affiliation->client;        
-        if($affiliation->type=='spouse'){
+        $client = $affiliation->client;
+        if ($affiliation->type == 'spouse') {
             //conjuge
-            return view('client.pages.info-iniciais.conjuge-edit',compact('client'));
-        }elseif($affiliation->type=='descendant'){
+            return view('client.pages.info-iniciais.conjuge-edit', compact('client'));
+        } elseif ($affiliation->type == 'descendant') {
             //descendente
             $kinship_list = [
                 '' => 'Selecione',
                 'filho' => 'Filho(a)',
                 'neto'  => 'Neto(a)',
                 'bisneto'  => 'Bisneto(a)',
-            ];    
-            return view('client.pages.info-iniciais.descendente-edit', compact('client','kinship_list','call'));
-
-        }elseif($affiliation->type=='claimant'){
+            ];
+            return view('client.pages.info-iniciais.descendente-edit', compact('client', 'kinship_list', 'call'));
+        } elseif ($affiliation->type == 'claimant') {
             //requerente
-            $voidOption = ['' => 'Estado civil' ];
-            $marital_status = $voidOption+Client::MARITAL_STATUS;
+            $voidOption = ['' => 'Estado civil'];
+            $marital_status = $voidOption + Client::MARITAL_STATUS;
             $days_list = \App\Helpers\Functions::arrayDay();
             $month_list = \App\Helpers\Functions::arrayMonth();
             $year_list = \App\Helpers\Functions::arrayYear();
-            return view('client.pages.info-iniciais.requerente-edit', compact('client','marital_status','days_list','month_list','year_list','call'));
+            return view('client.pages.info-iniciais.requerente-edit', compact('client', 'marital_status', 'days_list', 'month_list', 'year_list', 'call'));
         }
     }
 
@@ -105,30 +104,30 @@ class IniciaisController extends Controller
     {
         $client = Client::find($id);
 
-        $voidOption = ['' => 'Estado civil' ];
-        $marital_status = $voidOption+Client::MARITAL_STATUS;
+        $voidOption = ['' => 'Estado civil'];
+        $marital_status = $voidOption + Client::MARITAL_STATUS;
         $days_list = \App\Helpers\Functions::arrayDay();
         $month_list = \App\Helpers\Functions::arrayMonth();
         $year_list = \App\Helpers\Functions::arrayYear();
 
-        return view('client.pages.info-iniciais.requerente-edit', compact('client','marital_status','days_list','month_list','year_list'));
+        return view('client.pages.info-iniciais.requerente-edit', compact('client', 'marital_status', 'days_list', 'month_list', 'year_list'));
     }
 
     public function requerente()
     {
-        $voidOption = ['' => 'Estado civil' ];
-        $marital_status = $voidOption+Client::MARITAL_STATUS;
+        $voidOption = ['' => 'Estado civil'];
+        $marital_status = $voidOption + Client::MARITAL_STATUS;
         $days_list = \App\Helpers\Functions::arrayDay();
         $month_list = \App\Helpers\Functions::arrayMonth();
         $year_list = \App\Helpers\Functions::arrayYear();
-        return view('client.pages.info-iniciais.requerente-dados', compact('marital_status','days_list','month_list','year_list'));
+        return view('client.pages.info-iniciais.requerente-dados', compact('marital_status', 'days_list', 'month_list', 'year_list'));
     }
 
     public function requerente_update(Request $request, Client $client)
     {
         $data = $this->_validate_dados($request);
-        $mont_date_birth = $data['date_birth_year'].'-'.$data['date_birth_month'].'-'.$data['date_birth_day'];
-        $data['date_birth'] = date('Y-m-d',strtotime($mont_date_birth));
+        $mont_date_birth = $data['date_birth_year'] . '-' . $data['date_birth_month'] . '-' . $data['date_birth_day'];
+        $data['date_birth'] = date('Y-m-d', strtotime($mont_date_birth));
         $client->fill($data);
         $client->save();
         return redirect()->route('client.iniciais.select.outros');
@@ -140,22 +139,22 @@ class IniciaisController extends Controller
         $password = substr($random, 0, 10);
 
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
-        
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
+
         $data = $this->_validate_dados($request);
 
-        $mont_date_birth = $data['date_birth_year'].'-'.$data['date_birth_month'].'-'.$data['date_birth_day'];
-        $data['date_birth'] = date('Y-m-d',strtotime($mont_date_birth));
+        $mont_date_birth = $data['date_birth_year'] . '-' . $data['date_birth_month'] . '-' . $data['date_birth_day'];
+        $data['date_birth'] = date('Y-m-d', strtotime($mont_date_birth));
 
-        if(!isset($data['email']))
-            $data['email'] = date('YmdHis').'@requerente.com.br';
+        if (!isset($data['email']))
+            $data['email'] = date('YmdHis') . '@requerente.com.br';
 
 
         $data['password'] = Hash::make($password);
         $requerent = Client::create($data);
 
         Affiliation::create([
-            'call_id' => $call->id, 
+            'call_id' => $call->id,
             'client_id' => $requerent->id,
             'type' => 'claimant'
         ]);
@@ -174,12 +173,12 @@ class IniciaisController extends Controller
         $password = substr($random, 0, 10);
 
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
-        
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
+
         $data = $this->_validate_conjuge($request);
 
-        if(!isset($data['email']) || is_null($data['email']))
-            $data['email'] = date('YmdHis').'@conjuge.com.br';
+        if (!isset($data['email']) || is_null($data['email']))
+            $data['email'] = date('YmdHis') . '@conjuge.com.br';
 
         $data['password'] = Hash::make($password);
 
@@ -193,11 +192,11 @@ class IniciaisController extends Controller
         $spouse = Client::create($data);
 
         Affiliation::create([
-            'call_id' => $call->id, 
+            'call_id' => $call->id,
             'client_id' => $spouse->id,
             'type' => 'spouse'
         ]);
-        
+
         return redirect()->route('client.iniciais.requerente.outros');
     }
 
@@ -213,7 +212,6 @@ class IniciaisController extends Controller
         $data['addressstate'] = $client->addressstate;
 
         return response()->json($data);
-
     }
 
     public function conjuge_update(Request $request, Client $client)
@@ -227,8 +225,8 @@ class IniciaisController extends Controller
     public function descendente()
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
-        $descendant_count = $call->Affiliations()->where('type','descendant')->count();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
+        $descendant_count = $call->Affiliations()->where('type', 'descendant')->count();
         $descendant_count = (int)(1 + $descendant_count);
         $number_position = \App\Helpers\Functions::position($descendant_count);
 
@@ -239,12 +237,12 @@ class IniciaisController extends Controller
             'bisneto'  => 'Bisneto(a)',
         ];
 
-        return view('client.pages.info-iniciais.descendente-dados', compact('number_position','kinship_list','call'));
+        return view('client.pages.info-iniciais.descendente-dados', compact('number_position', 'kinship_list', 'call'));
     }
 
     public function descendente_update(Request $request, Client $client)
     {
-        $data = $this->_validate_descendente($request,$client->id);
+        $data = $this->_validate_descendente($request, $client->id);
         $client->fill($data);
         $client->save();
         return redirect()->route('client.iniciais.select.outros');
@@ -256,13 +254,13 @@ class IniciaisController extends Controller
         $password = substr($random, 0, 10);
 
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
-        
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
+
         $data = $this->_validate_descendente($request);
 
-        if(!isset($data['email']) || is_null($data['email']))
-            $data['email'] = date('YmdHis').'@descendente.com.br';
-            
+        if (!isset($data['email']) || is_null($data['email']))
+            $data['email'] = date('YmdHis') . '@descendente.com.br';
+
         $data['password'] = Hash::make($password);
 
         $data['addresscep'] = $client->addresscep;
@@ -280,23 +278,23 @@ class IniciaisController extends Controller
         $phone_clean = $data['phone'];
         $phone_clean = preg_replace('/[^0-9]/', '', $phone_clean);
         $email_descendant = $data['email'];
-        
 
-        $search_affiliation = Affiliation::where('call_id', $call->id)->whereHas('client', function($q) use($email_descendant) {
+
+        $search_affiliation = Affiliation::where('call_id', $call->id)->whereHas('client', function ($q) use ($email_descendant) {
             $q->where('email', $email_descendant);
         })->first();
 
-        if($search_affiliation){
-            return redirect()->back()->with('error','Já existe alguém neste atendimento com o mesmo e-mail, por favor use outro e-mail');
+        if ($search_affiliation) {
+            return redirect()->back()->with('error', 'Já existe alguém neste atendimento com o mesmo e-mail, por favor use outro e-mail');
         }
 
 
-        $search_call = Call::where('id', $call->id)->whereHas('client', function($q) use($email_descendant) {
+        $search_call = Call::where('id', $call->id)->whereHas('client', function ($q) use ($email_descendant) {
             $q->where('email', $email_descendant);
         })->first();
 
-        if($search_call){
-            return redirect()->back()->with('error','Já existe alguém neste atendimento com o mesmo e-mail, por favor use outro e-mail');
+        if ($search_call) {
+            return redirect()->back()->with('error', 'Já existe alguém neste atendimento com o mesmo e-mail, por favor use outro e-mail');
         }
 
         $descendant = Client::firstOrCreate(
@@ -305,7 +303,7 @@ class IniciaisController extends Controller
         );
 
         Affiliation::create([
-            'call_id' => $call->id, 
+            'call_id' => $call->id,
             'client_id' => $descendant->id,
             'type' => 'descendant'
         ]);
@@ -316,14 +314,14 @@ class IniciaisController extends Controller
     public function select_outros()
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
         $affiliations = $call->Affiliations()->with('client')->get();
         $type_list = Affiliation::TYPE;
-        $helps = Help::where('pages','REGEXP','[[:<:]]requerente_outros[[:>:]]')->orderBy('order','asc')->get();
-        return view('client.pages.info-iniciais.select-outros', 
-            compact('call','client','affiliations','type_list','helps')
+        $helps = Help::where('pages', 'REGEXP', '[[:<:]]requerente_outros[[:>:]]')->orderBy('order', 'asc')->get();
+        return view(
+            'client.pages.info-iniciais.select-outros',
+            compact('call', 'client', 'affiliations', 'type_list', 'helps')
         );
-
     }
 
     /**
@@ -334,12 +332,13 @@ class IniciaisController extends Controller
     public function breve_relato()
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
 
-        $helps = Help::where('pages','REGEXP','[[:<:]]breve_relato[[:>:]]')->orderBy('order','asc')->get();
+        $helps = Help::where('pages', 'REGEXP', '[[:<:]]breve_relato[[:>:]]')->orderBy('order', 'asc')->get();
 
-        return view('client.pages.info-iniciais.breve-relato', 
-            compact('call','helps')
+        return view(
+            'client.pages.info-iniciais.breve-relato',
+            compact('call', 'helps')
         );
     }
 
@@ -351,14 +350,14 @@ class IniciaisController extends Controller
      */
     public function breve_relato_store(Request $request)
     {
-        if(isset($request->breve_relato)){
+        if (isset($request->breve_relato)) {
             $date_now = date('Y-m-d H:i:s');
             $client = auth('client')->user();
-            $call = $client->call()->orderBy('calls.id','desc')->first();
+            $call = $client->call()->orderBy('calls.id', 'desc')->first();
             $call->breve_relato = $request->breve_relato;
             $call->update_breve_relato = $date_now;
             $call->save();
-            return redirect()->route('client.iniciais.retificacoes')->with('success','Breve Relato atualizado com sucesso!');
+            return redirect()->route('client.iniciais.retificacoes')->with('success', 'Breve Relato atualizado com sucesso!');
         }
         return redirect()->route('client.iniciais.start');
     }
@@ -366,30 +365,31 @@ class IniciaisController extends Controller
     public function retificacoes()
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
-        $rectification = Rectification::where('call_id',$call->id)->count();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
+        $rectification = Rectification::where('call_id', $call->id)->count();
 
-        $rectification2= Rectification::where('call_id',$call->id)->first();
-        if($rectification2){
+        $rectification2 = Rectification::where('call_id', $call->id)->first();
+        if ($rectification2) {
             $call->currentname = $rectification2->currentname;
             $call->desiredname = $rectification2->desiredname;
         }
 
 
-        $qtd_coautor = CallHonorary::where('call_id',$call->id)->where('description','coautor')->count();
+        $qtd_coautor = CallHonorary::where('call_id', $call->id)->where('description', 'coautor')->count();
         $qtd_retificacoes_permitidas = $qtd_coautor + 1;
 
-        $helps = Help::where('pages','REGEXP','[[:<:]]retificacoes_desejadas[[:>:]]')->orderBy('order','asc')->get();
+        $helps = Help::where('pages', 'REGEXP', '[[:<:]]retificacoes_desejadas[[:>:]]')->orderBy('order', 'asc')->get();
 
-        return view('client.pages.info-iniciais.retificacoes', 
-            compact('call','rectification','qtd_retificacoes_permitidas','helps')
+        return view(
+            'client.pages.info-iniciais.retificacoes',
+            compact('call', 'rectification', 'qtd_retificacoes_permitidas', 'helps')
         );
     }
 
     public function retificacoes_store(Request $request)
     {
         $client = auth('client')->user();
-        $call = $client->call()->orderBy('calls.id','desc')->first();
+        $call = $client->call()->orderBy('calls.id', 'desc')->first();
 
         $call->status_breve_relato = 'new';
         $call->reason_breve_relato = null;
@@ -397,27 +397,27 @@ class IniciaisController extends Controller
 
         $this->atribui_procuracoes($call);
 
-        if(isset($request->atual_name) && isset($request->new_name) && is_array($request->atual_name) && is_array($request->new_name) ){
+        if (isset($request->atual_name) && isset($request->new_name) && is_array($request->atual_name) && is_array($request->new_name)) {
             $atual_names = $request->atual_name;
             $new_names = $request->new_name;
-            if(count($atual_names) == count($new_names)){
+            if (count($atual_names) == count($new_names)) {
 
-                if($new_names[0] != $call->desiredname ){
+                if ($new_names[0] != $call->desiredname) {
                     $call->call_register()->create(
                         [
                             'client_id' => $client->id,
-                            'description' => $client->first_name.' alterou a Retificação desejada para “'.$new_names[0].'”', 
+                            'description' => $client->first_name . ' alterou a Retificação desejada para “' . $new_names[0] . '”',
                             'type' => 'normal',
                             'step' => 'call'
                         ]
                     );
                 }
 
-                Rectification::where('call_id',$call->id)->delete();
+                Rectification::where('call_id', $call->id)->delete();
 
                 $combine = array_combine($atual_names, $new_names);
-                foreach($combine as $atual_name => $new_name){
-                    if(!empty($atual_name) && !empty($new_name) ){
+                foreach ($combine as $atual_name => $new_name) {
+                    if (!empty($atual_name) && !empty($new_name)) {
                         Rectification::create([
                             'call_id'       => $call->id,
                             'currentname'   => $atual_name,
@@ -427,7 +427,7 @@ class IniciaisController extends Controller
                 }
             }
         }
-        
+
 
         return redirect()->route('client.iniciais.start');
     }
@@ -437,71 +437,68 @@ class IniciaisController extends Controller
     {
         $procuracao_id = [];
         $is_adulthood = true;
-        
-        if(!is_null($client->is_adulthood)){
-            if($client->is_adulthood){
+
+        if (!is_null($client->is_adulthood)) {
+            if ($client->is_adulthood) {
                 $is_adulthood = true;
-            }else{
+            } else {
                 $is_adulthood = false;
             }
-        }else{
+        } else {
             $client_data_nascimento = $client->date_birth;
             $idade = Functions::calcularIdade($client_data_nascimento);
-            if($idade>17){
+            if ($idade > 17) {
                 $is_adulthood = true;
-            }else{
+            } else {
                 $is_adulthood = false;
             }
         }
 
         $estado_civil = $client->marital_status;
         $name_document = '';
-        if(!is_null($estado_civil) && $estado_civil == 'casado'){
-            if($call->occupation_area == 'retificacao'){
-                array_push($procuracao_id, 46);              
-            }else{
-                array_push($procuracao_id, 50); 
-            }            
-        }elseif(is_null($estado_civil) || $estado_civil == 'solteiro'){
-            if($is_adulthood){
+        if (!is_null($estado_civil) && $estado_civil == 'casado') {
+            if ($call->occupation_area == 'retificacao') {
+                array_push($procuracao_id, 46);
+            } else {
+                array_push($procuracao_id, 50);
+            }
+        } elseif (is_null($estado_civil) || $estado_civil == 'solteiro') {
+            if ($is_adulthood) {
                 $procuracao_id_number = $call->occupation_area == 'retificacao' ? 47 : 49;
                 array_push($procuracao_id, $procuracao_id_number);
-            }else{
+            } else {
                 $procuracao_id_number = $call->occupation_area == 'retificacao' ? 48 : 51;
                 array_push($procuracao_id, $procuracao_id_number);
             }
-        }else{
+        } else {
             $procuracao_id_number = $call->occupation_area == 'retificacao' ? 47 : 49;
             array_push($procuracao_id, $procuracao_id_number);
         }
 
-        $documents = Document::whereIn('id',$procuracao_id)->get();
-        foreach($documents as $document){
+        $documents = Document::whereIn('id', $procuracao_id)->get();
+        foreach ($documents as $document) {
             $document_name = $document->name;
-            $name_document = $document_name.' - '.$client->name;
-            $replace_names = ['(Thiago)','(Magri)'];
-            $name_document = str_replace($replace_names,'',$name_document);
-            if(in_array(46, $procuracao_id) || in_array(50, $procuracao_id) ){
-                $requerente = $call->Affiliations()->where('type','claimant')->first()->client ?? false;
-                if(!$requerente){
-                    $requerente = $call->client;                    
+            $name_document = $document_name . ' - ' . $client->name;
+            $replace_names = ['(Thiago)', '(Magri)'];
+            $name_document = str_replace($replace_names, '', $name_document);
+            if (in_array(46, $procuracao_id) || in_array(50, $procuracao_id)) {
+                $requerente = $call->Affiliations()->where('type', 'claimant')->first()->client ?? false;
+                if (!$requerente) {
+                    $requerente = $call->client;
                 }
                 $requerente_first_name = Functions::firstName($requerente->name);
                 $document_0 = $document->document;
 
-                if(isset($document_0->affiliation) && !is_null($document_0->affiliation)){
+                if (isset($document_0->affiliation) && !is_null($document_0->affiliation)) {
                     $document_affiliation = $document_0->affiliation;
-                    $affiliation_spouse = $call->Affiliations()->where('type',$document_affiliation)->first();
+                    $affiliation_spouse = $call->Affiliations()->where('type', $document_affiliation)->first();
                     $spouse = $affiliation_spouse->client;
-                    if($spouse){
+                    if ($spouse) {
                         $esposa_name = $spouse->name;
                         $esposa_first_name = Functions::firstName($esposa_name);
                         $name_document = "{$requerente_first_name} x {$esposa_first_name}";
                     }
                 }
-
-
-                
             }
             $data = [
                 'user_id' => $call->user_id,
@@ -517,105 +514,98 @@ class IniciaisController extends Controller
                 'document_id' => 'required|numeric',
                 'name' => 'required|min:3'
             ])->validate();
-            $call_document = CallDocument::create($data);            
+            $call_document = CallDocument::create($data);
         }
     }
 
     protected function atribui_procuracoes(Call $call)
-    {        
+    {
         //$requerente = $call->client;
         $procuracao_id = [];
-        $requerente = $call->Affiliations()->where('type','claimant')->first()->client ?? false;
-        if(!$requerente){
+        $requerente = $call->Affiliations()->where('type', 'claimant')->first()->client ?? false;
+        if (!$requerente) {
             $requerente = $call->client;
-        }        
-        
-        CallDocument::where('call_id',$call->id)->delete();
+        }
+
+        CallDocument::where('call_id', $call->id)->delete();
 
 
         $this->_atribui_procuracoes($call, $requerente);
 
-        $descendentes = $call->Affiliations()->where('type','descendant')->get();
-        foreach($descendentes as $descendente){
+        $descendentes = $call->Affiliations()->where('type', 'descendant')->get();
+        foreach ($descendentes as $descendente) {
             //if($descendente->client && !$descendente->client->is_adulthood){
-            if($descendente->client){
+            if ($descendente->client) {
                 $this->_atribui_procuracoes($call, $descendente->client);
             }
         }
-
-
-
-        
-
-
     }
 
     protected function _validate_outros(Request $request)
     {
 
-        if ( !$request->has('is_requerente') ||  !$request->has('has_descendente') ){
+        if (!$request->has('is_requerente') ||  !$request->has('has_descendente')) {
             return $this->validate($request, [
                 'is_requerente'  => 'required|numeric',
                 'has_descendente'  => 'required|numeric',
                 'relationship_claimant' => 'nullable',
                 'descendants_quantity'  => 'nullable'
-            ]); 
+            ]);
         }
 
-        if($request->is_requerente == '0' && $request->has_descendente == '1'){
+        if ($request->is_requerente == '0' && $request->has_descendente == '1') {
             return $this->validate($request, [
                 'is_requerente'  => 'required|numeric',
                 'has_descendente'  => 'required|numeric',
                 'relationship_claimant'  => 'required',
                 'descendants_quantity'  => 'required'
-            ]); 
-        }elseif($request->is_requerente == '0' && $request->has_descendente == '0'){
+            ]);
+        } elseif ($request->is_requerente == '0' && $request->has_descendente == '0') {
             return $this->validate($request, [
                 'is_requerente'  => 'required|numeric',
                 'has_descendente'  => 'required|numeric',
                 'relationship_claimant'  => 'required',
                 'descendants_quantity'   => 'nullable'
-            ]); 
-        }elseif($request->is_requerente == '1' && $request->has_descendente == '0'){
+            ]);
+        } elseif ($request->is_requerente == '1' && $request->has_descendente == '0') {
             return $this->validate($request, [
                 'is_requerente'  => 'required|numeric',
                 'has_descendente'  => 'required|numeric',
                 'relationship_claimant'  => 'nullable',
                 'descendants_quantity'   => 'nullable'
-            ]); 
-        }elseif($request->is_requerente == '1' && $request->has_descendente == '1'){
+            ]);
+        } elseif ($request->is_requerente == '1' && $request->has_descendente == '1') {
             return $this->validate($request, [
                 'is_requerente'  => 'required|numeric',
                 'has_descendente'  => 'required|numeric',
                 'relationship_claimant'  => 'nullable',
                 'descendants_quantity'   => 'required'
-            ]); 
+            ]);
         }
-        
     }
 
-    protected function _validate_descendente(Request $request,$id=null)
+    protected function _validate_descendente(Request $request, $id = null)
     {
-        if(isset($request->phone) && !is_null($request->phone)){
+        if (isset($request->phone) && !is_null($request->phone)) {
             $request->merge([
                 'phone' => preg_replace('/[^0-9]/', '', $request->phone),
             ]);
         }
 
-        if(isset($request->is_adulthood) && $request->is_adulthood == '1'){
+        if (isset($request->is_adulthood) && $request->is_adulthood == '1') {
             //$email_rule = is_null($id) ? 'required|max:191|email|unique:clients,email' : 'required|max:191|email|unique:clients,email,'.$id;
             $email_rule = is_null($id) ? 'required|max:191|email' : 'required|max:191|email';
             //$phone_rule = is_null($id) ? 'required|min:10|unique:clients,phone' : 'required|min:10|unique:clients,phone,'.$id;
             $phone_rule = is_null($id) ? 'required|min:10' : 'required|min:10';
             $validade_rg = 'required';
-            $validade_cpf = 'required|unique:clients,cpf,'.$id;
-        }else{
+            $validade_cpf = 'required|unique:clients,cpf,' . $id;
+        } else {
             $email_rule = 'nullable';
             $phone_rule = 'nullable';
             $validade_rg = 'nullable';
             $validade_cpf = 'nullable|unique:clients,cpf';
         }
-        
+
         $mensagens = [
             'name.required' => 'O nome é obrigatório!',
             'email.required' => 'O e-mail é obrigatório!',
@@ -641,20 +631,20 @@ class IniciaisController extends Controller
             'rg' => $validade_rg,
             'is_adulthood' => "required",
             'kinship' => "required"
-        ],$mensagens);      
+        ], $mensagens);
     }
 
-    protected function _validate_conjuge(Request $request,$id=null)
+    protected function _validate_conjuge(Request $request, $id = null)
     {
 
-        if(isset($request->phone) && !is_null($request->phone)){
+        if (isset($request->phone) && !is_null($request->phone)) {
             $request->merge([
                 'phone' => preg_replace('/[^0-9]/', '', $request->phone),
             ]);
         }
 
-        $email_rule = is_null($id) ? 'required|max:191|email|unique:clients,email' : 'required|max:191|email|unique:clients,email,'.$id;
-        $phone_rule = is_null($id) ? 'required|min:10|unique:clients,phone' : 'required|min:10|unique:clients,phone,'.$id;
+        $email_rule = is_null($id) ? 'required|max:191|email|unique:clients,email' : 'required|max:191|email|unique:clients,email,' . $id;
+        $phone_rule = is_null($id) ? 'required|min:10|unique:clients,phone' : 'required|min:10|unique:clients,phone,' . $id;
 
         $mensagens = [
             'name.required' => 'O nome é obrigatório!',
@@ -690,16 +680,16 @@ class IniciaisController extends Controller
             'addresscomplement' => "nullable",
             'addresscity' => "required",
             'addressstate' => "required|max:2"
-        ], $mensagens);      
+        ], $mensagens);
     }
 
     protected function _validate_dados(Request $request)
     {
-        $marital_status = implode(',',array_keys(Client::MARITAL_STATUS));
+        $marital_status = implode(',', array_keys(Client::MARITAL_STATUS));
 
-        $date_birth = $request->date_birth_year.'-'.$request->date_birth_month.'-'.$request->date_birth_day;
+        $date_birth = $request->date_birth_year . '-' . $request->date_birth_month . '-' . $request->date_birth_day;
         $idade = \App\Helpers\Functions::calcularIdade($date_birth);
-        if($idade<18){
+        if ($idade < 18) {
             return $this->validate($request, [
                 'name'  => 'required|max:191',
                 'email'  => 'nullable',
@@ -719,8 +709,8 @@ class IniciaisController extends Controller
                 'addresscomplement' => "nullable",
                 'addresscity' => "nullable",
                 'addressstate' => "nullable|max:2"
-            ]);  
-        }else{
+            ]);
+        } else {
             return $this->validate($request, [
                 'name'  => 'required|max:191',
                 'email'  => 'required',
@@ -740,10 +730,7 @@ class IniciaisController extends Controller
                 'addresscomplement' => "nullable",
                 'addresscity' => "nullable",
                 'addressstate' => "nullable|max:2"
-            ]);  
+            ]);
         }
-
-                
     }
-
 }
