@@ -35,4 +35,9 @@ class ClientsController extends Controller
             'email' => "required|string|email|max:191|unique:clients,email,{$id},id"
         ]);
     }
+
+    public function profile()
+    {
+        return view('client.pages.perfil.index');
+    }
 }
