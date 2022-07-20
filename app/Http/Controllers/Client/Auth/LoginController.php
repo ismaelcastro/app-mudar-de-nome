@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Client\Auth;
 
 use App\Mail\Login;
 use App\Models\Client;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Client\LoginRequest;
 use App\Models\Access;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -18,12 +18,11 @@ class LoginController extends Controller
         return view('client.pages.auth.login');
     }
 
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
-        $data = $request->validated();
-        
-        $client = Client::where('email', $data['username'])->where('cpf', $data['username'])->first();
-        
+        $data = $this->_validate($request);
+
+        $client = Client::where('email', $data['username'])->orWhere('cpf', $data['username'])->first();
         if (!$client) {
             return redirect()->back()->with('error', 'Credenciais inválidas!')->withInput();
         }
@@ -36,12 +35,14 @@ class LoginController extends Controller
     public function login_access($code)
     {
         $access = Access::where('code', $code)->where('finish', '>=', date('Y-m-d H:i:s'))->first();
-        
+
         if ($access) {
             $call_id = $access->call_id;
             session(['call_id' => $call_id]);
             Auth::guard('client')->login($access->client); // logando            
-            return redirect('/panel/contratacao/dados');
+            
+            return redirect()->route('client.profile'); 
+            // return redirect('/panel/contratacao/dados');
         } else {
             return redirect()->back()->with('error', 'este link não é mais inválido');
         }
@@ -52,4 +53,17 @@ class LoginController extends Controller
         Auth::guard('client')->logout();
         return redirect('/');
     }
+
+
+    protected function _validate(Request $request, $id = null)
+    {
+        return $this->validate($request, [
+            'username' => "required|string|max:191",
+            // 'g-recaptcha-response' => [
+            //     'required',
+            //     new ValidaCaptcha()
+            // ]
+        ]);
+    }
+
 }
