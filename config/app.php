@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'RatsboneMagri'),
+    'name' => env('APP_NAME', 'CRM'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://app.ratsbonemagri.com.br/'),
+    'url' => env('APP_URL', 'http://ratsbonemagri-crm.test'),
 
     'asset_url' => env('ASSET_URL', null),
 
