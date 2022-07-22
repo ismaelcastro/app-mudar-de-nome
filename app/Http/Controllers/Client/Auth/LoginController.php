@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Client\Auth;
 
 use App\Mail\Login;
 use App\Models\Client;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Access;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -41,8 +41,7 @@ class LoginController extends Controller
             session(['call_id' => $call_id]);
             Auth::guard('client')->login($access->client); // logando            
             
-            return redirect()->route('client.profile'); 
-            // return redirect('/panel/contratacao/dados');
+            return redirect()->route('client.perfil');
         } else {
             return redirect()->back()->with('error', 'este link não é mais inválido');
         }
