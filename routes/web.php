@@ -74,7 +74,10 @@ Route::name('client.')->namespace('Client')->prefix('panel')->middleware('auth:c
 
     Route::post('client/change_mail', 'ClientsController@change_mail')->name('client.change_mail');
     Route::post('client/change_stagecall', 'ClientsController@change_stagecall')->name('client.change_stagecall');
-    Route::get('client/profile', 'ClientsController@profile')->name('profile');
+    Route::get('client/perfil', 'ClientsController@profile')->name('perfil');
+
+    // Orders //
+    Route::get("client/pedido/detalhes", "PedidoController@detalhes")->name("pedido.detalhes");
 
     Route::any('webhook/d4sign/call_id/{call}', 'ContratacaoController@webhook_d4sign')->name('contratacao.webhook.d4sign');
     Route::get('template/gerencianet', 'ContratacaoController@tempate_gerencianet')->name('contratacao.tempate_gerencianet');
