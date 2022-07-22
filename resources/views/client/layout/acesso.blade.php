@@ -1,3 +1,4 @@
+@php($client = auth()->user())
 <!DOCTYPE HTML>
 <html lang="pt-br" data-theme="light">
 
@@ -87,10 +88,10 @@
                                             <!--end::Avatar-->
                                             <!--begin::Username-->
                                             <div class="d-flex flex-column">
-                                                <div class="fw-bold d-flex align-items-center fs-5">Max Smith
+                                                <div class="fw-bold d-flex align-items-center fs-5">{{ $client->name }}
                                                     <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span> 
                                                 </div>
-                                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
+                                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ $client->email }}</a>
                                             </div>
                                             <!--end::Username-->
                                         </div>
@@ -242,12 +243,12 @@
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-5 my-1">
-                                        <a href="../../demo1/dist/account/settings.html" class="menu-link px-5">Account Settings</a>
+                                        <a href="#" class="menu-link px-5">Account Settings</a>
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-5">
-                                        <a href="#" class="menu-link px-5">Sair</a>
+                                        <a href="{{ route("client.login.logout") }}" class="menu-link px-5">Sair</a>
                                     </div>
                                     <!--end::Menu item-->
                                 </div>
