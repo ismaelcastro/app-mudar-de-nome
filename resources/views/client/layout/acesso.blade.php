@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
-    <link rel="shortcut icon" href="{{ asset(" metronic/media/logos/favicon.ico") }}"/>
+    <link rel="shortcut icon" href="{{ asset("images/icon-logo.png") }}"/>
     <link href="{{ asset("metronic/plugins/custom/datatables/datatables.bundle.css") }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset("metronic/plugins/global/plugins.bundle.css") }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset("metronic/css/style.bundle.css") }}" rel="stylesheet" type="text/css"/>
@@ -274,11 +274,9 @@
                     <!--begin::Logo-->
                     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
                         <!--begin::Logo image-->
-                        <a href="">
-                            <img alt="Logo" src="{{ asset("metronic/media/logos/default-dark.svg") }}"
-                                class="h-25px app-sidebar-logo-default">
-                            <img alt="Logo" src="{{ asset("metronic/media/logos/default-small.svg") }}"
-                                class="h-20px app-sidebar-logo-minimize">
+                        <a href="{{ route('client.perfil') }}">
+                            <img alt="Logo" src="{{ asset("images/mudar-nome-logo.png") }}" class="h-25px app-sidebar-logo-default">
+                            <img alt="Logo" src="{{ asset("images/mudar-nome-logo.png") }}" class="h-20px app-sidebar-logo-minimize">
                         </a>
                         <!--end::Logo image-->
                         <!--begin::Sidebar toggle-->
@@ -759,9 +757,10 @@
     <script src="{{ asset("metronic/plugins/custom/datatables/datatables.bundle.js") }}"></script>
     <!--end::Vendors Javascript-->
     <!--begin::Custom Javascript(used by this page)-->
-    <script src="{{ asset("metronic/js/widgets.bundle.js") }}"></script>
+{{--    <script src="{{ asset("metronic/js/widgets.bundle.js") }}"></script>--}}
     <script src="{{ asset("metronic/js/custom/widgets.js") }}"></script>
     <script src="{{ asset("metronic/js/custom/apps/chat/chat.js") }}"></script>
+    <script src="{{ asset("metronic/js/custom/utilities/modals/create-account.js") }}"></script>
     <script src="{{ asset("metronic/js/custom/utilities/modals/upgrade-plan.js") }}"></script>
     <script src="{{ asset("metronic/js/custom/utilities/modals/create-app.js") }}"></script>
     <script src="{{ asset("metronic/js/custom/utilities/modals/offer-a-deal/type.js") }}"></script>
