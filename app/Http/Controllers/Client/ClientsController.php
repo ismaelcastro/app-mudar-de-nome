@@ -40,4 +40,9 @@ class ClientsController extends Controller
     {
         return view('client.pages.perfil.index');
     }
+
+    public function updateProfile(Request $request, Client $client)
+    {
+        //
+    }
 }
