@@ -163,10 +163,14 @@ Route::name('client.')->namespace('Client')->prefix('panel')->middleware('auth:c
     Route::get('processo/documentos-extras/{document_category}/por_nome_documentos', 'ProcessoController@documentosExtrasPorNome')->name('processo.documentacao.documento.extra.documentos_por_nome');
     Route::post('processo/documentos-extras/{call}/', 'ProcessoController@client_document_extras')->name('processo.send.document_extras');
 });
+
 Route::name('admin.')->namespace('Admin')->prefix('manager-setup')->group(function () {
     Route::post('cases/change_start', 'CaseController@change_start')->name('cases.change_start');
 });
+
 Route::name('admin.')->namespace('Admin')->prefix('manager-setup')->middleware('auth')->group(function () {
+
+    Route::get('agenda', 'AgendaController@index')->name('agenda.index');
 
     Route::post('call/{call}/change_stage_case', 'CallController@change_stage_case')->name('change.stage.case');
     Route::post('call/{call}/change_stage_call', 'CallController@change_stage_call')->name('change.stage.call');
