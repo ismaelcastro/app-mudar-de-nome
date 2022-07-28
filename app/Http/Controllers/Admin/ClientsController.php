@@ -6,14 +6,13 @@ use App\Helpers\Functions;
 use App\Helpers\MauticHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Call;
 use App\Models\Changetype;
 use App\Models\Reason;
 use App\Mail\SendMailCreatePassword;
-
 use App\Http\Requests\ClientRequest;
 use App\Models\Affiliation;
 
@@ -22,7 +21,7 @@ class ClientsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -30,17 +29,11 @@ class ClientsController extends Controller
         $clients = Client::orderBy('name', 'asc')->paginate(15);
         $profile_color = Client::PROFILE_COLOR;
         $states = Client::STATES_PHONE;
-        return view(
-            'admin.pages.clients.index',
-            compact(
-                'clients',
-                'dataForm',
-                'profile_color',
-                'states'
-            )
+
+        return view("admin.pages.clients.index",
+            compact("clients", "dataForm", "profile_color", "states")
         );
     }
-
 
     public function search(Request $request, Client $client)
     {
@@ -111,7 +104,7 @@ class ClientsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -121,16 +114,20 @@ class ClientsController extends Controller
         $type_address = $voidOption + Client::ADDRESS_TYPE;
         $marital_status = $voidOption + Client::MARITAL_STATUS;
         $treatment = $voidOption + Client::TREATMENT;
-        return view('admin.pages.clients.create', compact('type_enum', 'type_email', 'type_address', 'marital_status', 'treatment'));
+
+        return view('admin.pages.clients.create',
+            compact('type_enum', 'type_email', 'type_address', 'marital_status', 'treatment')
+        );
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\ClientRequest $request
+     * @param \App\Models\Client $client
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(ClientRequest $request, Client $client)
+    public function store(ClientRequest $request, Client $client): \Illuminate\Http\RedirectResponse
     {
         $random = str_shuffle('abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!$%^&!$%^&');
         $password = substr($random, 0, 10);
@@ -147,6 +144,7 @@ class ClientsController extends Controller
             Mail::to($to)->send(new SendMailCreatePassword($data2));
         }
         session(['lastClient' => $client->id]);
+
         return redirect()->route('admin.clients.index')->with('success', 'Adicionado com sucesso!');
     }
 
@@ -168,7 +166,7 @@ class ClientsController extends Controller
         foreach ($clients as $client) {
             echo '<tr>';
             echo '  <td>';
-            echo        $client->id . ' | ' . $client->name;
+            echo $client->id . ' | ' . $client->name;
             echo '  </td>';
             echo '  <td>';
             try {
@@ -267,7 +265,7 @@ class ClientsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Client $client
+     * @param Client $client
      * @return \Illuminate\Http\Response
      */
     public function edit(Client $client)
@@ -294,8 +292,8 @@ class ClientsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Client $client
+     * @param \Illuminate\Http\Request $request
+     * @param Client $client
      * @return \Illuminate\Http\Response
      */
     public function update(ClientRequest $request, Client $client)
@@ -334,7 +332,7 @@ class ClientsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Client $client
+     * @param Client $client
      * @return \Illuminate\Http\Response
      */
     public function destroy(Client $client)
