@@ -194,6 +194,7 @@ class ClientsController extends Controller
 
     public function show(Client $client, Call $call_model, Changetype $changetype, Reason $reason)
     {
+        // template metronic: account/overview.html
         $function = new Functions;
         $changes_type = $changetype->combo()->all();
         $reasons = $reason->combo()->all();
@@ -213,7 +214,6 @@ class ClientsController extends Controller
                 });
         })->get();
 
-        //dd(Affiliation::where('client_id',$clientId)->get()->pluck('id')->all());
         $cases = $call_model->where(function ($query) use ($clientId) {
             $query->whereNotNull('stage_call')
                 ->whereNotNull('stage_case')
@@ -266,16 +266,18 @@ class ClientsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Client $client
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Client $client)
     {
+        // template metronic - dist/account/settings.html
         $voidOption = ['' => 'Selecione'];
         $type_enum = $voidOption + Client::TYPE_ENUM;
         $type_email = $voidOption + Client::TYPE_EMAIL;
         $type_address = $voidOption + Client::ADDRESS_TYPE;
         $marital_status = $voidOption + Client::MARITAL_STATUS;
         $treatment = $voidOption + Client::TREATMENT;
+
         return view(
             'admin.pages.clients.edit',
             compact(
