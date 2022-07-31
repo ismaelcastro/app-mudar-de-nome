@@ -170,6 +170,7 @@ Route::name('admin.')->namespace('Admin')->prefix('manager-setup')->group(functi
 
 Route::name('admin.')->namespace('Admin')->prefix('manager-setup')->middleware('auth')->group(function () {
 
+    // Agenda //
     Route::get('agenda', 'AgendaController@index')->name('agenda.index');
 
     Route::post('call/{call}/change_stage_case', 'CallController@change_stage_case')->name('change.stage.case');
