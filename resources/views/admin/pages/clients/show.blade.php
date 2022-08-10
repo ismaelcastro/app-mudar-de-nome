@@ -83,7 +83,7 @@
                         <div class="card-title m-0">
                             <h3 class="fw-bold m-0">Detalhes do Perfil</h3>
                         </div>
-                        <a class="btn btn-primary align-self-center">EditarPerfil</a>
+                        <a class="btn btn-primary align-self-center">Editar Perfil</a>
                     </div>
                     <!--begin::Card header-->
                     <!--begin::Card body-->
@@ -204,13 +204,13 @@
                                     <div class="row">
                                         <!--begin::Col-->
                                         <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                                            <input type="text" name="fname" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name" value="Max">
+                                            <input type="text" name="name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Primeiro Nome" value="{{ old('name', $client->name) }}">
                                             <div class="fv-plugins-message-container invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
                                         <!--begin::Col-->
                                         <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                                            <input type="text" name="lname" class="form-control form-control-lg form-control-solid" placeholder="Last name" value="Smith">
+                                            <input type="text" name="lname" class="form-control form-control-lg form-control-solid" placeholder="Sobrenome" value="Smith">
                                             <div class="fv-plugins-message-container invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -237,13 +237,13 @@
                             <div class="row mb-6">
                                 <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-semibold fs-6">
-                                    <span class="required">Telefone de contao</span>
+                                    <span class="required">Telefone de contato</span>
                                     <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" aria-label="Phone number must be active" data-kt-initialized="1"></i>
                                 </label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="tel" name="phone" class="form-control form-control-lg form-control-solid" placeholder="Phone number" value="044 3276 454 935">
+                                    <input type="tel" name="phone" class="form-control form-control-lg form-control-solid" placeholder="Phone number" value="{{ old('phone', $client->phoneFormated) }}">
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <!--end::Col-->
