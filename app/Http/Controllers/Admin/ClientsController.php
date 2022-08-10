@@ -19,7 +19,7 @@ use App\Models\Affiliation;
 class ClientsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * list of clients.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -35,6 +35,13 @@ class ClientsController extends Controller
         );
     }
 
+    /**
+     * Search clients
+     *
+     * @param Request $request
+     * @param Client $client
+     * @return void
+     */
     public function search(Request $request, Client $client)
     {
         $dataForm = $request->except('_token');
@@ -202,43 +209,43 @@ class ClientsController extends Controller
         $procedural_step_list = Call::PROCEDURAL_STEP;
 
         $clientId = $client->id;
-        $calls = $call_model->where(function ($query) use ($clientId) {
-            $query->whereNull('stage_case')
-                ->where(function ($q) use ($clientId) {
-                    $affiliation_array = Affiliation::where('client_id', $clientId)->get()->pluck('call_id')->all();
-                    if (count($affiliation_array) > 0) {
-                        $q->where('client_id', $clientId)->orWhereIn('id', $affiliation_array);
-                    } else {
-                        $q->where('client_id', $clientId);
-                    }
-                });
-        })->get();
+        // $calls = $call_model->where(function ($query) use ($clientId) {
+        //     $query->whereNull('stage_case')
+        //         ->where(function ($q) use ($clientId) {
+        //             $affiliation_array = Affiliation::where('client_id', $clientId)->get()->pluck('call_id')->all();
+        //             if (count($affiliation_array) > 0) {
+        //                 $q->where('client_id', $clientId)->orWhereIn('id', $affiliation_array);
+        //             } else {
+        //                 $q->where('client_id', $clientId);
+        //             }
+        //         });
+        // })->get();
 
-        $cases = $call_model->where(function ($query) use ($clientId) {
-            $query->whereNotNull('stage_call')
-                ->whereNotNull('stage_case')
-                ->whereNull('process')
-                ->where(function ($q) use ($clientId) {
-                    $affiliation_array = Affiliation::where('client_id', $clientId)->get()->pluck('call_id')->all();
-                    if (count($affiliation_array) > 0) {
-                        $q->where('client_id', $clientId)->orWhereIn('id', $affiliation_array);
-                    } else {
-                        $q->where('client_id', $clientId);
-                    }
-                });
-        })->get();
+        // $cases = $call_model->where(function ($query) use ($clientId) {
+        //     $query->whereNotNull('stage_call')
+        //         ->whereNotNull('stage_case')
+        //         ->whereNull('process')
+        //         ->where(function ($q) use ($clientId) {
+        //             $affiliation_array = Affiliation::where('client_id', $clientId)->get()->pluck('call_id')->all();
+        //             if (count($affiliation_array) > 0) {
+        //                 $q->where('client_id', $clientId)->orWhereIn('id', $affiliation_array);
+        //             } else {
+        //                 $q->where('client_id', $clientId);
+        //             }
+        //         });
+        // })->get();
 
-        $process = $call_model->where(function ($query) use ($clientId) {
-            $query->whereNotNull('process')
-                ->where(function ($q) use ($clientId) {
-                    $affiliation_array = Affiliation::where('client_id', $clientId)->get()->pluck('call_id')->all();
-                    if (count($affiliation_array) > 0) {
-                        $q->where('client_id', $clientId)->orWhereIn('id', $affiliation_array);
-                    } else {
-                        $q->where('client_id', $clientId);
-                    }
-                });
-        })->get();
+        // $process = $call_model->where(function ($query) use ($clientId) {
+        //     $query->whereNotNull('process')
+        //         ->where(function ($q) use ($clientId) {
+        //             $affiliation_array = Affiliation::where('client_id', $clientId)->get()->pluck('call_id')->all();
+        //             if (count($affiliation_array) > 0) {
+        //                 $q->where('client_id', $clientId)->orWhereIn('id', $affiliation_array);
+        //             } else {
+        //                 $q->where('client_id', $clientId);
+        //             }
+        //         });
+        // })->get();
 
         if (!is_null($client->phone) && strlen($client->phone) == 11) {
             $phone = $function->mask($client->phone, '(##)# ####-####');
@@ -250,9 +257,9 @@ class ClientsController extends Controller
             'admin.pages.clients.show',
             compact(
                 'client',
-                'calls',
-                'cases',
-                'process',
+                //'calls',
+                //'cases',
+                //'process',
                 'case_action',
                 'changes_type',
                 'reasons',
