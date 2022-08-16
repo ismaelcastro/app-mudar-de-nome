@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AgendaController extends Controller
+class CalendarController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.agenda.index');
+        return view('admin.pages.calendar.index');
     }
 }
