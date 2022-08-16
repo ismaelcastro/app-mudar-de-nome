@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name') }}</title>
+    <title>Dashboard</title>
     <!-- Styles -->
     <link rel="shortcut icon" href="{{ asset("images/icon-logo.png") }}" />
 
@@ -280,7 +280,7 @@
                                 </span>
                                 <div class="menu-sub menu-sub-accordion">
                                     <div class="menu-item">
-                                        <a class="menu-link" href="#">
+                                        <a class="menu-link" href="{{ route('admin.calendar.index') }}">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
@@ -413,6 +413,9 @@
 <!--begin::Vendors Javascript(used by this page)-->
 <script src="{{ asset("metronic/plugins/custom/datatables/datatables.bundle.js") }}"></script>
 <!--end::Vendors Javascript-->
+
+{{-- imports form anothers pages --}}
+@stack('scripts')
 
 <!--end::Javascript-->
 
