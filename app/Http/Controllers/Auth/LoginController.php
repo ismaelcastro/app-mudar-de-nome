@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/manager-setup/agenda';
+    protected $redirectTo = '/manager-setup/calendar';
 
     /**
      * Create a new controller instance.
