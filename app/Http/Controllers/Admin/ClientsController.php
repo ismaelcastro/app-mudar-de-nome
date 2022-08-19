@@ -262,11 +262,6 @@ class ClientsController extends Controller
                 $char = trim($dataForm['char']);
                 $query->where('name', 'LIKE', $char . '%');
             }
-            /*
-            if(isset($dataForm['state'])){
-                $query->whereIn('SUBSTR(addressstate,0,2)', explode(',',$dataForm['state']) );
-            }
-            */
         });
         if (isset($dataForm['ord'])) {
             $ord = $dataForm['ord'];
