@@ -25,13 +25,18 @@ Route::name('admin.')->namespace('Admin')->prefix('manager-setup')->middleware('
     Route::get('/settings', 'SettingController@index')->name('settings.index');
     Route::post('/settings', 'SettingController@store')->name('settings.store');
 
+    // Clients //
     Route::get('clients/box', 'ClientsController@box')->name('clients.box');
     Route::get('clients/sinc_mautic', 'ClientsController@sinc_mautic')->name('clients.sinc_mautic');
     Route::any('clients/search', 'ClientsController@search')->name('clients.search');
     Route::resource('clients', 'ClientsController');    
     Route::post('clients/{client}/remove_picture', 'ClientsController@remove_picture')->name('clients.remove.picture'); 
     Route::any('clients/{client}/update_image', 'ClientsController@update_image')->name('clients.update_image'); 
-    
+
+    // Certificates //
+    Route::resource('certificates', 'CertificatesController');
+    Route::get('certificates/search', 'CertificatesController@search')->name('certificates.search');
+
     Route::any('historics', 'HistoricController@index')->name('historics.search');
 
     Route::resource('changetypes', 'ChangetypeController');
@@ -170,7 +175,7 @@ Route::name('admin.')->namespace('Admin')->prefix('manager-setup')->group(functi
 
 Route::name('admin.')->namespace('Admin')->prefix('manager-setup')->middleware('auth')->group(function () {
 
-    // Agenda //
+    // Calendar //
     Route::get('calendar', 'CalendarController@index')->name('calendar.index');
 
     Route::post('call/{call}/change_stage_case', 'CallController@change_stage_case')->name('change.stage.case');
