@@ -68,7 +68,6 @@ class ClientsController extends Controller
 
     public function show(Client $client, Call $call_model, Changetype $changetype, Reason $reason)
     {
-        // template metronic: account/overview.html
         $function = new Functions;
         $changes_type = $changetype->combo()->all();
         $reasons = $reason->combo()->all();
