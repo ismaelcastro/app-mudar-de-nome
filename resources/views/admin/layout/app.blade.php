@@ -260,7 +260,9 @@
                     <!--end::Logo image-->
                     <!--begin::Sidebar toggle-->
                     <div id="kt_app_sidebar_toggle" class="app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary body-bg h-30px w-30px position-absolute top-50 start-100 translate-middle rotate" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="app-sidebar-minimize">
-                        {!! file_get_contents('metronic/media/icons/duotune/arrows/arr079.svg') !!}
+                        <span class="svg-icon svg-icon-2 rotate-180">
+                            {!! file_get_contents('metronic/media/icons/duotune/arrows/arr079.svg') !!}
+                        </span>
                     </div>
                     <!--end::Sidebar toggle-->
                 </div>
