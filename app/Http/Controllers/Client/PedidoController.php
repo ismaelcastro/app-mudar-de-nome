@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Client;
 
-use Illuminate\Http\Request;
+use App\Models\Changetype;
 use App\Http\Controllers\Controller;
 
 class PedidoController extends Controller
 {
     public function detalhes()
     {
-        return view("client.pages.pedido.detalhe");
+        $changeTypes = Changetype::all();
+
+        return view('client.pages.pedido.detalhe', compact('changeTypes'));
     }
 }
