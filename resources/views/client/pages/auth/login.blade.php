@@ -15,9 +15,6 @@
         <div class="col-12">
             {{ Form::text('username', null, ['class' => $errors->has('username') ?  'is-invalid' : '', 'placeholder' => 'Insira E-Mail ou CPF', 'required' => 'required']) }}
         </div>
-        {{-- <div class="col-12">
-            <div class="g-recaptcha" data-sitekey="{{config('captcha.captcha_website_key')}}"></div>
-        </div> --}}
         <div class="col-12 text-center">
             <button type="submit" class="btn btn-default mb-10">Entrar</button>
         </div>

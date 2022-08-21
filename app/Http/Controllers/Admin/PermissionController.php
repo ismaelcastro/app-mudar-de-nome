@@ -40,7 +40,7 @@ class PermissionController extends Controller
     {
         $data = $this->_validate($request);
         Permission::create($data);
-        return redirect()->route('admin.permissions.index')->with('success','Permissão adicionada com sucesso!');
+        return redirect()->route('admin.permissions.index')->with('success', 'Permissão adicionada com sucesso!');
     }
 
     /**
@@ -77,7 +77,7 @@ class PermissionController extends Controller
         $data = $this->_validate($request);
         $permission->fill($data);
         $permission->save();
-        return redirect()->route('admin.permissions.index')->with('success','Permissão atualizada com sucesso');
+        return redirect()->route('admin.permissions.index')->with('success', 'Permissão atualizada com sucesso');
     }
 
     /**
@@ -89,7 +89,7 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        return redirect()->route('admin.permissions.index')->with('success','Permissão excluída com sucesso!');
+        return redirect()->route('admin.permissions.index')->with('success', 'Permissão excluída com sucesso!');
     }
 
     protected function _validate(Request $request)

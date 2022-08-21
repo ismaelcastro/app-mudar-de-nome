@@ -44,7 +44,7 @@ class NewsCategoryController extends Controller
         $data = $request->only(array_keys($request->rules()));
         $data['slug'] =  Str::slug($request->name);
         NewsCategory::create($data);
-        return redirect()->back()->with('success','Categoria adicionada com sucesso!');
+        return redirect()->back()->with('success', 'Categoria adicionada com sucesso!');
     }
 
     /**
@@ -82,7 +82,7 @@ class NewsCategoryController extends Controller
         $data['slug'] =  Str::slug($request->name);
         $news_category->fill($data);
         $news_category->save();
-        return redirect()->route('admin.news_categories.index')->with('success','Categoria atualizada com sucesso');
+        return redirect()->route('admin.news_categories.index')->with('success', 'Categoria atualizada com sucesso');
     }
 
     /**
@@ -94,6 +94,6 @@ class NewsCategoryController extends Controller
     public function destroy(NewsCategory $news_category)
     {
         $news_category->delete();
-        return redirect()->route('admin.news_categories.index')->with('success','Categoria excluída com sucesso!');
+        return redirect()->route('admin.news_categories.index')->with('success', 'Categoria excluída com sucesso!');
     }
 }

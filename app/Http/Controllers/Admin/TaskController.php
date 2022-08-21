@@ -38,7 +38,7 @@ class TaskController extends Controller
     {
         $data = $this->_validate($request);
         $user = Task::create($data);
-        return redirect()->back()->with('success','Tarefa criada com sucesso!');
+        return redirect()->back()->with('success', 'Tarefa criada com sucesso!');
     }
 
     /**
@@ -74,7 +74,7 @@ class TaskController extends Controller
     {
         $task->status = 'close';
         $task->save();
-        return redirect()->back()->with('success','Tarefa finalizada');
+        return redirect()->back()->with('success', 'Tarefa finalizada');
     }
 
     /**
@@ -100,6 +100,6 @@ class TaskController extends Controller
             'call_id'  => 'required|numeric',
             'address'  => 'nullable',
             'attachment'  => 'nullable'
-        ]);        
+        ]);
     }
 }

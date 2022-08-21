@@ -44,9 +44,9 @@ class FaqController extends Controller
     public function store(FaqRequest $request)
     {
         $data = $request->only(array_keys($request->rules()));
-        $data['websites'] = (is_array($request->websites) ? implode(',', $request->websites) : $request->websites); 
+        $data['websites'] = (is_array($request->websites) ? implode(',', $request->websites) : $request->websites);
         Faq::create($data);
-        return redirect()->route('admin.faqs.index')->with('success','Faq adicionada com sucesso!');
+        return redirect()->route('admin.faqs.index')->with('success', 'Faq adicionada com sucesso!');
     }
 
     /**
@@ -70,7 +70,7 @@ class FaqController extends Controller
     {
         $category_list = ['' => 'Selecione'];
         $category_list += $faq_category->combo()->all();
-        if(!is_null($faq->websites))
+        if (!is_null($faq->websites))
             $faq->websites = explode(',', $faq->websites);
         return view('admin.pages.faqs.edit', compact('faq', 'category_list'));
     }
@@ -85,10 +85,10 @@ class FaqController extends Controller
     public function update(FaqRequest $request, Faq $faq)
     {
         $data = $request->only(array_keys($request->rules()));
-        $data['websites'] = (is_array($request->websites) ? implode(',', $request->websites) : $request->websites); 
+        $data['websites'] = (is_array($request->websites) ? implode(',', $request->websites) : $request->websites);
         $faq->fill($data);
         $faq->save();
-        return redirect()->route('admin.faqs.index')->with('success','Faq atualizada com sucesso');
+        return redirect()->route('admin.faqs.index')->with('success', 'Faq atualizada com sucesso');
     }
 
     /**
@@ -100,6 +100,6 @@ class FaqController extends Controller
     public function destroy(Faq $faq)
     {
         $faq->delete();
-        return redirect()->route('admin.faqs.index')->with('success','Faq excluída com sucesso!');
+        return redirect()->route('admin.faqs.index')->with('success', 'Faq excluída com sucesso!');
     }
 }

@@ -18,7 +18,7 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {
         $news = News::paginate(15);
         return view('admin.pages.news.index', compact('news'));
     }
@@ -45,9 +45,9 @@ class NewsController extends Controller
     {
         $data = $request->only(array_keys($request->rules()));
         $data['slug'] =  Str::slug($request->name);
-        $data['websites'] = (is_array($request->websites) ? implode(',', $request->websites) : $request->websites); 
+        $data['websites'] = (is_array($request->websites) ? implode(',', $request->websites) : $request->websites);
         News::create($data);
-        return redirect()->route('admin.news.index')->with('success','Notícia adicionada com sucesso!');
+        return redirect()->route('admin.news.index')->with('success', 'Notícia adicionada com sucesso!');
     }
 
     /**
@@ -71,7 +71,7 @@ class NewsController extends Controller
     {
         $category_list = ['' => 'Selecione'];
         $category_list += $news_category->combo()->all();
-        if(!is_null($news->websites))
+        if (!is_null($news->websites))
             $news->websites = explode(',', $news->websites);
         return view('admin.pages.news.edit', compact('news', 'category_list'));
     }
@@ -87,10 +87,10 @@ class NewsController extends Controller
     {
         $data = $request->only(array_keys($request->rules()));
         $data['slug'] =  Str::slug($request->name);
-        $data['websites'] = (is_array($request->websites) ? implode(',', $request->websites) : $request->websites); 
+        $data['websites'] = (is_array($request->websites) ? implode(',', $request->websites) : $request->websites);
         $news->fill($data);
         $news->save();
-        return redirect()->route('admin.news.index')->with('success','Notícia atualizada com sucesso');
+        return redirect()->route('admin.news.index')->with('success', 'Notícia atualizada com sucesso');
     }
 
     /**
@@ -102,6 +102,6 @@ class NewsController extends Controller
     public function destroy(News $news)
     {
         $news->delete();
-        return redirect()->route('admin.news.index')->with('success','Notícia excluída com sucesso!');
+        return redirect()->route('admin.news.index')->with('success', 'Notícia excluída com sucesso!');
     }
 }

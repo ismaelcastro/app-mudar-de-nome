@@ -43,7 +43,7 @@ class TaskListController extends Controller
         $data = $this->_validate($request);
         $task_list = TaskList::create($data);
         session(['last_task_list' => $task_list->id]);
-        return redirect()->back()->with('success','Lista adicionada com sucesso!');
+        return redirect()->back()->with('success', 'Lista adicionada com sucesso!');
     }
 
     /**
@@ -81,7 +81,7 @@ class TaskListController extends Controller
         $data = $this->_validate($request);
         $task_list->fill($data);
         $task_list->save();
-        return redirect()->back()->with('success','Lista atualizada com sucesso');
+        return redirect()->back()->with('success', 'Lista atualizada com sucesso');
     }
 
     /**
@@ -93,14 +93,14 @@ class TaskListController extends Controller
     public function destroy(TaskList $task_list)
     {
         $user->delete();
-        return redirect()->route('admin.task_lists.index')->with('success','Lista excluída com sucesso!');
+        return redirect()->route('admin.task_lists.index')->with('success', 'Lista excluída com sucesso!');
     }
 
     public function box(TaskList $task_list)
     {
         $arrayVoid = ['' => 'Selecione'];
-        $task_list = $arrayVoid+$task_list->combo()->all();
-        $last_task_list = ( session()->has('last_task_list') ? session()->get('last_task_list') : null );
+        $task_list = $arrayVoid + $task_list->combo()->all();
+        $last_task_list = (session()->has('last_task_list') ? session()->get('last_task_list') : null);
         return view('admin.task_lists.box', compact('task_list', 'last_task_list'));
     }
 
@@ -109,6 +109,6 @@ class TaskListController extends Controller
         return $this->validate($request, [
             'name'  => 'required|max:191',
             'roles' => 'nullable'
-        ]);        
+        ]);
     }
 }

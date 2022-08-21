@@ -10,11 +10,11 @@ class EventController extends Controller
 {
     public function store(Request $request)
     {
-        $request->request->add(['datetime_start' => $request->date_start.' '.$request->time_start ]);
-        $request->request->add(['datetime_finish' => $request->date_finish.' '.$request->time_finish ]);
+        $request->request->add(['datetime_start' => $request->date_start . ' ' . $request->time_start]);
+        $request->request->add(['datetime_finish' => $request->date_finish . ' ' . $request->time_finish]);
         $data = $this->_validate($request);
         $user = Event::create($data);
-        return redirect()->back()->with('message','Evento criado com sucesso!');
+        return redirect()->back()->with('message', 'Evento criado com sucesso!');
     }
 
     protected function _validate(Request $request)
@@ -28,6 +28,6 @@ class EventController extends Controller
             'status'  => 'nullable',
             'alert'  => 'required|numeric',
             'description'  => 'required'
-        ]);        
+        ]);
     }
 }

@@ -23,10 +23,10 @@ class DocumentController extends Controller
      */
     public function index(Request $request)
     {
-        if(isset($request->document_category_id) && is_numeric($request->document_category_id)){
+        if (isset($request->document_category_id) && is_numeric($request->document_category_id)) {
             $document_category_id = (int)$request->document_category_id;
             $documents = Document::where('document_category_id', $document_category_id)->get();
-        }else{
+        } else {
             $documents = Document::all();
         }
 
@@ -44,7 +44,7 @@ class DocumentController extends Controller
         $category_list = ['' => 'Selecione'];
         $category_list += $document_category->combo()->all();
         $type_list = Document::TYPES;
-        $affiliation_list = [''=>'Nenhum']+Affiliation::TYPE;
+        $affiliation_list = ['' => 'Nenhum'] + Affiliation::TYPE;
 
         return view('admin.pages.documents.create', compact('category_list', 'type_list', 'affiliation_list'));
     }
@@ -60,7 +60,7 @@ class DocumentController extends Controller
         $data = $request->only(array_keys($request->rules()));
         Document::create($data);
 
-        return redirect()->route('admin.documents.index')->with('success','Documento adicionado com sucesso!');
+        return redirect()->route('admin.documents.index')->with('success', 'Documento adicionado com sucesso!');
     }
 
     /**
@@ -86,7 +86,7 @@ class DocumentController extends Controller
         $category_list = ['' => 'Selecione'];
         $category_list += $document_category->combo()->all();
         $type_list = Document::TYPES;
-        $affiliation_list = [''=>'Nenhum']+Affiliation::TYPE;
+        $affiliation_list = ['' => 'Nenhum'] + Affiliation::TYPE;
 
         return view('admin.pages.documents.edit', compact('document', 'category_list', 'type_list', 'affiliation_list'));
     }
@@ -104,7 +104,7 @@ class DocumentController extends Controller
         $document->fill($data);
         $document->save();
 
-        return redirect()->back()->with('success','Documento atualizado com sucesso');
+        return redirect()->back()->with('success', 'Documento atualizado com sucesso');
     }
 
     /**
@@ -118,6 +118,6 @@ class DocumentController extends Controller
     {
         $document->delete();
 
-        return redirect()->route('admin.documents.index')->with('success','Documento excluído com sucesso!');
+        return redirect()->route('admin.documents.index')->with('success', 'Documento excluído com sucesso!');
     }
 }

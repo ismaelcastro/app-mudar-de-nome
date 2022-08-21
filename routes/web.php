@@ -1,18 +1,18 @@
 <?php
 
-Auth::routes();
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 
+Auth::routes();
 
 Route::get('/comands/image', function() {
     Artisan::call('storage:link');   
 });
 
-
 Route::get('/comands/migrate', function() {
     Artisan::call('migrate');   
 });
-
-
 
 Route::name('admin.')->namespace('Admin')->prefix('manager-setup')->middleware('auth')->group(function () {
     Route::get('search_json','DashboardController@search_json')->name('dashboard.search_json');
@@ -25,13 +25,18 @@ Route::name('admin.')->namespace('Admin')->prefix('manager-setup')->middleware('
     Route::get('/settings', 'SettingController@index')->name('settings.index');
     Route::post('/settings', 'SettingController@store')->name('settings.store');
 
+    // Clients //
     Route::get('clients/box', 'ClientsController@box')->name('clients.box');
     Route::get('clients/sinc_mautic', 'ClientsController@sinc_mautic')->name('clients.sinc_mautic');
     Route::any('clients/search', 'ClientsController@search')->name('clients.search');
     Route::resource('clients', 'ClientsController');    
     Route::post('clients/{client}/remove_picture', 'ClientsController@remove_picture')->name('clients.remove.picture'); 
     Route::any('clients/{client}/update_image', 'ClientsController@update_image')->name('clients.update_image'); 
-    
+
+    // Certificates //
+    Route::resource('certificates', 'CertificatesController');
+    Route::get('certificates/search', 'CertificatesController@search')->name('certificates.search');
+
     Route::any('historics', 'HistoricController@index')->name('historics.search');
 
     Route::resource('changetypes', 'ChangetypeController');
@@ -70,11 +75,14 @@ Route::name('client.')->namespace('Client')->group(function () {
     Route::get('/access/{code}', 'Auth\LoginController@login_access')->name('login.access');
 });
 
-
 Route::name('client.')->namespace('Client')->prefix('panel')->middleware('auth:client')->group(function () {
 
     Route::post('client/change_mail', 'ClientsController@change_mail')->name('client.change_mail');
     Route::post('client/change_stagecall', 'ClientsController@change_stagecall')->name('client.change_stagecall');
+    Route::get('client/perfil', 'ClientsController@profile')->name('perfil');
+
+    // Orders //
+    Route::get("client/pedido/detalhes", "PedidoController@detalhes")->name("pedido.detalhes");
 
     Route::any('webhook/d4sign/call_id/{call}', 'ContratacaoController@webhook_d4sign')->name('contratacao.webhook.d4sign');
     Route::get('template/gerencianet', 'ContratacaoController@tempate_gerencianet')->name('contratacao.tempate_gerencianet');
@@ -89,8 +97,6 @@ Route::name('client.')->namespace('Client')->prefix('panel')->middleware('auth:c
     Route::put('contratacao/dados/{client}', 'ContratacaoController@dados_contratante_store')->name('contratacao.dados.store');    
     Route::post('contratacao/forma', 'ContratacaoController@forma_contratacao_store')->name('contratacao.forma.store');    
     Route::post('contratacao/contrato', 'ContratacaoController@contrato_store')->name('contratacao.contrato.store');
-    
-
 
     Route::get('informacoes-iniciais/affiliation/{affiliation}/edit', 'IniciaisController@affiliation')->name('affiliation.edit');
     Route::get('informacoes-iniciais/claimant/{claimant}/edit', 'IniciaisController@claimant')->name('claimant.edit');
@@ -119,8 +125,6 @@ Route::name('client.')->namespace('Client')->prefix('panel')->middleware('auth:c
 
     Route::get('informacoes-iniciais/select-outros', 'IniciaisController@select_outros')->name('iniciais.select.outros');
 
-
-    
     Route::post('documentos/re-send', 'DocumentosController@resend_doc_d4sign')->name('documentos.resend_doc_d4sign');
     Route::post('documentos/change_analise', 'DocumentosController@change_analise')->name('documentos.change_analise');
     Route::get('documentos/{document}/generatedocument', 'DocumentosController@generatedocument')->name('documentos.generatedocument');
@@ -157,7 +161,6 @@ Route::name('client.')->namespace('Client')->prefix('panel')->middleware('auth:c
     Route::get('financeiro/adexitum', 'FinanceiroController@adexitum')->name('financeiro.adexitum');
     Route::post('financeiro/{call}/anexa_comprovante', 'FinanceiroController@comprovante_anexo')->name('financeiro.anexa_comprovante');
 
-
     Route::get('processo/acompanhamento-processual', 'ProcessoController@acompanhamento')->name('processo.acompanhamento');
     Route::get('processo/documentacao-extras', 'ProcessoController@docsextra')->name('processo.docsextra');
     Route::get('processo/documentos-extras', 'ProcessoController@documentacaoExtra')->name('processo.documentacao.extra');
@@ -165,10 +168,15 @@ Route::name('client.')->namespace('Client')->prefix('panel')->middleware('auth:c
     Route::get('processo/documentos-extras/{document_category}/por_nome_documentos', 'ProcessoController@documentosExtrasPorNome')->name('processo.documentacao.documento.extra.documentos_por_nome');
     Route::post('processo/documentos-extras/{call}/', 'ProcessoController@client_document_extras')->name('processo.send.document_extras');
 });
+
 Route::name('admin.')->namespace('Admin')->prefix('manager-setup')->group(function () {
     Route::post('cases/change_start', 'CaseController@change_start')->name('cases.change_start');
 });
+
 Route::name('admin.')->namespace('Admin')->prefix('manager-setup')->middleware('auth')->group(function () {
+
+    // Calendar //
+    Route::get('calendar', 'CalendarController@index')->name('calendar.index');
 
     Route::post('call/{call}/change_stage_case', 'CallController@change_stage_case')->name('change.stage.case');
     Route::post('call/{call}/change_stage_call', 'CallController@change_stage_call')->name('change.stage.call');

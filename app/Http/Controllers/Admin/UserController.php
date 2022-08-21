@@ -25,7 +25,7 @@ class UserController extends Controller
     {
         //if( Gate::denies('view_user') ) 
         //abort(403, 'Not Permissions Lists User');
-        
+
         $users = $user->paginate(15);
         return view('admin.pages.users.index', compact('users'));
     }
@@ -42,7 +42,7 @@ class UserController extends Controller
 
         $roles_list = $this->_rolesArray();
         $occupation_area_list = Call::OCCUPATION_AREA;
-        return view('admin.pages.users.create', compact('roles_list','occupation_area_list'));
+        return view('admin.pages.users.create', compact('roles_list', 'occupation_area_list'));
     }
 
     /**
@@ -59,13 +59,13 @@ class UserController extends Controller
         $role_id = $request->role_id;
         $data = $this->_validate($request);
 
-        if(!is_null($data['password']))
+        if (!is_null($data['password']))
             $data['password'] = Hash::make($data['password']);
 
         $data['type'] = 'user';
         $user = User::create($data);
 
-        if(is_array($role_id)){
+        if (is_array($role_id)) {
             foreach ($role_id as $key => $value) {
                 $dataRole = [
                     'role_id' => $value,
@@ -74,7 +74,7 @@ class UserController extends Controller
                 RoleUsers::create($dataRole);
             }
         }
-        return redirect()->route('admin.users.index')->with('success','Usuário adicionado com sucesso!');
+        return redirect()->route('admin.users.index')->with('success', 'Usuário adicionado com sucesso!');
     }
 
     /**
@@ -111,7 +111,7 @@ class UserController extends Controller
         $user->role_id = $roles_id;
         $occupation_area_list = Call::OCCUPATION_AREA;
         unset($user->password);
-        return view('admin.pages.users.edit', compact('user','roles_list','occupation_area_list'));
+        return view('admin.pages.users.edit', compact('user', 'roles_list', 'occupation_area_list'));
     }
 
     /**
@@ -129,17 +129,17 @@ class UserController extends Controller
         $role_id = $request->role_id;
         $data = $this->_validate($request, $user->id);
 
-        if(!is_null($data['password']) && !empty($data['password']) ){
+        if (!is_null($data['password']) && !empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
-        }else{
+        } else {
             unset($data['password']);
         }
-      
+
         $data['type'] = 'user';
         $user->fill($data);
         $user->save();
 
-        if(is_array($role_id)){
+        if (is_array($role_id)) {
             RoleUsers::where('user_id', $user->id)->delete();
             foreach ($role_id as $key => $value) {
                 $dataRole = [
@@ -149,7 +149,7 @@ class UserController extends Controller
                 RoleUsers::create($dataRole);
             }
         }
-        return redirect()->back()->with('success','Usuário atualizado com sucesso');
+        return redirect()->back()->with('success', 'Usuário atualizado com sucesso');
     }
 
     public function update_image(Request $request, User $user)
@@ -170,12 +170,12 @@ class UserController extends Controller
         //abort(403, 'Not Permissions Delete User');
 
         $user->delete();
-        return redirect()->route('admin.users.index')->with('success','Usuário excluído com sucesso!');
+        return redirect()->route('admin.users.index')->with('success', 'Usuário excluído com sucesso!');
     }
 
     protected function _validate(Request $request, $id = null)
     {
-        if(is_null($id)){
+        if (is_null($id)) {
             return $this->validate($request, [
                 'name'  => 'required|max:191',
                 'email' => "required|string|email|max:191|unique:users",
@@ -183,7 +183,7 @@ class UserController extends Controller
                 'image'  => 'nullable',
                 'occupation_area' => 'nullable'
             ]);
-        }else{
+        } else {
             return $this->validate($request, [
                 'name'  => 'required|max:191',
                 'email' => "required|string|email|max:191|unique:users,email,{$id},id",
@@ -191,11 +191,11 @@ class UserController extends Controller
                 'image'  => 'nullable',
                 'occupation_area' => 'nullable'
             ]);
-        }        
+        }
     }
 
     protected function _rolesArray()
-    {       
+    {
         $role = Role::all()->pluck('label', 'id');
         return $role->all();
     }

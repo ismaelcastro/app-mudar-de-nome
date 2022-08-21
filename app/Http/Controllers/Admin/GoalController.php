@@ -15,7 +15,7 @@ class GoalController extends Controller
      */
     public function index()
     {
-        $goals = Goal::orderBy('goal','asc')->paginate(15);
+        $goals = Goal::orderBy('goal', 'asc')->paginate(15);
         return view('admin.pages.goals.index', compact('goals'));
     }
 
@@ -39,7 +39,7 @@ class GoalController extends Controller
     {
         $data = $this->_validate($request);
         Goal::create($data);
-        return redirect()->route('admin.goals.index')->with('success','Adicionado com sucesso!');
+        return redirect()->route('admin.goals.index')->with('success', 'Adicionado com sucesso!');
     }
 
     /**
@@ -76,7 +76,7 @@ class GoalController extends Controller
         $data = $this->_validate($request);
         $goal->fill($data);
         $goal->save();
-        return redirect()->route('admin.goals.index')->with('success','Atualizado com sucesso');
+        return redirect()->route('admin.goals.index')->with('success', 'Atualizado com sucesso');
     }
 
     /**
@@ -88,7 +88,7 @@ class GoalController extends Controller
     public function destroy(Goal $goal)
     {
         $goal->delete();
-        return redirect()->route('admin.goals.index')->with('success','Excluído com sucesso!');
+        return redirect()->route('admin.goals.index')->with('success', 'Excluído com sucesso!');
     }
 
     protected function _validate(Request $request)

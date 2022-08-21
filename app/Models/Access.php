@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Access extends Model
 {
     protected $fillable = [
-        'client_id', 
+        'client_id',
         'call_id',
         'code',
         'finish',

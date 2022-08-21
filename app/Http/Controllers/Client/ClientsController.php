@@ -19,7 +19,7 @@ class ClientsController extends Controller
 
     public function change_stagecall(Request $request)
     {
-        if(isset($request->stage)){
+        if(isset($request->clear)){
             $stage = $request->stage;
             $client = auth('client')->user();
             $call = $client->call()->orderBy('calls.id','desc')->first();
@@ -34,5 +34,15 @@ class ClientsController extends Controller
         return $this->validate($request, [
             'email' => "required|string|email|max:191|unique:clients,email,{$id},id"
         ]);
+    }
+
+    public function profile()
+    {
+        return view('client.pages.perfil.index');
+    }
+
+    public function updateProfile(Request $request, Client $client)
+    {
+        //
     }
 }

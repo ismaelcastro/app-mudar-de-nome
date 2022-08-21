@@ -15,8 +15,8 @@ class UsersTableSeeder extends Seeder
         $listArray = [
             [
                 'name' => 'Mauro Lacerda',
-                'email' => 'contato@cleverweb.com.br',
-                'password' => bcrypt('desenvolve77')
+                'email' => 'contato@email.com.br',
+                'password' => bcrypt('dev1234')
             ],
             [
                 'name' => 'Thiago Lacerda',
@@ -25,7 +25,5 @@ class UsersTableSeeder extends Seeder
             ]
         ];
         User::insert($listArray);
-
-
     }
 }

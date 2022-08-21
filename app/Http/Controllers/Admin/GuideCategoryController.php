@@ -43,7 +43,7 @@ class GuideCategoryController extends Controller
         $data['forwardingagent'] = $request->has('forwardingagent');
         $data['package'] = $request->has('package');
         GuideCategory::create($data);
-        return redirect()->back()->with('success','Categoria adicionada com sucesso!');
+        return redirect()->back()->with('success', 'Categoria adicionada com sucesso!');
     }
 
     /**
@@ -82,7 +82,7 @@ class GuideCategoryController extends Controller
         $data['package'] = $request->has('package');
         $guide_category->fill($data);
         $guide_category->save();
-        return redirect()->route('admin.guide_categories.index')->with('success','Categoria atualizada com sucesso');
+        return redirect()->route('admin.guide_categories.index')->with('success', 'Categoria atualizada com sucesso');
     }
 
     /**
@@ -94,6 +94,6 @@ class GuideCategoryController extends Controller
     public function destroy(GuideCategory $guide_category)
     {
         $guide_category->delete();
-        return redirect()->route('admin.guide_categories.index')->with('success','Categoria excluída com sucesso!');
+        return redirect()->route('admin.guide_categories.index')->with('success', 'Categoria excluída com sucesso!');
     }
 }

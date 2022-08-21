@@ -89,5 +89,4 @@ class TopQuestionController extends Controller
 
         return redirect()->route('admin.top_questions.index')->with('success', 'Principal Dúvida deletada com sucesso');
     }
-
 }

@@ -98,6 +98,5 @@ class ProcessTypeController extends Controller
         $processType->delete();
 
         return redirect()->route('admin.process_type.index')->with('success', 'Categoria deletada com sucesso');
-
     }
 }
