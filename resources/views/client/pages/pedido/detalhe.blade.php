@@ -2,56 +2,36 @@
 
 @section('content')
     <div class="d-flex flex-column flex-column-fluid">
-        <!--begin::Content-->
         <div id="kt_app_content" class="app-content flex-column-fluid">
-            <!--begin::Content container-->
             <div id="kt_app_content_container" class="app-container container-xxl">
-                <!--begin::Order details page-->
                 <div class="d-flex flex-column gap-7 gap-lg-10">
                     <div class="d-flex flex-wrap flex-stack gap-5 gap-lg-10">
-                        <!--begin:::Tabs-->
-                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-lg-n2 me-auto"
-                            role="tablist">
-                            <!--begin:::Tab item-->
+                        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-lg-n2 me-auto" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
                                    href="#kt_ecommerce_sales_order_summary" aria-selected="true" role="tab">Resumo do Pedido</a>
                             </li>
-                            <!--end:::Tab item-->
-                            <!--begin:::Tab item-->
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_sales_order_history" aria-selected="false" tabindex="-1" role="tab">
                                     Consulta
                                 </a>
                             </li>
-                            <!--end:::Tab item-->
                         </ul>
-                        <!--end:::Tabs-->
                     </div>
-                    <!--end::Order summary-->
-                    <!--begin::Tab content-->
                     <div class="tab-content">
-                        <!--begin::Tab pane RESUMO DO PEDIDO -->
+                        <!--begin::Tab pane RESUMO DO PEDIDO-->
                         <div class="tab-pane fade show active" id="kt_ecommerce_sales_order_summary" role="tab-panel">
-                            <!--begin::Order summary-->
                             <div class="d-flex flex-column flex-xl-row gap-7 gap-lg-10 pb-5">
-                                <!--begin::Order details-->
                                 <div class="card card-flush py-4 flex-row-fluid">
-                                    <!--begin::Card header-->
                                     <div class="card-header">
                                         <div class="card-title">
                                             <h2>Detalhes do Pedido (#14534)</h2>
                                         </div>
                                     </div>
-                                    <!--end::Card header-->
-                                    <!--begin::Card body-->
                                     <div class="card-body pt-0">
                                         <div class="table-responsive">
-                                            <!--begin::Table-->
                                             <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5 min-w-300px">
-                                                <!--begin::Table body-->
                                                 <tbody class="fw-semibold text-gray-600">
-                                                <!--begin::Date-->
                                                 <tr>
                                                     <td class="text-muted">
                                                         <div class="d-flex align-items-center">
@@ -72,8 +52,6 @@
                                                     </td>
                                                     <td class="fw-bold text-end">05/07/2022</td>
                                                 </tr>
-                                                <!--end::Date-->
-                                                <!--begin::Payment method-->
                                                 <tr>
                                                     <td class="text-muted">
                                                         <div class="d-flex align-items-center">
@@ -100,8 +78,6 @@
                                                         <img src="{{ asset("metronic/media/svg/card-logos/visa.svg") }}" class="w-50px ms-2">
                                                     </td>
                                                 </tr>
-                                                <!--end::Payment method-->
-                                                <!--begin::Date-->
                                                 <tr>
                                                     <td class="text-muted">
                                                         <div class="d-flex align-items-center">
@@ -122,17 +98,11 @@
                                                     </td>
                                                     <td class="fw-bold text-end">Taxa de Envio Fixo</td>
                                                 </tr>
-                                                <!--end::Date-->
                                                 </tbody>
-                                                <!--end::Table body-->
                                             </table>
-                                            <!--end::Table-->
                                         </div>
                                     </div>
-                                    <!--end::Card body-->
                                 </div>
-                                <!--end::Order details-->
-                                <!--begin::Customer details-->
                                 <div class="card card-flush py-4 flex-row-fluid">
                                     <!--begin::Card header-->
                                     <div class="card-header">
@@ -140,15 +110,10 @@
                                             <h2>Detalhes do Cliente</h2>
                                         </div>
                                     </div>
-                                    <!--end::Card header-->
-                                    <!--begin::Card body-->
                                     <div class="card-body pt-0">
                                         <div class="table-responsive">
-                                            <!--begin::Table-->
                                             <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5 min-w-300px">
-                                                <!--begin::Table body-->
                                                 <tbody class="fw-semibold text-gray-600">
-                                                <!--begin::Customer name-->
                                                 <tr>
                                                     <td class="text-muted">
                                                         <div class="d-flex align-items-center">
@@ -166,7 +131,6 @@
                                                     </td>
                                                     <td class="fw-bold text-end">
                                                         <div class="d-flex align-items-center justify-content-end">
-                                                            <!--begin:: Avatar -->
                                                             <div class="symbol symbol-circle symbol-25px overflow-hidden me-3">
                                                                 <a href="#">
                                                                     <div class="symbol-label">
@@ -174,15 +138,10 @@
                                                                     </div>
                                                                 </a>
                                                             </div>
-                                                            <!--end::Avatar-->
-                                                            <!--begin::Name-->
                                                             <a href="#" class="text-gray-600 text-hover-primary">Dan Wilson</a>
-                                                            <!--end::Name-->
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <!--end::Customer name-->
-                                                <!--begin::Customer email-->
                                                 <tr>
                                                     <td class="text-muted">
                                                         <div class="d-flex align-items-center">
@@ -201,8 +160,6 @@
                                                         <a href="#" class="text-gray-600 text-hover-primary">dam@consilting.com</a>
                                                     </td>
                                                 </tr>
-                                                <!--end::Payment method-->
-                                                <!--begin::Date-->
                                                 <tr>
                                                     <td class="text-muted">
                                                         <div class="d-flex align-items-center">
@@ -219,17 +176,11 @@
                                                     </td>
                                                     <td class="fw-bold text-end">+6141 234 567</td>
                                                 </tr>
-                                                <!--end::Date-->
                                                 </tbody>
-                                                <!--end::Table body-->
                                             </table>
-                                            <!--end::Table-->
                                         </div>
                                     </div>
-                                    <!--end::Card body-->
                                 </div>
-                                <!--end::Customer details-->
-                                <!--begin::Documents-->
                                 <div class="card card-flush py-4 flex-row-fluid">
                                     <!--begin::Card header-->
                                     <div class="card-header">
@@ -375,7 +326,7 @@
                                     </div>
                                     <!--end::Shipping address-->
                                 </div>
-                                <!--begin::Product List-->
+                               <!--begin::Product List-->
                                 <div class="card card-flush py-4 flex-row-fluid overflow-hidden">
                                     <!--begin::Card header-->
                                     <div class="card-header">
@@ -485,224 +436,151 @@
                         <!--end::Tab pane RESUMO DO PEDIDO-->
                         <!--begin::Tab pane CONSULTA -->
                         <div class="tab-pane fade" id="kt_ecommerce_sales_order_history" role="tab-panel">
-                            <!--begin::Orders-->
                             <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid" id="kt_create_account_stepper" data-kt-stepper="true">
-                                <!--begin::Aside-->
                                 <div class="card d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px w-xxl-400px me-9">
-                                    <!--begin::Wrapper-->
                                     <div class="card-body px-6 px-lg-10 px-xxl-15 py-20">
-                                        <!--begin::Nav-->
                                         <div class="stepper-nav">
                                             <!--begin::Step 1-->
                                             <div class="stepper-item current" data-kt-stepper-element="nav">
-                                                <!--begin::Wrapper-->
                                                 <div class="stepper-wrapper">
-                                                    <!--begin::Icon-->
                                                     <div class="stepper-icon w-40px h-40px">
                                                         <i class="stepper-check fas fa-check"></i>
                                                         <span class="stepper-number">1</span>
                                                     </div>
-                                                    <!--end::Icon-->
-                                                    <!--begin::Label-->
+
                                                     <div class="stepper-label">
-                                                        <h3 class="stepper-title">Account Type</h3>
-                                                        <div class="stepper-desc fw-semibold">Setup Your Account Details</div>
+                                                        <h3 class="stepper-title">Quem é o solicitante?</h3>
+                                                        <div class="stepper-desc fw-semibold">Informe quem deseja mudar o nome</div>
                                                     </div>
-                                                    <!--end::Label-->
                                                 </div>
-                                                <!--end::Wrapper-->
-                                                <!--begin::Line-->
                                                 <div class="stepper-line h-40px"></div>
-                                                <!--end::Line-->
                                             </div>
                                             <!--end::Step 1-->
 
                                             <!--begin::Step 2-->
                                             <div class="stepper-item" data-kt-stepper-element="nav">
-                                                <!--begin::Wrapper-->
                                                 <div class="stepper-wrapper">
-                                                    <!--begin::Icon-->
                                                     <div class="stepper-icon w-40px h-40px">
                                                         <i class="stepper-check fas fa-check"></i>
                                                         <span class="stepper-number">2</span>
                                                     </div>
-                                                    <!--end::Icon-->
-                                                    <!--begin::Label-->
                                                     <div class="stepper-label">
-                                                        <h3 class="stepper-title">Account Settings</h3>
-                                                        <div class="stepper-desc fw-semibold">Setup Your Account
-                                                            Settings
-                                                        </div>
+                                                        <h3 class="stepper-title">Detalhes</h3>
+                                                        <div class="stepper-desc fw-semibold">Nos informe sobre a Retificação desejada</div>
                                                     </div>
-                                                    <!--end::Label-->
                                                 </div>
-                                                <!--end::Wrapper-->
-                                                <!--begin::Line-->
                                                 <div class="stepper-line h-40px"></div>
-                                                <!--end::Line-->
                                             </div>
                                             <!--end::Step 2-->
 
                                             <!--begin::Step 3-->
                                             <div class="stepper-item" data-kt-stepper-element="nav">
-                                                <!--begin::Wrapper-->
                                                 <div class="stepper-wrapper">
-                                                    <!--begin::Icon-->
                                                     <div class="stepper-icon w-40px h-40px">
                                                         <i class="stepper-check fas fa-check"></i>
-                                                        <span class="stepper-number">4</span>
+                                                        <span class="stepper-number">3</span>
                                                     </div>
-                                                    <!--end::Icon-->
-                                                    <!--begin::Label-->
                                                     <div class="stepper-label">
-                                                        <h3 class="stepper-title">Business Info</h3>
-                                                        <div class="stepper-desc fw-semibold">Your Business Related
-                                                            Info
-                                                        </div>
+                                                        <h3 class="stepper-title">Certidão de Nascimento</h3>
+                                                        <div class="stepper-desc fw-semibold">Informe sobre sua Certidão de Nascimento</div>
                                                     </div>
-                                                    <!--end::Label-->
                                                 </div>
-                                                <!--end::Wrapper-->
-                                                <!--begin::Line-->
                                                 <div class="stepper-line h-40px"></div>
-                                                <!--end::Line-->
                                             </div>
                                             <!--end::Step 3-->
 
                                             <!--begin::Step 4-->
                                             <div class="stepper-item" data-kt-stepper-element="nav">
-                                                <!--begin::Wrapper-->
                                                 <div class="stepper-wrapper">
-                                                    <!--begin::Icon-->
+                                                    <div class="stepper-icon w-40px h-40px">
+                                                        <i class="stepper-check fas fa-check"></i>
+                                                        <span class="stepper-number">4</span>
+                                                    </div>
+                                                    <div class="stepper-label">
+                                                        <h3 class="stepper-title">Revisão</h3>
+                                                        <div class="stepper-desc fw-semibold">Revisar e Enviar</div>
+                                                    </div>
+                                                </div>
+                                                <div class="stepper-line h-40px"></div>
+                                            </div>
+                                            <!--end::Step 4-->
+
+                                            <!--begin::Step 5-->
+                                            <div class="stepper-item" data-kt-stepper-element="nav">
+                                                <div class="stepper-wrapper">
                                                     <div class="stepper-icon w-40px h-40px">
                                                         <i class="stepper-check fas fa-check"></i>
                                                         <span class="stepper-number">5</span>
                                                     </div>
-                                                    <!--end::Icon-->
-                                                    <!--begin::Label-->
                                                     <div class="stepper-label">
-                                                        <h3 class="stepper-title">Billing Details</h3>
-                                                        <div class="stepper-desc fw-semibold">Set Your Payment Methods
-                                                        </div>
+                                                        <h3 class="stepper-title">Concluído</h3>
+                                                        <div class="stepper-desc fw-semibold"></div>
                                                     </div>
-                                                    <!--end::Label-->
                                                 </div>
-                                                <!--end::Wrapper-->
-                                                <!--begin::Line-->
-                                                <div class="stepper-line h-40px"></div>
-                                                <!--end::Line-->
-                                            </div>
-                                            <!--end::Step 5-->
-
-                                            <!--begin::Step 5-->
-                                            <div class="stepper-item" data-kt-stepper-element="nav">
-                                                <!--begin::Wrapper-->
-                                                <div class="stepper-wrapper">
-                                                    <!--begin::Icon-->
-                                                    <div class="stepper-icon w-40px h-40px">
-                                                        <i class="stepper-check fas fa-check"></i>
-                                                        <span class="stepper-number">6</span>
-                                                    </div>
-                                                    <!--end::Icon-->
-                                                    <!--begin::Label-->
-                                                    <div class="stepper-label">
-                                                        <h3 class="stepper-title">Completed</h3>
-                                                        <div class="stepper-desc fw-semibold">Woah, we are here</div>
-                                                    </div>
-                                                    <!--end::Label-->
-                                                </div>
-                                                <!--end::Wrapper-->
                                             </div>
                                             <!--end::Step 5-->
                                         </div>
-                                        <!--end::Nav-->
                                     </div>
-                                    <!--end::Wrapper-->
                                 </div>
-                                <!--begin::Aside-->
-                                <!--begin::Content-->
+
                                 <div class="card d-flex flex-row-fluid flex-center">
-                                    <!--begin::Form-->
                                     <form class="card-body py-20 w-100 w-xl-700px px-9 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_create_account_form">
                                         <!--begin::Step 1-->
                                         <div class="current" data-kt-stepper-element="content">
-                                            <!--begin::Wrapper-->
                                             <div class="w-100">
-                                                <!--begin::Heading-->
                                                 <div class="pb-10 pb-lg-15">
-                                                    <!--begin::Title-->
                                                     <h2 class="fw-bold d-flex align-items-center text-dark">Quem é o Solicitante?</h2>
-                                                    <!--end::Title-->
-                                                    <!--begin::Notice-->
                                                     <div class="text-muted fw-semibold fs-6">Informe quem deseja mudar o nome.</div>
-                                                    <!--end::Notice-->
                                                 </div>
-                                                <!--end::Heading-->
-                                                <!--begin::Input group-->
+
                                                 <div class="fv-row fv-plugins-icon-container">
-                                                    <!--begin::Row-->
                                                     <div class="row">
-                                                        <!--begin::Col-->
-                                                        <div class="col-lg-6">
-                                                            <!--begin::Option-->
-                                                            <input type="radio" class="btn-check" name="account_type"
-                                                                   value="personal" checked="checked"
-                                                                   id="kt_create_account_form_account_type_personal">
-                                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-10" for="kt_create_account_form_account_type_personal">
-                                                                <!--begin::Svg Icon | path: icons/duotune/communication/com005.svg-->
-                                                                <span class="svg-icon svg-icon-3x me-5">
-                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M20 14H18V10H20C20.6 10 21 10.4 21 11V13C21 13.6 20.6 14 20 14ZM21 19V17C21 16.4 20.6 16 20 16H18V20H20C20.6 20 21 19.6 21 19ZM21 7V5C21 4.4 20.6 4 20 4H18V8H20C20.6 8 21 7.6 21 7Z"
-                                                                              fill="currentColor"></path>
-                                                                        <path opacity="0.3" d="M17 22H3C2.4 22 2 21.6 2 21V3C2 2.4 2.4 2 3 2H17C17.6 2 18 2.4 18 3V21C18 21.6 17.6 22 17 22ZM10 7C8.9 7 8 7.9 8 9C8 10.1 8.9 11 10 11C11.1 11 12 10.1 12 9C12 7.9 11.1 7 10 7ZM13.3 16C14 16 14.5 15.3 14.3 14.7C13.7 13.2 12 12 10.1 12C8.10001 12 6.49999 13.1 5.89999 14.7C5.59999 15.3 6.19999 16 7.39999 16H13.3Z"
-                                                                              fill="currentColor"></path>
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                                <!--begin::Info-->
-                                                                <span class="d-block fw-semibold text-start">
-																						<span class="text-dark fw-bold d-block fs-4 mb-2">Personal Account</span>
-																						<span class="text-muted fw-semibold fs-6">If you need more info, please check it out</span>
-																					</span>
-                                                                <!--end::Info-->
-                                                            </label>
-                                                            <!--end::Option-->
+                                                        <div class="mb-0 fv-row fv-plugins-icon-container">
+                                                            <div class="mb-0">
+                                                                <label class="d-flex flex-stack mb-5 cursor-pointer">
+                                                                    <span class="d-flex align-items-center me-2">
+                                                                        <span class="symbol symbol-50px me-6">
+                                                                            <span class="symbol-label">
+                                                                                <span class="svg-icon svg-icon-1 svg-icon-gray-600">
+                                                                                    {!! file_get_contents('metronic/media/icons/duotune/communication/com013.svg') !!}
+                                                                                </span>
+                                                                            </span>
+                                                                        </span>
+
+                                                                        <span class="d-flex flex-column">
+                                                                            <span class="fw-bold text-gray-800 text-hover-primary fs-5">Eu</span>
+                                                                            <span class="fs-6 fw-semibold text-muted">Contratei o serviço para mim.</span>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="form-check form-check-custom form-check-solid">
+                                                                        <input class="form-check-input" type="radio" checked="checked" name="requester" value="self">
+                                                                    </span>
+                                                                </label>
+
+                                                                <label class="d-flex flex-stack mb-5 cursor-pointer">
+                                                                    <span class="d-flex align-items-center me-2">
+                                                                        <span class="symbol symbol-50px me-6">
+                                                                            <span class="symbol-label">
+                                                                                <span class="svg-icon svg-icon-1 svg-icon-gray-600">
+                                                                                    {!! file_get_contents('metronic/media/icons/duotune/communication/com014.svg') !!}
+                                                                                </span>
+                                                                            </span>
+                                                                        </span>
+
+                                                                        <span class="d-flex flex-column">
+                                                                            <span class="fw-bold text-gray-800 text-hover-primary fs-5">Outra pessoa</span>
+                                                                            <span class="fs-6 fw-semibold text-muted">Contratei o serviço para dar de presente.</span>
+                                                                        </span>
+                                                                    </span>
+
+                                                                    <span class="form-check form-check-custom form-check-solid">
+                                                                        <input class="form-check-input" type="radio" name="requester" value="another">
+                                                                    </span>
+                                                                </label>
+                                                            </div>
                                                             <div class="fv-plugins-message-container invalid-feedback"></div>
                                                             <div class="fv-plugins-message-container invalid-feedback"></div>
                                                         </div>
-                                                        <!--end::Col-->
-                                                        <!--begin::Col-->
-                                                        <div class="col-lg-6">
-                                                            <!--begin::Option-->
-                                                            <input type="radio" class="btn-check" name="account_type"
-                                                                   value="corporate"
-                                                                   id="kt_create_account_form_account_type_corporate">
-                                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center"
-                                                                   for="kt_create_account_form_account_type_corporate">
-                                                                <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
-                                                                <span class="svg-icon svg-icon-3x me-5">
-                                                                    <svg width="24" height="24"
-                                                                         viewBox="0 0 24 24"
-                                                                         fill="none"
-                                                                         xmlns="http://www.w3.org/2000/svg">
-                                                                        <path opacity="0.3"
-                                                                              d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z"
-                                                                              fill="currentColor"></path>
-                                                                        <path d="M14 6V5H10V6H8V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V6H14ZM20 15H14V16C14 16.6 13.5 17 13 17H11C10.5 17 10 16.6 10 16V15H4C3.6 15 3.3 14.9 3 14.7V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V14.7C20.7 14.9 20.4 15 20 15Z"
-                                                                              fill="currentColor"></path>
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                                <!--begin::Info-->
-                                                                <span class="d-block fw-semibold text-start">
-                                                                    <span class="text-dark fw-bold d-block fs-4 mb-2">Corporate Account</span>
-                                                                    <span class="text-muted fw-semibold fs-6">Create corporate account to mane users</span>
-                                                                </span>
-                                                                <!--end::Info-->
-                                                            </label>
-                                                            <!--end::Option-->
-                                                        </div>
-                                                        <!--end::Col-->
                                                     </div>
                                                     <!--end::Row-->
                                                 </div>
@@ -714,245 +592,46 @@
 
                                         <!--begin::Step 2-->
                                         <div data-kt-stepper-element="content">
-                                            <!--begin::Wrapper-->
                                             <div class="w-100">
-                                                <!--begin::Heading-->
                                                 <div class="pb-10 pb-lg-15">
-                                                    <!--begin::Title-->
                                                     <h2 class="fw-bold text-dark">Detalhes</h2>
-                                                    <!--end::Title-->
-                                                    <!--begin::Notice-->
                                                     <div class="text-muted fw-semibold fs-6">Nos informe sobre a Retificação desejada.</div>
-                                                    <!--end::Notice-->
                                                 </div>
-                                                <!--end::Heading-->
-                                                <!--begin::Input group-->
+
                                                 <div class="mb-10 fv-row fv-plugins-icon-container">
-                                                    <!--begin::Label-->
-                                                    <label class="d-flex align-items-center form-label mb-3">Specify Team Size
-                                                        <i class="fas fa-exclamation-circle ms-2 fs-7"
-                                                           data-bs-toggle="tooltip"
-                                                           aria-label="Provide your team size to help us setup your billing"
-                                                           data-kt-initialized="1"></i>
-                                                    </label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Row-->
-                                                    <div class="row mb-2" data-kt-buttons="true" data-kt-initialized="1">
-                                                        <!--begin::Col-->
-                                                        <div class="col">
-                                                            <!--begin::Option-->
-                                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                                                                <input type="radio" class="btn-check" name="account_team_size" value="1-1">
-                                                                <span class="fw-bold fs-3">1-1</span>
-                                                            </label>
-                                                            <!--end::Option-->
-                                                        </div>
-                                                        <!--end::Col-->
-                                                        <!--begin::Col-->
-                                                        <div class="col">
-                                                            <!--begin::Option-->
-                                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4 active">
-                                                                <input type="radio" class="btn-check"
-                                                                       name="account_team_size" checked="checked"
-                                                                       value="2-10">
-                                                                <span class="fw-bold fs-3">2-10</span>
-                                                            </label>
-                                                            <!--end::Option-->
-                                                        </div>
-                                                        <!--end::Col-->
-                                                        <!--begin::Col-->
-                                                        <div class="col">
-                                                            <!--begin::Option-->
-                                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                                                                <input type="radio" class="btn-check"
-                                                                       name="account_team_size" value="10-50">
-                                                                <span class="fw-bold fs-3">10-50</span>
-                                                            </label>
-                                                            <!--end::Option-->
-                                                        </div>
-                                                        <!--end::Col-->
-                                                        <!--begin::Col-->
-                                                        <div class="col">
-                                                            <!--begin::Option-->
-                                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                                                                <input type="radio" class="btn-check"
-                                                                       name="account_team_size" value="50+">
-                                                                <span class="fw-bold fs-3">50+</span>
-                                                            </label>
-                                                            <!--end::Option-->
-                                                        </div>
-                                                        <!--end::Col-->
-                                                    </div>
-                                                    <!--end::Row-->
-                                                    <!--begin::Hint-->
-                                                    <div class="form-text">Customers will see this shortened version of
-                                                        your statement descriptor
-                                                    </div>
-                                                    <!--end::Hint-->
-                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
-                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                    <label class="form-label mb-3">Qual a alteração desejada?</label>
+                                                    <select class="form-select form-select-solid" data-control="select2" data-placeholder="Selecione uma opção">
+                                                        <option></option>
+                                                        @foreach($changeTypes as $type)
+                                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
+
                                                 <div class="mb-10 fv-row fv-plugins-icon-container">
-                                                    <!--begin::Label-->
-                                                    <label class="form-label mb-3">Team Account Name</label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Input-->
-                                                    <input type="text"
-                                                           class="form-control form-control-lg form-control-solid"
-                                                           name="account_name" placeholder="" value="">
-                                                    <!--end::Input-->
-                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                    <label class="form-label mb-3">Possui CNH?</label>
+                                                    <input type="text" class="form-control form-control-lg form-control-solid" name="account_name" placeholder="" value="">
                                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="mb-0 fv-row fv-plugins-icon-container">
-                                                    <!--begin::Label-->
-                                                    <label class="d-flex align-items-center form-label mb-5">Select
-                                                        Account Plan
-                                                        <i class="fas fa-exclamation-circle ms-2 fs-7"
-                                                           data-bs-toggle="tooltip"
-                                                           aria-label="Monthly billing will be based on your account plan"
-                                                           data-kt-initialized="1"></i></label>
-                                                    <!--end::Label-->
-                                                    <!--begin::Options-->
-                                                    <div class="mb-0">
-                                                        <!--begin:Option-->
-                                                        <label class="d-flex flex-stack mb-5 cursor-pointer">
-                                                            <!--begin:Label-->
-                                                            <span class="d-flex align-items-center me-2">
-																					<!--begin::Icon-->
-																					<span class="symbol symbol-50px me-6">
-																						<span class="symbol-label">
-																							<!--begin::Svg Icon | path: icons/duotune/finance/fin001.svg-->
-																							<span class="svg-icon svg-icon-1 svg-icon-gray-600">
-																								<svg width="24"
-                                                                                                     height="24"
-                                                                                                     viewBox="0 0 24 24"
-                                                                                                     fill="none"
-                                                                                                     xmlns="http://www.w3.org/2000/svg">
-																									<path d="M20 19.725V18.725C20 18.125 19.6 17.725 19 17.725H5C4.4 17.725 4 18.125 4 18.725V19.725H3C2.4 19.725 2 20.125 2 20.725V21.725H22V20.725C22 20.125 21.6 19.725 21 19.725H20Z"
-                                                                                                          fill="currentColor"></path>
-																									<path opacity="0.3"
-                                                                                                          d="M22 6.725V7.725C22 8.325 21.6 8.725 21 8.725H18C18.6 8.725 19 9.125 19 9.725C19 10.325 18.6 10.725 18 10.725V15.725C18.6 15.725 19 16.125 19 16.725V17.725H15V16.725C15 16.125 15.4 15.725 16 15.725V10.725C15.4 10.725 15 10.325 15 9.725C15 9.125 15.4 8.725 16 8.725H13C13.6 8.725 14 9.125 14 9.725C14 10.325 13.6 10.725 13 10.725V15.725C13.6 15.725 14 16.125 14 16.725V17.725H10V16.725C10 16.125 10.4 15.725 11 15.725V10.725C10.4 10.725 10 10.325 10 9.725C10 9.125 10.4 8.725 11 8.725H8C8.6 8.725 9 9.125 9 9.725C9 10.325 8.6 10.725 8 10.725V15.725C8.6 15.725 9 16.125 9 16.725V17.725H5V16.725C5 16.125 5.4 15.725 6 15.725V10.725C5.4 10.725 5 10.325 5 9.725C5 9.125 5.4 8.725 6 8.725H3C2.4 8.725 2 8.325 2 7.725V6.725L11 2.225C11.6 1.925 12.4 1.925 13.1 2.225L22 6.725ZM12 3.725C11.2 3.725 10.5 4.425 10.5 5.225C10.5 6.025 11.2 6.725 12 6.725C12.8 6.725 13.5 6.025 13.5 5.225C13.5 4.425 12.8 3.725 12 3.725Z"
-                                                                                                          fill="currentColor"></path>
-																								</svg>
-																							</span>
-                                                                                            <!--end::Svg Icon-->
-																						</span>
-																					</span>
-                                                                <!--end::Icon-->
-                                                                <!--begin::Description-->
-																					<span class="d-flex flex-column">
-																						<span class="fw-bold text-gray-800 text-hover-primary fs-5">Company Account</span>
-																						<span class="fs-6 fw-semibold text-muted">Use images to enhance your post flow</span>
-																					</span>
-                                                                <!--end:Description-->
-																				</span>
-                                                            <!--end:Label-->
-                                                            <!--begin:Input-->
-                                                            <span class="form-check form-check-custom form-check-solid">
-																					<input class="form-check-input"
-                                                                                           type="radio"
-                                                                                           name="account_plan"
-                                                                                           value="1">
-																				</span>
-                                                            <!--end:Input-->
-                                                        </label>
-                                                        <!--end::Option-->
-                                                        <!--begin:Option-->
-                                                        <label class="d-flex flex-stack mb-5 cursor-pointer">
-                                                            <!--begin:Label-->
-                                                            <span class="d-flex align-items-center me-2">
-                                                                <!--begin::Icon-->
-                                                                <span class="symbol symbol-50px me-6">
-                                                                    <span class="symbol-label">
-                                                                        <!--begin::Svg Icon | path: icons/duotune/graphs/gra006.svg-->
-                                                                        <span class="svg-icon svg-icon-1 svg-icon-gray-600">
-                                                                            <svg width="24"
-                                                                                 height="24"
-                                                                                 viewBox="0 0 24 24"
-                                                                                 fill="none"
-                                                                                 xmlns="http://www.w3.org/2000/svg">
-                                                                                <path d="M13 5.91517C15.8 6.41517 18 8.81519 18 11.8152C18 12.5152 17.9 13.2152 17.6 13.9152L20.1 15.3152C20.6 15.6152 21.4 15.4152 21.6 14.8152C21.9 13.9152 22.1 12.9152 22.1 11.8152C22.1 7.01519 18.8 3.11521 14.3 2.01521C13.7 1.91521 13.1 2.31521 13.1 3.01521V5.91517H13Z"
-                                                                                      fill="currentColor"></path>
-                                                                                <path opacity="0.3"
-                                                                                      d="M19.1 17.0152C19.7 17.3152 19.8 18.1152 19.3 18.5152C17.5 20.5152 14.9 21.7152 12 21.7152C9.1 21.7152 6.50001 20.5152 4.70001 18.5152C4.30001 18.0152 4.39999 17.3152 4.89999 17.0152L7.39999 15.6152C8.49999 16.9152 10.2 17.8152 12 17.8152C13.8 17.8152 15.5 17.0152 16.6 15.6152L19.1 17.0152ZM6.39999 13.9151C6.19999 13.2151 6 12.5152 6 11.8152C6 8.81517 8.2 6.41515 11 5.91515V3.01519C11 2.41519 10.4 1.91519 9.79999 2.01519C5.29999 3.01519 2 7.01517 2 11.8152C2 12.8152 2.2 13.8152 2.5 14.8152C2.7 15.4152 3.4 15.7152 4 15.3152L6.39999 13.9151Z"
-                                                                                      fill="currentColor"></path>
-                                                                            </svg>
-                                                                        </span>
-                                                                        <!--end::Svg Icon-->
-                                                                    </span>
-                                                                </span>
-                                                                <!--end::Icon-->
-                                                                <!--begin::Description-->
-                                                                    <span class="d-flex flex-column">
-                                                                        <span class="fw-bold text-gray-800 text-hover-primary fs-5">Developer Account</span>
-                                                                        <span class="fs-6 fw-semibold text-muted">Use images to your post time</span>
-                                                                    </span>
-                                                                <!--end:Description-->
-                                                            </span>
-                                                            <!--end:Label-->
-                                                            <!--begin:Input-->
-                                                            <span class="form-check form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="radio" checked="checked" name="account_plan" value="2">
-                                                            </span>
-                                                            <!--end:Input-->
-                                                        </label>
-                                                        <!--end::Option-->
-                                                        <!--begin:Option-->
-                                                        <label class="d-flex flex-stack mb-0 cursor-pointer">
-                                                            <!--begin:Label-->
-                                                            <span class="d-flex align-items-center me-2">
-                                                                <!--begin::Icon-->
-                                                                <span class="symbol symbol-50px me-6">
-                                                                    <span class="symbol-label">
-                                                                        <!--begin::Svg Icon | path: icons/duotune/graphs/gra008.svg-->
-                                                                        <span class="svg-icon svg-icon-1 svg-icon-gray-600">
-                                                                            <svg width="24"
-                                                                                 height="24"
-                                                                                 viewBox="0 0 24 24"
-                                                                                 fill="none"
-                                                                                 xmlns="http://www.w3.org/2000/svg">
-                                                                                <path d="M13 10.9128V3.01281C13 2.41281 13.5 1.91281 14.1 2.01281C16.1 2.21281 17.9 3.11284 19.3 4.61284C20.7 6.01284 21.6 7.91285 21.9 9.81285C22 10.4129 21.5 10.9128 20.9 10.9128H13Z"
-                                                                                      fill="currentColor"></path>
-                                                                                <path opacity="0.3"
-                                                                                      d="M13 12.9128V20.8129C13 21.4129 13.5 21.9129 14.1 21.8129C16.1 21.6129 17.9 20.7128 19.3 19.2128C20.7 17.8128 21.6 15.9128 21.9 14.0128C22 13.4128 21.5 12.9128 20.9 12.9128H13Z"
-                                                                                      fill="currentColor"></path>
-                                                                                <path opacity="0.3"
-                                                                                      d="M11 19.8129C11 20.4129 10.5 20.9129 9.89999 20.8129C5.49999 20.2129 2 16.5128 2 11.9128C2 7.31283 5.39999 3.51281 9.89999 3.01281C10.5 2.91281 11 3.41281 11 4.01281V19.8129Z"
-                                                                                      fill="currentColor"></path>
-                                                                            </svg>
-                                                                        </span>
-                                                                        <!--end::Svg Icon-->
-                                                                    </span>
-                                                                </span>
-                                                                <!--end::Icon-->
-                                                                <!--begin::Description-->
-                                                                    <span class="d-flex flex-column">
-                                                                        <span class="fw-bold text-gray-800 text-hover-primary fs-5">Testing Account</span>
-                                                                        <span class="fs-6 fw-semibold text-muted">Use images to enhance time travel rivers</span>
-                                                                    </span>
-                                                                <!--end:Description-->
-																				</span>
-                                                            <!--end:Label-->
-                                                            <!--begin:Input-->
-                                                            <span class="form-check form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="radio" name="account_plan" value="3">
-                                                            </span>
-                                                            <!--end:Input-->
-                                                        </label>
-                                                        <!--end::Option-->
-                                                    </div>
-                                                    <!--end::Options-->
-                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+
+                                                <div class="mb-10 fv-row fv-plugins-icon-container">
+                                                    <label class="form-label mb-3">Possui Passaporte? SIM / NÃO</label>
+                                                    <input type="text" class="form-control form-control-lg form-control-solid" name="account_name" placeholder="" value="">
                                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
-                                                <!--end::Input group-->
+
+                                                <div class="mb-10 fv-row fv-plugins-icon-container">
+                                                    <label class="form-label mb-3">Qual o nome completo atual?</label>
+                                                    <input type="text" class="form-control form-control-lg form-control-solid" name="account_name" placeholder="" value="">
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
+
+                                                <div class="mb-10 fv-row fv-plugins-icon-container">
+                                                    <label class="form-label mb-3">Qual o nome completo pretendido?</label>
+                                                    <input type="text" class="form-control form-control-lg form-control-solid" name="account_name" placeholder="" value="">
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
                                             </div>
-                                            <!--end::Wrapper-->
                                         </div>
                                         <!--end::Step 2-->
 
@@ -1102,66 +781,36 @@
 
                                         <!--begin::Step 5-->
                                         <div data-kt-stepper-element="content">
-                                            <!--begin::Wrapper-->
                                             <div class="w-100">
-                                                <!--begin::Heading-->
                                                 <div class="pb-8 pb-lg-10">
-                                                    <!--begin::Title-->
                                                     <h2 class="fw-bold text-dark">Consulta Concluida!</h2>
-                                                    <!--end::Title-->
-                                                    <!--begin::Notice-->
                                                     <div class="text-muted fw-semibold fs-6">Enquanto aguarda a emissão da documentação,
                                                         <a href="#" class="link-primary fw-bold">clique aqui</a>
                                                         para acessar o seu retatóeio personalizado
                                                     </div>
-                                                    <!--end::Notice-->
                                                 </div>
-                                                <!--end::Heading-->
-                                                <!--begin::Body-->
                                                 <div class="mb-0">
-                                                    <!--begin::Alert-->
-                                                    <!--begin::Notice-->
                                                     <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
-                                                        <!--begin::Icon-->
-                                                        <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
                                                         <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"></rect>
-                                                                <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor"></rect>
-                                                                <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor"></rect>
-                                                            </svg>
+                                                            {!! file_get_contents('metronic/media/icons/duotune/general/gen044.svg') !!}
                                                         </span>
-                                                        <!--end::Svg Icon-->
-                                                        <!--end::Icon-->
-                                                        <!--begin::Wrapper-->
+
                                                         <div class="d-flex flex-stack flex-grow-1">
-                                                            <!--begin::Content-->
                                                             <div class="fw-semibold">
                                                                 <h4 class="text-gray-900 fw-bold">Documentos em processamento!</h4>
                                                                 <div class="fs-6 text-gray-700">Para acompanhar o status da documentação
                                                                     <a href="#" class="fw-bold" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">clique aqui</a>
                                                                 </div>
                                                             </div>
-                                                            <!--end::Content-->
                                                         </div>
-                                                        <!--end::Wrapper-->
                                                     </div>
-                                                    <!--end::Notice-->
-                                                    <!--begin::Notice-->
+
                                                     <div class="notice d-flex bg-light-success rounded border-success border border-dashed p-6">
-                                                        <!--begin::Icon-->
-                                                        <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
                                                         <span class="svg-icon svg-icon-2hx svg-icon-success me-4">
-														<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-															<path opacity="0.3" d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z" fill="currentColor"></path>
-															<path d="M10.5606 11.3042L9.57283 10.3018C9.28174 10.0065 8.80522 10.0065 8.51412 10.3018C8.22897 10.5912 8.22897 11.0559 8.51412 11.3452L10.4182 13.2773C10.8099 13.6747 11.451 13.6747 11.8427 13.2773L15.4859 9.58051C15.771 9.29117 15.771 8.82648 15.4859 8.53714C15.1948 8.24176 14.7183 8.24176 14.4272 8.53714L11.7002 11.3042C11.3869 11.6221 10.874 11.6221 10.5606 11.3042Z" fill="currentColor"></path>
-														</svg>
-													</span>
-                                                        <!--end::Svg Icon-->
-                                                        <!--end::Icon-->
-                                                        <!--begin::Wrapper-->
+                                                            {!! file_get_contents('metronic/media/icons/duotune/general/gen044.svg') !!}
+                                                        </span>
+
                                                         <div class="d-flex flex-stack flex-grow-1">
-                                                            <!--begin::Content-->
                                                             <div class="fw-semibold">
                                                                 <h4 class="text-gray-900 fw-bold">Relatório disponível</h4>
                                                                 <div class="fs-6 text-gray-700">Para baixar o seu relatório personalizado
@@ -1169,17 +818,12 @@
                                                                        data-bs-target="#kt_modal_processamento_certidoes">clique aqui</a>
                                                                 </div>
                                                             </div>
-                                                            <!--end::Content-->
                                                         </div>
-                                                        <!--end::Wrapper-->
                                                     </div>
-                                                    <!--end::Notice-->
-                                                    <!--end::Alert-->
                                                 </div>
-                                                <!--end::Body-->
                                             </div>
-                                            <!--end::Wrapper-->
                                         </div>
+
                                         <!--begin::Modal - Processamento de Certidões-->
                                         <div class="modal fade" id="kt_modal_processamento_certidoes" tabindex="-1" style="display: none;" aria-hidden="true">
                                             <!--begin::Modal dialog-->
@@ -1189,53 +833,29 @@
                                                     <!--begin::Modal header-->
                                                     <div class="modal-header pb-0 border-0 justify-content-end">
                                                         <!--begin::Close-->
-                                                        <div class="btn btn-sm btn-icon btn-active-color-primary"
-                                                             data-bs-dismiss="modal">
-                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                                                             <span class="svg-icon svg-icon-1">
-								                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
-									                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
-								                                </svg>
+                                                                {!! file_get_contents('metronic/media/icons/duotune/arrows/arr061.svg') !!}
                                                             </span>
-                                                            <!--end::Svg Icon-->
                                                         </div>
-                                                        <!--end::Close-->
                                                     </div>
-                                                    <!--begin::Modal header-->
-                                                    <!--begin::Modal body-->
+
                                                     <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
-                                                        <!--begin::Heading-->
                                                         <div class="mb-13 text-center">
-                                                            <!--begin::Title-->
                                                             <h1 class="mb-3">Processamento das Certidões</h1>
-                                                            <!--end::Title-->
-                                                            <!--begin::Description-->
                                                             <div class="text-muted fw-semibold fs-5">Acompanhe em tempo real o processamento das certidões.</div>
-                                                            <!--end::Description-->
                                                         </div>
-                                                        <!--end::Heading-->
+
                                                         <div class="col-md-6 col-lg-6 col-xl-6 offset-md-3 offset-lg-3 offset-xl-3">
-                                                            <!--begin::Card widget 16-->
-                                                            <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-center border-0 h-md-50 mb-5 mb-xl-10"
-                                                                 style="background-color: #080655">
-                                                                <!--begin::Header-->
+                                                            <div class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-center border-0 h-md-50 mb-5 mb-xl-10" style="background-color: #080655">
                                                                 <div class="card-header pt-5">
-                                                                    <!--begin::Title-->
                                                                     <div class="card-title d-flex flex-column">
-                                                                        <!--begin::Amount-->
                                                                         <span class="fs-2hx fw-bold text-white me-2 lh-1 ls-n2">69</span>
-                                                                        <!--end::Amount-->
-                                                                        <!--begin::Subtitle-->
                                                                         <span class="text-white opacity-50 pt-1 fw-semibold fs-6">Certdões Obrigatórias</span>
-                                                                        <!--end::Subtitle-->
                                                                     </div>
-                                                                    <!--end::Title-->
                                                                 </div>
-                                                                <!--end::Header-->
-                                                                <!--begin::Card body-->
+
                                                                 <div class="card-body d-flex align-items-end pt-0">
-                                                                    <!--begin::Progress-->
                                                                     <div class="d-flex align-items-center flex-column mt-3 w-100">
                                                                         <div class="d-flex justify-content-between fw-bold fs-6 text-white opacity-50 w-100 mt-auto mb-2">
                                                                             <span>43 Pending</span>
@@ -1245,196 +865,91 @@
                                                                             <div class="bg-danger rounded h-8px" role="progressbar" style="width: 72%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                                                         </div>
                                                                     </div>
-                                                                    <!--end::Progress-->
                                                                 </div>
-                                                                <!--end::Card body-->
                                                             </div>
-                                                            <!--end::Card widget 16-->
                                                         </div>
+
                                                         <div class="col-lg-12">
-                                                            <!--begin::Tab content-->
                                                             <div class="tab-content rounded h-100 bg-light p-10">
-                                                                <!--begin::Tab Pane-->
-                                                                <div class="tab-pane fade show active"
-                                                                     id="kt_upgrade_plan_startup" role="tabpanel">
-                                                                    <!--begin::Heading-->
+                                                                <div class="tab-pane fade show active" id="kt_upgrade_plan_startup" role="tabpanel">
                                                                     <div class="pb-5">
                                                                         <h2 class="fw-bold text-dark">What’s in Startup Plan?</h2>
                                                                         <div class="text-muted fw-semibold">Optimal for 10+ team size and new startup</div>
                                                                     </div>
-                                                                    <!--end::Heading-->
-                                                                    <!--begin::Body-->
+
                                                                     <div class="pt-1">
-                                                                        <!--begin::Item-->
                                                                         <div class="d-flex align-items-center mb-7">
                                                                             <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 10 Active Users</span>
-                                                                            <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                                             <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"></rect>
-                                                                                    <path d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z" fill="currentColor"></path>
-                                                                                </svg>
+                                                                                {!! file_get_contents('metronic/media/icons/duotune/general/gen043.svg') !!}
                                                                             </span>
-                                                                            <!--end::Svg Icon-->
                                                                         </div>
-                                                                        <!--end::Item-->
-                                                                        <!--begin::Item-->
+
                                                                         <div class="d-flex align-items-center mb-7">
                                                                             <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 30 Project Integrations</span>
-                                                                            <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                                             <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"></rect>
-                                                                                    <path d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z" fill="currentColor"></path>
-                                                                                </svg>
+                                                                                {!! file_get_contents('metronic/media/icons/duotune/general/gen043.svg') !!}
                                                                             </span>
-                                                                            <!--end::Svg Icon-->
                                                                         </div>
-                                                                        <!--end::Item-->
-                                                                        <!--begin::Item-->
+
                                                                         <div class="d-flex align-items-center mb-7">
                                                                             <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Analytics Module</span>
-                                                                            <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                                             <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                                                          rx="10" fill="currentColor"></rect>
-                                                                                    <path d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
-                                                                                          fill="currentColor"></path>
-                                                                                </svg>
+                                                                                {!! file_get_contents('metronic/media/icons/duotune/general/gen043.svg') !!}
                                                                             </span>
-                                                                            <!--end::Svg Icon-->
                                                                         </div>
-                                                                        <!--end::Item-->
-                                                                        <!--begin::Item-->
+
                                                                         <div class="d-flex align-items-center mb-7">
                                                                             <span class="fw-semibold fs-5 text-muted flex-grow-1">Finance Module</span>
-                                                                            <!--begin::Svg Icon | path: icons/duotune/general/gen040.svg-->
                                                                             <span class="svg-icon svg-icon-1">
-                                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                                                          rx="10" fill="currentColor"></rect>
-                                                                                    <rect x="7" y="15.3137" width="12" height="2" rx="1"
-                                                                                          transform="rotate(-45 7 15.3137)"
-                                                                                          fill="currentColor"></rect>
-                                                                                    <rect x="8.41422" y="7" width="12" height="2" rx="1"
-                                                                                          transform="rotate(45 8.41422 7)"
-                                                                                          fill="currentColor"></rect>
-                                                                                </svg>
+                                                                                {!! file_get_contents('metronic/media/icons/duotune/general/gen040.svg') !!}
                                                                             </span>
-                                                                            <!--end::Svg Icon-->
                                                                         </div>
-                                                                        <!--end::Item-->
-                                                                        <!--begin::Item-->
+
                                                                         <div class="d-flex align-items-center mb-7">
                                                                             <span class="fw-semibold fs-5 text-muted flex-grow-1">Accounting Module</span>
-                                                                            <!--begin::Svg Icon | path: icons/duotune/general/gen040.svg-->
                                                                             <span class="svg-icon svg-icon-1">
-                                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                                                          rx="10" fill="currentColor"></rect>
-                                                                                    <rect x="7" y="15.3137" width="12" height="2" rx="1"
-                                                                                          transform="rotate(-45 7 15.3137)"
-                                                                                          fill="currentColor"></rect>
-                                                                                    <rect x="8.41422" y="7" width="12" height="2" rx="1"
-                                                                                          transform="rotate(45 8.41422 7)"
-                                                                                          fill="currentColor"></rect>
-                                                                                </svg>
+                                                                                {!! file_get_contents('metronic/media/icons/duotune/general/gen040.svg') !!}
                                                                             </span>
-                                                                            <!--end::Svg Icon-->
                                                                         </div>
-                                                                        <!--end::Item-->
-                                                                        <!--begin::Item-->
+
                                                                         <div class="d-flex align-items-center mb-7">
                                                                             <span class="fw-semibold fs-5 text-muted flex-grow-1">Network Platform</span>
-                                                                            <!--begin::Svg Icon | path: icons/duotune/general/gen040.svg-->
                                                                             <span class="svg-icon svg-icon-1">
-                                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                                                          rx="10" fill="currentColor"></rect>
-                                                                                    <rect x="7" y="15.3137" width="12" height="2" rx="1"
-                                                                                          transform="rotate(-45 7 15.3137)"
-                                                                                          fill="currentColor"></rect>
-                                                                                    <rect x="8.41422" y="7" width="12" height="2" rx="1"
-                                                                                          transform="rotate(45 8.41422 7)"
-                                                                                          fill="currentColor"></rect>
-                                                                                </svg>
+                                                                                {!! file_get_contents('metronic/media/icons/duotune/general/gen040.svg') !!}
                                                                             </span>
-                                                                            <!--end::Svg Icon-->
                                                                         </div>
-                                                                        <!--end::Item-->
-                                                                        <!--begin::Item-->
+
                                                                         <div class="d-flex align-items-center">
                                                                             <span class="fw-semibold fs-5 text-muted flex-grow-1">Unlimited Cloud Space</span>
-                                                                            <!--begin::Svg Icon | path: icons/duotune/general/gen040.svg-->
                                                                             <span class="svg-icon svg-icon-1">
-                                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                                                          rx="10" fill="currentColor"></rect>
-                                                                                    <rect x="7" y="15.3137" width="12" height="2" rx="1"
-                                                                                          transform="rotate(-45 7 15.3137)"
-                                                                                          fill="currentColor"></rect>
-                                                                                    <rect x="8.41422" y="7" width="12" height="2" rx="1"
-                                                                                          transform="rotate(45 8.41422 7)"
-                                                                                          fill="currentColor"></rect>
-                                                                                </svg>
+                                                                                {!! file_get_contents('metronic/media/icons/duotune/general/gen040.svg') !!}
                                                                             </span>
-                                                                            <!--end::Svg Icon-->
                                                                         </div>
-                                                                        <!--end::Item-->
                                                                     </div>
-                                                                    <!--end::Body-->
                                                                 </div>
-                                                                <!--end::Tab Pane-->
-                                                                <!--begin::Tab Pane-->
-                                                                <div class="tab-pane fade" id="kt_upgrade_plan_advanced"
-                                                                     role="tabpanel">
-                                                                    <!--begin::Heading-->
+
+                                                                <div class="tab-pane fade" id="kt_upgrade_plan_advanced" role="tabpanel">
                                                                     <div class="pb-5">
                                                                         <h2 class="fw-bold text-dark">What’s in Startup Plan?</h2>
                                                                         <div class="text-muted fw-semibold">Optimal for 100+ team size and grown company</div>
                                                                     </div>
-                                                                    <!--end::Heading-->
-                                                                    <!--begin::Body-->
+
                                                                     <div class="pt-1">
-                                                                        <!--begin::Item-->
                                                                         <div class="d-flex align-items-center mb-7">
                                                                             <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 10 Active Users</span>
-                                                                            <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                                             <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                                                          rx="10" fill="currentColor"></rect>
-                                                                                    <path d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
-                                                                                          fill="currentColor"></path>
-                                                                                </svg>
+                                                                                {!! file_get_contents('metronic/media/icons/duotune/general/gen043.svg') !!}
                                                                             </span>
-                                                                            <!--end::Svg Icon-->
                                                                         </div>
-                                                                        <!--end::Item-->
-                                                                        <!--begin::Item-->
+
                                                                         <div class="d-flex align-items-center mb-7">
                                                                             <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Up to 30 Project Integrations</span>
-                                                                            <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
                                                                             <span class="svg-icon svg-icon-1 svg-icon-success">
-                                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                                    <rect opacity="0.3" x="2" y="2" width="20" height="20"
-                                                                                          rx="10" fill="currentColor"></rect>
-                                                                                    <path d="M10.4343 12.4343L8.75 10.75C8.33579 10.3358 7.66421 10.3358 7.25 10.75C6.83579 11.1642 6.83579 11.8358 7.25 12.25L10.2929 15.2929C10.6834 15.6834 11.3166 15.6834 11.7071 15.2929L17.25 9.75C17.6642 9.33579 17.6642 8.66421 17.25 8.25C16.8358 7.83579 16.1642 7.83579 15.75 8.25L11.5657 12.4343C11.2533 12.7467 10.7467 12.7467 10.4343 12.4343Z"
-                                                                                          fill="currentColor"></path>
-                                                                                </svg>
+                                                                                {!! file_get_contents('metronic/media/icons/duotune/general/gen043.svg') !!}
                                                                             </span>
-                                                                            <!--end::Svg Icon-->
                                                                         </div>
-                                                                        <!--end::Item-->
-                                                                        <!--begin::Item-->
+
                                                                         <div class="d-flex align-items-center mb-7">
                                                                             <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">Analytics Module</span>
                                                                             <!--begin::Svg Icon | path: icons/duotune/general/gen043.svg-->
@@ -1773,90 +1288,56 @@
                                                                                           fill="currentColor"></path>
                                                                                 </svg>
                                                                             </span>
-                                                                            <!--end::Svg Icon-->
                                                                         </div>
-                                                                        <!--end::Item-->
                                                                     </div>
-                                                                    <!--end::Body-->
                                                                 </div>
-                                                                <!--end::Tab Pane-->
                                                             </div>
-                                                            <!--end::Tab content-->
                                                         </div>
-                                                        <!--end:Form-->
                                                     </div>
-                                                    <!--end::Modal body-->
                                                 </div>
-                                                <!--end::Modal content-->
                                             </div>
-                                            <!--end::Modal dialog-->
                                         </div>
                                         <!--end::Modal - Processamento de Certidões-->
                                         <!--end::Step 5-->
 
                                         <!--begin::Actions-->
                                         <div class="d-flex flex-stack pt-10">
-                                            <!--begin::Wrapper-->
                                             <div class="mr-2">
                                                 <button type="button" class="btn btn-lg btn-light-primary me-3" data-kt-stepper-action="previous">
-                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr063.svg-->
                                                     <span class="svg-icon svg-icon-4 me-1">
-                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <rect opacity="0.5" x="6" y="11" width="13" height="2" rx="1" fill="currentColor"></rect>
-                                                            <path d="M8.56569 11.4343L12.75 7.25C13.1642 6.83579 13.1642 6.16421 12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75L5.70711 11.2929C5.31658 11.6834 5.31658 12.3166 5.70711 12.7071L11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25C13.1642 17.8358 13.1642 17.1642 12.75 16.75L8.56569 12.5657C8.25327 12.2533 8.25327 11.7467 8.56569 11.4343Z" fill="currentColor"></path>
-                                                        </svg>
+                                                        {!! file_get_contents('metronic/media/icons/duotune/arrows/arr063.svg') !!}
                                                     </span>
-                                                    <!--end::Svg Icon-->
                                                     Voltar
                                                 </button>
                                             </div>
-                                            <!--end::Wrapper-->
-                                            <!--begin::Wrapper-->
+
                                             <div>
                                                 <button type="button" class="btn btn-lg btn-primary me-3" data-kt-stepper-action="submit">
                                                     <span class="indicator-label">Enviar
-                                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                                                         <span class="svg-icon svg-icon-3 ms-2 me-0">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
-                                                                <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
-                                                            </svg>
+                                                            {!! file_get_contents('metronic/media/icons/duotune/arrows/arr064.svg') !!}
                                                         </span>
-                                                        <!--end::Svg Icon-->
                                                     </span>
                                                     <span class="indicator-progress">Aguarde...
                                                         <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                                                     </span>
                                                 </button>
+
                                                 <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">Continuar
-                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                                                     <span class="svg-icon svg-icon-4 ms-1 me-0">
-                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor"></rect>
-                                                            <path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor"></path>
-                                                        </svg>
+                                                        {!! file_get_contents('metronic/media/icons/duotune/arrows/arr064.svg') !!}
                                                     </span>
-                                                    <!--end::Svg Icon-->
                                                 </button>
                                             </div>
-                                            <!--end::Wrapper-->
                                         </div>
-                                        <!--end::Actions-->
                                     </form>
-                                    <!--end::Form-->
                                 </div>
-                                <!--end::Content-->
                             </div>
-                            <!--end::Orders-->
                         </div>
                         <!--end::Tab pane CONSULTA-->
                     </div>
-                    <!--end::Tab content-->
                 </div>
-                <!--end::Order details page-->
             </div>
-            <!--end::Content container-->
         </div>
-        <!--end::Content-->
     </div>
 @endsection
