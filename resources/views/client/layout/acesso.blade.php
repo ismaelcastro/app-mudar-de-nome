@@ -442,10 +442,10 @@
     <script src="{{ asset("metronic/plugins/custom/datatables/datatables.bundle.js") }}"></script>
     <!--end::Vendors Javascript-->
     <!--begin::Custom Javascript(used by this page)-->
-{{--    <script src="{{ asset("metronic/js/widgets.bundle.js") }}"></script>--}}
+    <script src="{{ asset("metronic/js/widgets.bundle.js") }}"></script>
     <script src="{{ asset("metronic/js/custom/widgets.js") }}"></script>
     <script src="{{ asset("metronic/js/custom/apps/chat/chat.js") }}"></script>
-    <script src="{{ asset("metronic/js/custom/utilities/modals/create-account.js") }}"></script>
+{{--    <script src="{{ asset("metronic/js/custom/utilities/modals/create-account.js") }}"></script>--}}
     <script src="{{ asset("metronic/js/custom/utilities/modals/upgrade-plan.js") }}"></script>
     <script src="{{ asset("metronic/js/custom/utilities/modals/create-app.js") }}"></script>
     <script src="{{ asset("metronic/js/custom/utilities/modals/offer-a-deal/type.js") }}"></script>
@@ -456,6 +456,10 @@
     <script src="{{ asset("metronic/js/custom/utilities/modals/users-search.js") }}"></script>
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
+
+    <!--begin::Stack JS-->
+    @stack('scripts')
+    <!--end::Stack JS-->
 </body>
 
 </html>
