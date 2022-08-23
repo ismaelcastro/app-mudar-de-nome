@@ -80,6 +80,7 @@ Route::name('client.')->namespace('Client')->prefix('panel')->middleware('auth:c
     Route::post('client/change_mail', 'ClientsController@change_mail')->name('client.change_mail');
     Route::post('client/change_stagecall', 'ClientsController@change_stagecall')->name('client.change_stagecall');
     Route::get('client/perfil', 'ClientsController@profile')->name('perfil');
+    Route::put('client/perfil/{client}', 'ClientsController@profile')->name('perfil.profile.update');
 
     // Orders //
     Route::get("client/pedido/detalhes", "PedidoController@detalhes")->name("pedido.detalhes");
