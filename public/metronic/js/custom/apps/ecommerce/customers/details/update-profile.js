@@ -20,7 +20,7 @@ var KTEcommerceUpdateProfile = function () {
 							}
 						}
 					},
-					'gen_email': {
+					'email': {
 						validators: {
 							notEmpty: {
 								message: 'General Email is required'
@@ -58,10 +58,10 @@ var KTEcommerceUpdateProfile = function () {
 							submitButton.removeAttribute('data-kt-indicator');
 							
 							Swal.fire({
-								text: "Your profile has been saved!",
+								text: "Seu perfil foi salvo!",
 								icon: "success",
 								buttonsStyling: false,
-								confirmButtonText: "Ok, got it!",
+								confirmButtonText: "OK, entendi!",
 								customClass: {
 									confirmButton: "btn btn-primary"
 								}
@@ -74,10 +74,10 @@ var KTEcommerceUpdateProfile = function () {
 						}, 2000);   						
 					} else {
 						Swal.fire({
-							text: "Sorry, looks like there are some errors detected, please try again.",
+							text: "Desculpe, parece que alguns erros foram detectados. Tente novamente.",
 							icon: "error",
 							buttonsStyling: false,
-							confirmButtonText: "Ok, got it!",
+							confirmButtonText: "OK, entendi!",
 							customClass: {
 								confirmButton: "btn btn-primary"
 							}
